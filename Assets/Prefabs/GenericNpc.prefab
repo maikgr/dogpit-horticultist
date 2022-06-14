@@ -933,6 +933,8 @@ MonoBehaviour:
   headgearSprite: {fileID: 3627709152382836322}
   eyesSprite: {fileID: 3627709152192933929}
   mouthSprite: {fileID: 3627709150808351391}
+  minAreaPoint: {x: -8.45, y: -4.54}
+  maxAreaPoint: {x: 8.45, y: 4.54}
 --- !u!114 &1498699433
 MonoBehaviour:
   m_ObjectHideFlags: 0

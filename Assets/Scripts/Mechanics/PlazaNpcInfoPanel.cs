@@ -4,6 +4,7 @@ namespace Horticultist.Scripts.Mechanics
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.SceneManagement;
+    using DG.Tweening;
 
     [RequireComponent(typeof(NpcController))]
     public class PlazaNpcInfoPanel : MonoBehaviour
@@ -11,6 +12,7 @@ namespace Horticultist.Scripts.Mechanics
         public void StartTherapy()
         {
             GameStateController.Instance.SetSelectedNpc(GetComponent<NpcController>());
+            DOTween.Pause("npc");
             StartCoroutine(LoadTherapyScene());
         }
 
