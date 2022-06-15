@@ -16,11 +16,9 @@ namespace Horticultist.Scripts.Mechanics
         [SerializeField] private TextAsset lastNameJson;
         [SerializeField] private List<Sprite> bodySprites;
         [SerializeField] private List<Sprite> headgearSprites;
-
-        [Header("Spawn Area")]
-        [SerializeField] private Vector2 minAreaPoint;
-        [SerializeField] private Vector2 maxAreaPoint;
-        private DefaultInputActions defaultInput;
+        [SerializeField] private List<Sprite> eyesSprites;
+        [SerializeField] private List<Sprite> mouthSprites;
+        private HorticultistInputActions gameInput;
         private InputAction inputAction;
 
         private string[] firstNames;
@@ -28,42 +26,37 @@ namespace Horticultist.Scripts.Mechanics
         private void Awake() {
             firstNames = JsonConvert.DeserializeObject<string[]>(firstNameJson.text);
             lastNames = JsonConvert.DeserializeObject<string[]>(lastNameJson.text);
-            defaultInput = new DefaultInputActions();
+            gameInput = new HorticultistInputActions();
         }
 
         private void OnEnable() {
-            inputAction = defaultInput.Player.Fire;
+            inputAction = gameInput.Player.Fire;
             inputAction.Enable();
 
-            defaultInput.Player.Fire.performed += OnInputPerformed;
-            defaultInput.Player.Fire.Enable();
+            gameInput.Player.Fire.performed += OnInputPerformed;
+            gameInput.Player.Fire.Enable();
         }
 
         private void OnDisable() {
-            defaultInput.Player.Fire.Disable();
+            gameInput.Player.Fire.Disable();
             inputAction.Disable();
         }
 
-        private void OnInputPerformed(InputAction.CallbackContext context)
+        private void OnInputPerformed(InputAction.CallbackContext context)  
         {
         }
 
         public void GenerateNPC()
         {
-            var npc = Instantiate(npcPrefab, GetRandomSpawnPoint(), Quaternion.identity);
+            var npc = Instantiate(npcPrefab, TownPlazaAreaController.Instance.GetRandomPoint(), Quaternion.identity);
             var hasHeadgear = Random.Range(0f, 1f) < 0.5f;
             npc.GenerateVisitor(
-                firstNames.GetRandom(), lastNames.GetRandom(),
-                bodySprites.GetRandom(), hasHeadgear ? headgearSprites.GetRandom() : null
+                $"{firstNames.GetRandom()} {lastNames.GetRandom()}",
+                bodySprites.GetRandom(),
+                hasHeadgear ? headgearSprites.GetRandom() : null,
+                eyesSprites.GetRandom(),
+                mouthSprites.GetRandom()
             );
-        }
-
-        private Vector2 GetRandomSpawnPoint()
-        {
-            var posX = Random.Range(minAreaPoint.x, maxAreaPoint.x);
-            var posY = Random.Range(minAreaPoint.y, maxAreaPoint.y);
-
-            return new Vector2(posX, posY);
         }
     }
 }
