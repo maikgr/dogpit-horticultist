@@ -63,5 +63,20 @@ namespace Horticultist.Scripts.Mechanics
                 })
                 .SetId("npc");
         }
+
+        public void SetPatience(int value)
+        {
+            this.PatienceValue = value;
+        }
+
+        public void SetIndoctrination(int value)
+        {
+            this.IndoctrinationValue = value;
+        }
+
+        public void ChangeType(NpcTypeEnum npcTypeEnum)
+        {
+            this.NpcType = npcTypeEnum;
+        }
     }
 }

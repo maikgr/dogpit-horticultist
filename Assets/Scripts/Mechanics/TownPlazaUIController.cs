@@ -45,6 +45,10 @@ namespace Horticultist.Scripts.Mechanics
 
             npcHelpButton.onClick.RemoveAllListeners();
             npcConvertButton.onClick.RemoveAllListeners();
+
+            happyButton.onClick.RemoveAllListeners();
+            angryButton.onClick.RemoveAllListeners();
+            cultistButton.onClick.RemoveAllListeners();
         }
 
         [Header("Action UI")]
@@ -76,9 +80,6 @@ namespace Horticultist.Scripts.Mechanics
         [SerializeField] private Button npcSacrificeButton;
         [SerializeField] private Button npcHelpButton;
         [SerializeField] private Button npcConvertButton;
-
-        [Header("Test")]
-        [SerializeField] private GameObject CursorPosTest;
 
         private void OnClickPerformed(InputAction.CallbackContext context)
         {
@@ -186,6 +187,9 @@ namespace Horticultist.Scripts.Mechanics
                     npcSacrificeButton.gameObject.SetActive(true);
                 }
             }
+
+            // Debugging
+            SetTestButton(npc);
         }
 
         private void DeselectNpc()     {
@@ -208,6 +212,19 @@ namespace Horticultist.Scripts.Mechanics
             {
                 yield return null;
             }
+        }
+
+        [Header("Debugging")]
+        [SerializeField] private TestTherapyController testTherapy;
+        [SerializeField] private Button happyButton;
+        [SerializeField] private Button angryButton;
+        [SerializeField] private Button cultistButton;
+
+        private void SetTestButton(NpcController npc)
+        {
+            happyButton.onClick.AddListener(() => testTherapy.ConvertToHappy(npc));
+            angryButton.onClick.AddListener(() => testTherapy.ConvertToAngry(npc));
+            cultistButton.onClick.AddListener(() => testTherapy.ConvertToCultist(npc));
         }
     }
 }
