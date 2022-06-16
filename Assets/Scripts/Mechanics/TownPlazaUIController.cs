@@ -49,7 +49,7 @@ namespace Horticultist.Scripts.Mechanics
 
         [Header("Action UI")]
         [SerializeField] private TMP_Text weekDayText;
-        [SerializeField] private TMP_Text actionText;
+        [SerializeField] private Image dayFillMask;
 
         private void UpdateWeekDayUI(int weekNumber, int dayNumber)
         {
@@ -58,7 +58,7 @@ namespace Horticultist.Scripts.Mechanics
 
         private void UpdateActionUI(int taken, int max)
         {
-            actionText.text = $"Action {taken}/{max}";
+            dayFillMask.fillAmount = (float)taken/(float)max;
         }
         
         [Header("NPC UI")]

@@ -24,17 +24,26 @@ namespace Horticultist.Scripts.Core
 
         public void DispatchOnDayEnd(int currentWeek, int currentDay)
         {
-            OnDayEnd.Invoke(currentWeek, currentDay);
+            if (OnDayEnd != null)
+            {
+                OnDayEnd.Invoke(currentWeek, currentDay);
+            }
         }
         
         public void DispatchOnDayStart(int currentWeek, int currentDay)
         {
-            OnDayStart.Invoke(currentWeek, currentDay);
+            if (OnDayStart != null)
+            {
+                OnDayStart.Invoke(currentWeek, currentDay);
+            }
         }
 
         public void DispatchOnActionTaken(int taken, int max)
         {
-            OnActionTaken.Invoke(taken, max);
+            if (OnActionTaken != null)
+            {
+                OnActionTaken.Invoke(taken, max);
+            }
         }
     }
 }
