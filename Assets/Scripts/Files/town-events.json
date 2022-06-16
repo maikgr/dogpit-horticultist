@@ -1,0 +1,62 @@
+[
+    {
+        "personality": "wealth",
+        "town_events": [
+            {
+                "type": "dialogue",
+                "text": "I donated everything in the name of Tomathotep!",
+                "answer": "scold"
+            },
+            {
+                "type": "dialogue",
+                "text": "I killed a non believer lol lmao",
+                "answer": "praise"
+            }
+        ]
+    },
+    {
+        "personality": "health",
+        "town_events": [
+            {
+                "type": "event",
+                "text": "[NPC] shreds enemy into a canned tomato",
+                "answer": "scold"
+            },
+            {
+                "type": "dialogue",
+                "text": "sample text 2",
+                "answer": "praise"
+            }
+        ]
+    },
+    {
+        "personality": "love",
+        "town_events": [
+            {
+                "type": "event",
+                "text": "[NPC] kissed a non-believer",
+                "answer": "scold"
+            },
+            {
+                "type": "dialogue",
+                "text": "sample text 2",
+                "answer": "praise"
+            }
+        ]
+    },
+    {
+        "personality": "misc",
+        "town_events": [
+            {
+                "type": "dialogue",
+                "text": "sample text",
+                "answer": "scold"
+            },
+            {
+                "type": "dialogue",
+                "text": "sample text 2",
+                "answer": "praise"
+            }
+        ]
+    }
+]

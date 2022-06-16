@@ -11,12 +11,19 @@ namespace Horticultist.Scripts.Mechanics
     {
         [Header("Assets")]
         [SerializeField] private TMP_Text npcName;
-        [SerializeField] private SpriteRenderer bodySprite;
-        [SerializeField] private SpriteRenderer headgearSprite;
-        [SerializeField] private SpriteRenderer eyesSprite;
-        [SerializeField] private SpriteRenderer mouthSprite;
+        [SerializeField] private SpriteRenderer bodySpriteRenderer;
+        public Sprite bodySprite => bodySpriteRenderer.sprite;
+        [SerializeField] private SpriteRenderer headgearSpriteRenderer;
+        public Sprite headgearSprite => headgearSpriteRenderer.sprite;
+        [SerializeField] private SpriteRenderer eyesSpriteRenderer;
+        public Sprite eyesSprite => eyesSpriteRenderer.sprite;
+        [SerializeField] private SpriteRenderer mouthSpriteRenderer;
+        public Sprite mouthSprite => mouthSpriteRenderer.sprite;
         public NpcTypeEnum NpcType { get; private set; }
+        public int PatienceValue { get; private set; }
         public int IndoctrinationValue { get; private set; }
+        public int ObedienceValue { get; private set; }
+        public string ObedienceLevel { get; private set; }
         public string DisplayName { get; private set; }
 
         private void Start() {
@@ -28,11 +35,12 @@ namespace Horticultist.Scripts.Mechanics
         {
             DisplayName = name;
             npcName.text = name;
-            bodySprite.sprite = bodyAsset;
-            headgearSprite.sprite = headgearAsset;
-            eyesSprite.sprite = eyesAsset;
-            mouthSprite.sprite = mouthAsset;
+            bodySpriteRenderer.sprite = bodyAsset;
+            headgearSpriteRenderer.sprite = headgearAsset;
+            eyesSpriteRenderer.sprite = eyesAsset;
+            mouthSpriteRenderer.sprite = mouthAsset;
             NpcType = NpcTypeEnum.Visitor;
+            PatienceValue = 100;
             IndoctrinationValue = 0;
         }
 

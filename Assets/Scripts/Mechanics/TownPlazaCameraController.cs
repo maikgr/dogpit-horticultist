@@ -16,7 +16,6 @@ namespace Horticultist.Scripts.Mechanics
         [SerializeField] private float MaxZoomValue;
         [SerializeField] private float ZoomStepValue;
         private HorticultistInputActions gameInput;
-        private InputAction inputAction;
         private Camera cameraControl;
 
         // Camera input control
