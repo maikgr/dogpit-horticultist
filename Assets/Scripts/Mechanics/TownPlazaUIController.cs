@@ -1,15 +1,14 @@
 namespace Horticultist.Scripts.Mechanics
 {
     using System.Collections;
-    using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.UI;
     using UnityEngine.InputSystem;
     using UnityEngine.SceneManagement;
-    using UnityEngine.EventSystems;
     using DG.Tweening;
     using TMPro;
     using Horticultist.Scripts.Core;
+    using Horticultist.Scripts.Extensions;
 
     public class TownPlazaUIController : MonoBehaviour
     {
@@ -21,7 +20,8 @@ namespace Horticultist.Scripts.Mechanics
             mainCamera = Camera.main;
         }
 
-        private void OnEnable() {
+        private void OnEnable()
+        {
             TownEventBus.Instance.OnDayStart += UpdateWeekDayUI;
             TownEventBus.Instance.OnActionTaken += UpdateActionUI;
 
@@ -39,9 +39,9 @@ namespace Horticultist.Scripts.Mechanics
 
             gameInput.Player.Fire.performed -= OnClickPerformed;
             gameInput.Player.Fire.Disable();
-            
+
             gameInput.UI.RightClick.performed -= OnRightClickPerformed;
-            gameInput.UI.RightClick.Disable();  
+            gameInput.UI.RightClick.Disable();
 
             npcHelpButton.onClick.RemoveAllListeners();
             npcConvertButton.onClick.RemoveAllListeners();
@@ -62,11 +62,10 @@ namespace Horticultist.Scripts.Mechanics
 
         private void UpdateActionUI(int taken, int max)
         {
-            dayFillMask.fillAmount = (float)taken/(float)max;
+            dayFillMask.fillAmount = (float)taken / (float)max;
         }
-        
+
         [Header("NPC UI")]
-        [SerializeField] private GraphicRaycaster graphicRaycaster;
         [SerializeField] private RectTransform npcInfoPanel;
         [SerializeField] private TMP_Text npcTypeText;
         [SerializeField] private TMP_Text npcNameText;
@@ -80,6 +79,7 @@ namespace Horticultist.Scripts.Mechanics
         [SerializeField] private Button npcSacrificeButton;
         [SerializeField] private Button npcHelpButton;
         [SerializeField] private Button npcConvertButton;
+        private bool panelIsOpen;
 
         private void OnClickPerformed(InputAction.CallbackContext context)
         {
@@ -107,12 +107,14 @@ namespace Horticultist.Scripts.Mechanics
 
         private void OpenPanel()
         {
+            if (panelIsOpen) return;
             npcInfoPanel.gameObject.SetActive(true);
             DOVirtual.Float(275, 0, 0.25f, (val) =>
             {
                 npcInfoPanel.anchoredPosition = new Vector2(val, npcInfoPanel.anchoredPosition.y);
             })
-            .SetEase(Ease.Linear);
+            .SetEase(Ease.Linear)
+            .OnComplete(() => panelIsOpen = true);
         }
 
         public void ClosePanel()
@@ -122,14 +124,19 @@ namespace Horticultist.Scripts.Mechanics
                 npcInfoPanel.anchoredPosition = new Vector2(val, npcInfoPanel.anchoredPosition.y);
             })
             .SetEase(Ease.Linear)
-            .OnComplete(() => {
+            .OnComplete(() =>
+            {
                 DeselectNpc();
                 npcInfoPanel.gameObject.SetActive(false);
+                panelIsOpen = false;
             });
         }
 
         public void SelectNpc(NpcController npc)
         {
+            // Make sure previous NPC is unselected
+            DeselectNpc();
+
             // Info section
             npcTypeText.text = npc.NpcType.ToString();
             npcNameText.text = npc.DisplayName;
@@ -142,7 +149,27 @@ namespace Horticultist.Scripts.Mechanics
             {
                 npcObedienceText.enabled = false;
             }
-            npcDialogueText.text = "Test";
+
+            // Dialogues
+            string dialogueText = string.Empty;
+            if (npc.NpcType.Equals(NpcTypeEnum.Visitor))
+            {
+                dialogueText = npc.DialogueSet.Visitor.GetRandom();
+            }
+            else if (npc.NpcType.Equals(NpcTypeEnum.Cultist))
+            {
+                var obedienceAction = npc.ObedienceActions.GetRandom();
+                dialogueText = obedienceAction.Text;
+            }
+            else if (npc.NpcType.Equals(NpcTypeEnum.Townspeople) && npc.moodType.Equals(MoodTypeEnum.Angry))
+            {
+                dialogueText = npc.DialogueSet.Angry_person.GetRandom();
+            }
+            else
+            {
+                dialogueText = npc.DialogueSet.Happy_person.GetRandom();
+            }
+            npcDialogueText.text = dialogueText;
 
             // Visual
             npcBodyImage.sprite = npc.bodySprite;
@@ -192,9 +219,14 @@ namespace Horticultist.Scripts.Mechanics
             SetTestButton(npc);
         }
 
-        private void DeselectNpc()     {
+        private void DeselectNpc()
+        {
             npcHelpButton.onClick.RemoveAllListeners();
             npcConvertButton.onClick.RemoveAllListeners();
+
+            happyButton.onClick.RemoveAllListeners();
+            angryButton.onClick.RemoveAllListeners();
+            cultistButton.onClick.RemoveAllListeners();
         }
 
         public void StartHelp(NpcController npc)

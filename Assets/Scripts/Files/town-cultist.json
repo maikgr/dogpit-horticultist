@@ -1,7 +1,7 @@
 [
     {
         "personality": "wealth",
-        "town_events": [
+        "texts": [
             {
                 "type": "dialogue",
                 "text": "I donated everything in the name of Tomathotep!",
@@ -16,7 +16,7 @@
     },
     {
         "personality": "health",
-        "town_events": [
+        "texts": [
             {
                 "type": "event",
                 "text": "[NPC] shreds enemy into a canned tomato",
@@ -31,7 +31,7 @@
     },
     {
         "personality": "love",
-        "town_events": [
+        "texts": [
             {
                 "type": "event",
                 "text": "[NPC] kissed a non-believer",
@@ -46,7 +46,7 @@
     },
     {
         "personality": "misc",
-        "town_events": [
+        "texts": [
             {
                 "type": "dialogue",
                 "text": "sample text",

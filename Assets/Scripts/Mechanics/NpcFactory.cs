@@ -1,12 +1,11 @@
 namespace Horticultist.Scripts.Mechanics
 {
-    using System.IO;
-    using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.InputSystem;
     using Newtonsoft.Json;
     using Horticultist.Scripts.Extensions;
+    using Horticultist.Scripts.Core;
 
     public class NpcFactory : MonoBehaviour
     {
@@ -18,8 +17,18 @@ namespace Horticultist.Scripts.Mechanics
         [SerializeField] private List<Sprite> headgearSprites;
         [SerializeField] private List<Sprite> eyesSprites;
         [SerializeField] private List<Sprite> mouthSprites;
+
+        [Header("NPC Dialogues")]
+        [SerializeField] private TextAsset genericDialogueJson;
+        [SerializeField] private TextAsset cultistDialogueJson;
+        private TownDialogueParser townDialogueParser;
         private HorticultistInputActions gameInput;
         private InputAction inputAction;
+        private NpcPersonalityEnum[] personalities = new NpcPersonalityEnum[] {
+            NpcPersonalityEnum.Health,
+            NpcPersonalityEnum.Wealth,
+            NpcPersonalityEnum.Love
+        };
 
         private string[] firstNames;
         private string[] lastNames;
@@ -37,6 +46,14 @@ namespace Horticultist.Scripts.Mechanics
             gameInput.Player.Fire.Enable();
         }
 
+        private void Start()
+        {
+            this.townDialogueParser = new TownDialogueParser(
+                genericDialogueJson.text,
+                cultistDialogueJson.text
+            );
+        }
+
         private void OnDisable() {
             gameInput.Player.Fire.Disable();
             inputAction.Disable();
@@ -50,8 +67,12 @@ namespace Horticultist.Scripts.Mechanics
         {
             var npc = Instantiate(npcPrefab, TownPlazaAreaController.Instance.GetRandomPoint(), Quaternion.identity);
             var hasHeadgear = Random.Range(0f, 1f) < 0.5f;
-            npc.GenerateVisitor(
-                $"{firstNames.GetRandom()} {lastNames.GetRandom()}",
+            var npcName = $"{firstNames.GetRandom()} {lastNames.GetRandom()}";
+            var personality = personalities.GetRandom();
+            npc.GenerateNpc(
+                npcName, personality,
+                townDialogueParser.GenerateDialogueSet(personality),
+                townDialogueParser.GenerateCultistActions(npcName, personality),
                 bodySprites.GetRandom(),
                 hasHeadgear ? headgearSprites.GetRandom() : null,
                 eyesSprites.GetRandom(),

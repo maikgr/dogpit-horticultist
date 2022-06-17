@@ -4,8 +4,8 @@ namespace Horticultist.Scripts.Mechanics
     using System.Collections.Generic;
     using UnityEngine;
     using TMPro;
-    using Horticultist.Scripts.Core;
     using DG.Tweening;
+    using Horticultist.Scripts.Core;
 
     public class NpcController : MonoBehaviour
     {
@@ -19,29 +19,51 @@ namespace Horticultist.Scripts.Mechanics
         public Sprite eyesSprite => eyesSpriteRenderer.sprite;
         [SerializeField] private SpriteRenderer mouthSpriteRenderer;
         public Sprite mouthSprite => mouthSpriteRenderer.sprite;
-        public NpcTypeEnum NpcType { get; private set; }
         public int PatienceValue { get; private set; }
         public int IndoctrinationValue { get; private set; }
         public int ObedienceValue { get; private set; }
         public string ObedienceLevel { get; private set; }
         public string DisplayName { get; private set; }
+        
+        // NPC Type Properties
+        public NpcTypeEnum NpcType { get; private set; }
+        public NpcPersonalityEnum npcPersonality { get; private set; }
+        public NpcDialogueSet DialogueSet { get; private set; }
+        public List<CultistObedienceAction> ObedienceActions { get; private set; }
+
+        // Townspeople Props
+        public MoodTypeEnum moodType { get; private set; }
+
+        // Cultist Props
+        public CultistRankEnum cultistRank { get; private set; }
 
         private void Start() {
             StartCoroutine(WalkAround());
         }
 
-        public void GenerateVisitor(string name,
+        public void GenerateNpc(string name, NpcPersonalityEnum personality,
+            NpcDialogueSet dialogueSet, List<CultistObedienceAction> obedienceActions,
             Sprite bodyAsset, Sprite headgearAsset, Sprite eyesAsset, Sprite mouthAsset)
         {
+            // Basic Info
             DisplayName = name;
             npcName.text = name;
+
+            // Visual Assets
             bodySpriteRenderer.sprite = bodyAsset;
             headgearSpriteRenderer.sprite = headgearAsset;
             eyesSpriteRenderer.sprite = eyesAsset;
             mouthSpriteRenderer.sprite = mouthAsset;
+
+            // Mechanic props
             NpcType = NpcTypeEnum.Visitor;
+            npcPersonality = personality;
             PatienceValue = 100;
             IndoctrinationValue = 0;
+
+            // Dialogues
+            DialogueSet = dialogueSet;
+            ObedienceActions = obedienceActions;
         }
 
         private IEnumerator WalkAround()
@@ -77,6 +99,16 @@ namespace Horticultist.Scripts.Mechanics
         public void ChangeType(NpcTypeEnum npcTypeEnum)
         {
             this.NpcType = npcTypeEnum;
+        }
+
+        public void SetMood(MoodTypeEnum moodType)
+        {
+            this.moodType = moodType;
+        }
+
+        public void SetCultistRank(CultistRankEnum cultistRank)
+        {
+            this.cultistRank = cultistRank;
         }
     }
 }
