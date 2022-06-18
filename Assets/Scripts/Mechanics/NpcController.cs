@@ -33,12 +33,13 @@ namespace Horticultist.Scripts.Mechanics
         public MoodTypeEnum moodType { get; private set; }
 
         // Cultist Props
-        public CultistRankEnum cultistRank { get; private set; }
+        public CultistRankEnum CultistRank { get; private set; }
         private List<CultistObedienceAction> obedienceActions;
         private CultistObedienceAction currentObedienceAction;
         public bool HasObedienceAction { get; private set; }
-        public string obedienceDialogue { get; private set; }
+        public string ObedienceDialogue { get; private set; }
         public int ObedienceValue { get; private set; }
+        public int EfficiencyValue => (int)CultistRank + ObedienceValue;
         public CultistObedienceLevelEnum ObedienceLevel => ObdLevelThreshold[ObedienceValue];
         public IDictionary<int, CultistObedienceLevelEnum> ObdLevelThreshold = new Dictionary<int, CultistObedienceLevelEnum>
         {
@@ -69,6 +70,10 @@ namespace Horticultist.Scripts.Mechanics
         private void OnDisable() {
             TownEventBus.Instance.OnDayEnd -= OnDayEnd;
             TownEventBus.Instance.OnDayStart -= OnDayStart;
+        }
+
+        private void OnDestroy() {
+            DOTween.Kill(transform);
         }
 
         public void GenerateNpc(string name, NpcPersonalityEnum personality,
@@ -131,10 +136,10 @@ namespace Horticultist.Scripts.Mechanics
             this.NpcType = npcTypeEnum;
             if (npcTypeEnum.Equals(NpcTypeEnum.Cultist))
             {
-                this.cultistRank = CultistRankEnum.Rank1;
+                this.CultistRank = CultistRankEnum.Rank1;
                 ObedienceValue = 0;
-                obedienceDialogue = DialogueSet.Therapy.Moodup.GetRandom();
-                TownEventBus.Instance.DispatchOnCultistJoin(DisplayName);
+                ObedienceDialogue = DialogueSet.Therapy.Moodup.GetRandom();
+                TownEventBus.Instance.DispatchOnCultistJoin(this);
             }
             TownPlazaGameController.Instance.AddAction();
         }
@@ -146,7 +151,7 @@ namespace Horticultist.Scripts.Mechanics
 
         public void SetCultistRank(CultistRankEnum cultistRank)
         {
-            this.cultistRank = cultistRank;
+            this.CultistRank = cultistRank;
         }
 
         public void DecreaseObedienceValue(int val)
@@ -168,12 +173,12 @@ namespace Horticultist.Scripts.Mechanics
             if (currentObedienceAction.Action.Equals(action))
             {
                 IncreaseObedienceValue(2);
-                obedienceDialogue = DialogueSet.Therapy.Moodup.GetRandom();
+                ObedienceDialogue = DialogueSet.Therapy.Moodup.GetRandom();
             }
             else
             {
                 DecreaseObedienceValue(2);
-                obedienceDialogue = DialogueSet.Therapy.Mooddown.GetRandom();
+                ObedienceDialogue = DialogueSet.Therapy.Mooddown.GetRandom();
             }
             
             HasObedienceAction = false;
@@ -184,19 +189,19 @@ namespace Horticultist.Scripts.Mechanics
         {
             if (ObedienceLevel.Equals(CultistObedienceLevelEnum.VeryRebellious))
             {
-                TownEventBus.Instance.DispatchOnCultistLeave(DisplayName);
-                Destroy(this);
+                TownEventBus.Instance.DispatchOnCultistLeave(this);
+                Destroy(gameObject);
             }
             else if (ObedienceLevel.Equals(CultistObedienceLevelEnum.VeryObedient))
             {
-                if (cultistRank.Equals(CultistRankEnum.Rank1))
+                if (CultistRank.Equals(CultistRankEnum.Rank1))
                 {
-                    cultistRank = CultistRankEnum.Rank2;
+                    CultistRank = CultistRankEnum.Rank2;
                     ObedienceValue = 0;
                 }
-                else if (cultistRank.Equals(CultistRankEnum.Rank2))
+                else if (CultistRank.Equals(CultistRankEnum.Rank2))
                 {
-                    cultistRank = CultistRankEnum.Rank3;
+                    CultistRank = CultistRankEnum.Rank3;
                     ObedienceValue = 0;
                 }
             }

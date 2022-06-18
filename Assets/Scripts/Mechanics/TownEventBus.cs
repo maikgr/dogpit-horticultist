@@ -1,9 +1,8 @@
-namespace Horticultist.Scripts.Core
+namespace Horticultist.Scripts.Mechanics
 {
     using System;
-    using System.Collections;
-    using System.Collections.Generic;
     using UnityEngine;
+    using Horticultist.Scripts.Core;
 
     public class TownEventBus : MonoBehaviour
     {
@@ -12,8 +11,9 @@ namespace Horticultist.Scripts.Core
         public event Action<int, int> OnDayStart;
         public event Action<int, int> OnActionTaken;
         public event Action<CultistObedienceLevelEnum> OnObedienceLevelChange;
-        public event Action<string> OnCultistJoin;
-        public event Action<string> OnCultistLeave;
+        public event Action<NpcController> OnCultistJoin;
+        public event Action<NpcController> OnCultistLeave;
+        public event Action<int, int> OnTreeGrowthChange;
 
         private void Awake() {
             var eventBus = GameObject.FindObjectsOfType<TownEventBus>();
@@ -57,19 +57,27 @@ namespace Horticultist.Scripts.Core
             }
         }
 
-        public void DispatchOnCultistJoin(string name)
+        public void DispatchOnCultistJoin(NpcController npc)
         {
             if (OnCultistJoin != null)
             {
-                OnCultistJoin.Invoke(name);
+                OnCultistJoin.Invoke(npc);
             }
         }
 
-        public void DispatchOnCultistLeave(string name)
+        public void DispatchOnCultistLeave(NpcController npc)
         {
             if (OnCultistLeave != null)
             {
-                OnCultistLeave.Invoke(name);
+                OnCultistLeave.Invoke(npc);
+            }
+        }
+        
+        public void DispatchOnTreeGrowthChange(int value, int stage)
+        {
+            if (OnTreeGrowthChange != null)
+            {
+                OnTreeGrowthChange.Invoke(value, stage);
             }
         }
     }

@@ -1,9 +1,9 @@
 namespace Horticultist.Scripts.Mechanics
 {
+    using System.Linq;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
-    using Horticultist.Scripts.Core;
 
     public class TownPlazaGameController : MonoBehaviour
     {
@@ -13,7 +13,7 @@ namespace Horticultist.Scripts.Mechanics
         private int weekNumber;
         private int dayNumber;
         private int actionTaken;
-        public int CultistSize { get; private set; }
+        public List<NpcController> CultMembers { get; private set; }
 
         private void Awake() {
             var eventBus = GameObject.FindObjectsOfType<TownPlazaGameController>();
@@ -23,6 +23,8 @@ namespace Horticultist.Scripts.Mechanics
             }
 
             Instance = this;
+
+            CultMembers = new List<NpcController>();
         }
 
         private void OnEnable() {
@@ -80,13 +82,13 @@ namespace Horticultist.Scripts.Mechanics
             TownEventBus.Instance.DispatchOnActionTaken(this.actionTaken, this.maxAction);
         }
 
-        private void OnCultistJoin(string name)
+        private void OnCultistJoin(NpcController npc)
         {
-            CultistSize += 1;
+            CultMembers.Add(npc);
         }
-        private void OnCultistLeave(string name)
+        private void OnCultistLeave(NpcController npc)
         {
-            CultistSize = Mathf.Max(CultistSize - 1, 0);
+            CultMembers.Remove(npc);
         }
     }
 }

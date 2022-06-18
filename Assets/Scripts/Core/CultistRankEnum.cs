@@ -2,9 +2,9 @@ namespace Horticultist.Scripts.Core
 {
     public enum CultistRankEnum
     {
-        Rank1,
-        Rank2,
-        Rank3
+        Rank1 = 5,
+        Rank2 = 7,
+        Rank3 = 10
     }
     
     public static class CultistRankEnumExtension

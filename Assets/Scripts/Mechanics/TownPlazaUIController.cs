@@ -171,7 +171,7 @@ namespace Horticultist.Scripts.Mechanics
             }
             else if (npc.NpcType.Equals(NpcTypeEnum.Cultist))
             {
-                dialogueText = npc.obedienceDialogue;
+                dialogueText = npc.ObedienceDialogue;
             }
             else if (npc.NpcType.Equals(NpcTypeEnum.Townspeople) && npc.moodType.Equals(MoodTypeEnum.Angry))
             {
@@ -231,12 +231,12 @@ namespace Horticultist.Scripts.Mechanics
                     praiseButton.onClick.AddListener(() => {
                         npc.ObedienceAction(CultistObedienceActionEnum.Praise);
                         npcCultistButtonSet.gameObject.SetActive(false);
-                        dialogueText = npc.obedienceDialogue;
+                        dialogueText = npc.ObedienceDialogue;
                     });
                     scoldButton.onClick.AddListener(() => {
                         npc.ObedienceAction(CultistObedienceActionEnum.Scold);
                         npcCultistButtonSet.gameObject.SetActive(false);
-                        dialogueText = npc.obedienceDialogue;
+                        dialogueText = npc.ObedienceDialogue;
                     });
                 }
             }
