@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e262fe541264693910e742155c6d58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mindTool: {fileID: 849262119216834122, guid: 6687031411f444ed7810ad5b818b5af7, type: 3}
+  mindToolType: 1
   patienceValue: 2
   indoctrinationValue: 3
   moodInpact: 0

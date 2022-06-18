@@ -4,11 +4,10 @@ namespace Horticultist.Scripts.Core
     using System.Collections.Generic;
     using UnityEngine;
 
-    public enum ToolTypeEnum
+    public enum ClutterStateEnum
     {
-        CleaningTowel,
-        Glove,
-        Wrench
+        Dirty,
+        Clean,
+        Indoctrinated
     }
-
 }

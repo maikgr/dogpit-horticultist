@@ -5,59 +5,129 @@ namespace Horticultist.Scripts.Mechanics
     using UnityEngine;
     using UnityEngine.InputSystem;
     using System.Linq;
+    using Horticultist.Scripts.Core;
 
 
     public class MindClutter : MonoBehaviour
     {
 
         [SerializeField] private List<GameObject> toolInteractions;
+        [SerializeField] private int cleaningWorkTime;
+        [SerializeField] private int indoctrinationWorkTime;
+        [SerializeField] private SpriteRenderer clutterSpriteRenderer;
+        [SerializeField] private Sprite dirtySprite;
+        [SerializeField] private Sprite cleanSprite;
+        [SerializeField] private Sprite indoctrinatedSprite;
+
         private HorticultistInputActions gameInput;
         private Camera mainCamera;
+        private Dictionary<ToolTypeEnum, ToolClutterInteraction> availableToolMap;
+        private ClutterStateEnum currentState;
+        private bool isButtonPressed = false;
+        private bool isIndoctrinatedToolSelected = false;
+
+        void Update() {
+            if (cleaningWorkTime <= 0) {
+                isButtonPressed = false;
+                StopCoroutine(UpdateValues(null));
+                SetStateClean();
+            }
+            else if (indoctrinationWorkTime <= 0) {
+                isButtonPressed = false;
+                StopCoroutine(UpdateValues(null));
+                SetStateIndoctrinated();
+            }
+        }
 
         private void Awake()
         {
-            mainCamera = Camera.main;
-            gameInput = new HorticultistInputActions();
-
             var availableToolInteractions = toolInteractions.Select((interaction) => interaction.GetComponent<ToolClutterInteraction>()).ToList();
-            var allowedTools = availableToolInteractions.Select((interaction) => interaction.MindTool.GetComponent<ToolType>().ThisToolType).ToList();
-            Debug.Log(allowedTools[0]);
-            Debug.Log(allowedTools[1]);
+            availableToolMap = availableToolInteractions.ToDictionary(i => i.MindToolType, i => i);  
         }
 
-        private void OnEnable()
+
+        public void OnClickDown()
         {
+            var activeToolType = MindToolController.Instance.ActiveToolType;
+            isIndoctrinatedToolSelected = isIndoctrinatedTool(activeToolType);
 
-            // gameInput.UI.Click.started += OnClickDown;
-            // gameInput.UI.Click.canceled += OnClickUp;
-            // gameInput.UI.Click.Enable();
-
-            gameInput.Player.Fire.performed += OnClickDown;
-            gameInput.Player.Fire.Enable();
-
-        }
-
-        private void OnClickDown(InputAction.CallbackContext context)
-        {
-            var activeController = MindToolController.Instance.ActiveToolType;
-            var worldPos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            var hit = Physics2D.Raycast(worldPos, Vector2.zero);
-            if (hit.collider != null)
+            if (availableToolMap.ContainsKey(activeToolType) && currentState == ClutterStateEnum.Dirty)
             {
-                var clutter = hit.collider.GetComponent<MindClutter>();
-                if (clutter != null)
-                {
-                    Debug.Log(activeController);
-
-                    Debug.Log("click down");
-                }
+                var values = availableToolMap[activeToolType];
+                isButtonPressed = true;
+                StartCoroutine(UpdateValues(values));
             }
 
         }
 
-        private void OnClickUp(InputAction.CallbackContext context)
+        public void OnClickUp()
         {
-            Debug.Log("click up");
+            isButtonPressed = false;
+            StopCoroutine(UpdateValues(null));
+        }
+
+        private IEnumerator UpdateValues(ToolClutterInteraction values)
+        {
+            UpdateMood(values.MoodInpact);
+            while (isButtonPressed) {
+                UpdatePatience(values.PatienceValue);
+                UpdateIndoctrination(values.IndoctrinationValue);
+                UpdateCleaning();
+                yield return new WaitForSeconds(1f);
+            }
+        }
+
+        public void SetStateDirty() 
+        {
+            currentState = ClutterStateEnum.Dirty;
+            clutterSpriteRenderer.sprite = dirtySprite;
+        }
+
+        public void SetStateClean() 
+        {
+            currentState = ClutterStateEnum.Clean;
+            clutterSpriteRenderer.sprite = cleanSprite;
+        }
+
+        public void SetStateIndoctrinated() 
+        {
+            currentState = ClutterStateEnum.Indoctrinated;
+            clutterSpriteRenderer.sprite = indoctrinatedSprite;
+        }
+
+        private void UpdatePatience(int value) 
+        {
+            Debug.Log("Patience " + value);
+            TherapyEventBus.Instance.DispatchOnPatienceChanged(value);
+        }
+
+        private void UpdateMood(MoodEnum moodImpact) 
+        {
+            Debug.Log("Mood" + moodImpact);
+            TherapyEventBus.Instance.DispatchOnMoodChanged(moodImpact);
+        }
+
+        private void UpdateIndoctrination(int value) 
+        {
+            if (isIndoctrinatedToolSelected) {
+                Debug.Log("Indoctrination" + value);
+                indoctrinationWorkTime -= 1;
+                TherapyEventBus.Instance.DispatchOnIndoctrinationChanged(value);
+            }
+        }
+
+        private void UpdateCleaning() 
+        {
+            if (!isIndoctrinatedToolSelected) {
+                Debug.Log("Cleaning");
+                cleaningWorkTime -= 1;
+            }
+        }
+
+        // Utils
+        public bool isIndoctrinatedTool(ToolTypeEnum toolType) 
+        {
+            return toolType == ToolTypeEnum.Wrench;
         }
     }
 }

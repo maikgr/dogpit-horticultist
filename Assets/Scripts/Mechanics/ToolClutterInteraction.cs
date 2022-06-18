@@ -7,18 +7,14 @@ namespace Horticultist.Scripts.Mechanics
 
     public class ToolClutterInteraction : MonoBehaviour
     {
+        [SerializeField] private ToolTypeEnum mindToolType;
+        [SerializeField] private int patienceValue;
+        [SerializeField] private int indoctrinationValue;
+        [SerializeField] private MoodEnum moodInpact;
 
-    [SerializeField] private GameObject mindTool;
-    [SerializeField] private int patienceValue;
-    [SerializeField] private int indoctrinationValue;
-    [SerializeField] private MoodEnum moodInpact;
-    [SerializeField] private int workTime;
-
-    public GameObject MindTool => mindTool;
-    public int PatienceValue => patienceValue;
-    public int IndoctrinationValue => indoctrinationValue;
-    public MoodEnum MoodInpact => moodInpact;
-    public int WorkTime => workTime;
-
+        public ToolTypeEnum MindToolType => mindToolType;
+        public int PatienceValue => patienceValue;
+        public int IndoctrinationValue => indoctrinationValue;
+        public MoodEnum MoodInpact => moodInpact;
     }
 }
