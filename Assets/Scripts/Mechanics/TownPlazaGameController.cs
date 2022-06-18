@@ -9,9 +9,40 @@ namespace Horticultist.Scripts.Mechanics
     {
         [Header("Action Properties")]
         [SerializeField] private int maxAction;
+        public static TownPlazaGameController Instance { get; private set; }
         private int weekNumber;
         private int dayNumber;
         private int actionTaken;
+        public int CultistSize { get; private set; }
+
+        private void Awake() {
+            var eventBus = GameObject.FindObjectsOfType<TownPlazaGameController>();
+            if (eventBus.Length > 1)
+            {
+                Debug.LogError("Only one TownPlazaGameController can be active!");
+            }
+
+            Instance = this;
+        }
+
+        private void OnEnable() {
+            StartCoroutine(OnEnableCoroutine());
+        }
+
+        private IEnumerator OnEnableCoroutine()
+        {
+            while(TownEventBus.Instance == null)
+            {
+                yield return new WaitForFixedUpdate();
+            }
+            TownEventBus.Instance.OnCultistJoin += OnCultistJoin;
+            TownEventBus.Instance.OnCultistLeave += OnCultistLeave;
+        }
+
+        private void OnDisable() {
+            TownEventBus.Instance.OnCultistJoin -= OnCultistJoin;
+            TownEventBus.Instance.OnCultistLeave -= OnCultistLeave;
+        }
 
         private void Start() {
             this.weekNumber = 1;
@@ -47,6 +78,15 @@ namespace Horticultist.Scripts.Mechanics
                 GoNextDay();
             }
             TownEventBus.Instance.DispatchOnActionTaken(this.actionTaken, this.maxAction);
+        }
+
+        private void OnCultistJoin(string name)
+        {
+            CultistSize += 1;
+        }
+        private void OnCultistLeave(string name)
+        {
+            CultistSize = Mathf.Max(CultistSize - 1, 0);
         }
     }
 }

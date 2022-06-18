@@ -30,5 +30,16 @@ namespace Horticultist.Scripts.Mechanics
             npc.ChangeType(NpcTypeEnum.Cultist);
             Debug.Log("updated " + npc.DisplayName + " to " + npc.NpcType.ToString());
         }
+
+        public void DecreaseObedience(NpcController npc)
+        {
+            npc.DecreaseObedienceValue(1);
+        }
+
+        public void IncreaseObedience(NpcController npc)
+        {
+            npc.IncreaseObedienceValue(1);
+        }
+
     }
 }

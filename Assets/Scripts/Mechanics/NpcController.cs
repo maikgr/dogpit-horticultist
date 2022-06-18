@@ -6,6 +6,7 @@ namespace Horticultist.Scripts.Mechanics
     using TMPro;
     using DG.Tweening;
     using Horticultist.Scripts.Core;
+    using Horticultist.Scripts.Extensions;
 
     public class NpcController : MonoBehaviour
     {
@@ -19,26 +20,55 @@ namespace Horticultist.Scripts.Mechanics
         public Sprite eyesSprite => eyesSpriteRenderer.sprite;
         [SerializeField] private SpriteRenderer mouthSpriteRenderer;
         public Sprite mouthSprite => mouthSpriteRenderer.sprite;
-        public int PatienceValue { get; private set; }
-        public int IndoctrinationValue { get; private set; }
-        public int ObedienceValue { get; private set; }
-        public string ObedienceLevel { get; private set; }
-        public string DisplayName { get; private set; }
         
         // NPC Type Properties
+        public string DisplayName { get; private set; }
         public NpcTypeEnum NpcType { get; private set; }
         public NpcPersonalityEnum npcPersonality { get; private set; }
         public NpcDialogueSet DialogueSet { get; private set; }
-        public List<CultistObedienceAction> ObedienceActions { get; private set; }
+        public int PatienceValue { get; private set; }
+        public int IndoctrinationValue { get; private set; }
 
         // Townspeople Props
         public MoodTypeEnum moodType { get; private set; }
 
         // Cultist Props
         public CultistRankEnum cultistRank { get; private set; }
+        private List<CultistObedienceAction> obedienceActions;
+        private CultistObedienceAction currentObedienceAction;
+        public bool HasObedienceAction { get; private set; }
+        public string obedienceDialogue { get; private set; }
+        public int ObedienceValue { get; private set; }
+        public CultistObedienceLevelEnum ObedienceLevel => ObdLevelThreshold[ObedienceValue];
+        public IDictionary<int, CultistObedienceLevelEnum> ObdLevelThreshold = new Dictionary<int, CultistObedienceLevelEnum>
+        {
+            {-6, CultistObedienceLevelEnum.VeryRebellious},
+            {-5, CultistObedienceLevelEnum.Rebellious},
+            {-4, CultistObedienceLevelEnum.Rebellious},
+            {-3, CultistObedienceLevelEnum.Rebellious},
+            {-2, CultistObedienceLevelEnum.Neutral},
+            {-1, CultistObedienceLevelEnum.Neutral},
+            {0, CultistObedienceLevelEnum.Neutral},
+            {1, CultistObedienceLevelEnum.Neutral},
+            {2, CultistObedienceLevelEnum.Neutral},
+            {3, CultistObedienceLevelEnum.Obedient},
+            {4, CultistObedienceLevelEnum.Obedient},
+            {5, CultistObedienceLevelEnum.Obedient},
+            {6, CultistObedienceLevelEnum.VeryObedient},
+        };
 
         private void Start() {
             StartCoroutine(WalkAround());
+        }
+
+        private void OnEnable() {
+            TownEventBus.Instance.OnDayEnd += OnDayEnd;
+            TownEventBus.Instance.OnDayStart += OnDayStart;
+        }
+
+        private void OnDisable() {
+            TownEventBus.Instance.OnDayEnd -= OnDayEnd;
+            TownEventBus.Instance.OnDayStart -= OnDayStart;
         }
 
         public void GenerateNpc(string name, NpcPersonalityEnum personality,
@@ -63,7 +93,7 @@ namespace Horticultist.Scripts.Mechanics
 
             // Dialogues
             DialogueSet = dialogueSet;
-            ObedienceActions = obedienceActions;
+            this.obedienceActions = obedienceActions;
         }
 
         private IEnumerator WalkAround()
@@ -99,6 +129,14 @@ namespace Horticultist.Scripts.Mechanics
         public void ChangeType(NpcTypeEnum npcTypeEnum)
         {
             this.NpcType = npcTypeEnum;
+            if (npcTypeEnum.Equals(NpcTypeEnum.Cultist))
+            {
+                this.cultistRank = CultistRankEnum.Rank1;
+                ObedienceValue = 0;
+                obedienceDialogue = DialogueSet.Therapy.Moodup.GetRandom();
+                TownEventBus.Instance.DispatchOnCultistJoin(DisplayName);
+            }
+            TownPlazaGameController.Instance.AddAction();
         }
 
         public void SetMood(MoodTypeEnum moodType)
@@ -109,6 +147,72 @@ namespace Horticultist.Scripts.Mechanics
         public void SetCultistRank(CultistRankEnum cultistRank)
         {
             this.cultistRank = cultistRank;
+        }
+
+        public void DecreaseObedienceValue(int val)
+        {
+            this.ObedienceValue = Mathf.Max(this.ObedienceValue - val, -6);
+            Debug.Log(DisplayName + " obd: " + this.ObedienceValue);
+            TownEventBus.Instance.DispatchOnObedienceLevelChange(this.ObedienceLevel);
+        }
+        public void IncreaseObedienceValue(int val)
+        {
+            this.ObedienceValue = Mathf.Min(this.ObedienceValue + val, 6);
+            Debug.Log(DisplayName + " obd: " + this.ObedienceValue);
+            TownEventBus.Instance.DispatchOnObedienceLevelChange(this.ObedienceLevel);
+        }
+
+        public void ObedienceAction(CultistObedienceActionEnum action)
+        {
+            if (!HasObedienceAction) return;
+            if (currentObedienceAction.Action.Equals(action))
+            {
+                IncreaseObedienceValue(2);
+                obedienceDialogue = DialogueSet.Therapy.Moodup.GetRandom();
+            }
+            else
+            {
+                DecreaseObedienceValue(2);
+                obedienceDialogue = DialogueSet.Therapy.Mooddown.GetRandom();
+            }
+            
+            HasObedienceAction = false;
+            TownPlazaGameController.Instance.AddAction();
+        }
+
+        private void OnDayEnd(int week, int day)
+        {
+            if (ObedienceLevel.Equals(CultistObedienceLevelEnum.VeryRebellious))
+            {
+                TownEventBus.Instance.DispatchOnCultistLeave(DisplayName);
+                Destroy(this);
+            }
+            else if (ObedienceLevel.Equals(CultistObedienceLevelEnum.VeryObedient))
+            {
+                if (cultistRank.Equals(CultistRankEnum.Rank1))
+                {
+                    cultistRank = CultistRankEnum.Rank2;
+                    ObedienceValue = 0;
+                }
+                else if (cultistRank.Equals(CultistRankEnum.Rank2))
+                {
+                    cultistRank = CultistRankEnum.Rank3;
+                    ObedienceValue = 0;
+                }
+            }
+            else if (HasObedienceAction)
+            {
+                DecreaseObedienceValue(1);
+            }
+        }
+
+        private void OnDayStart(int week, int day)
+        {
+            if (NpcType.Equals(NpcTypeEnum.Cultist))
+            {
+                currentObedienceAction = obedienceActions.GetRandom();
+                HasObedienceAction = true;
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 namespace Horticultist.Scripts.Mechanics
 {
     using System.Collections;
+    using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.UI;
     using UnityEngine.InputSystem;
@@ -25,6 +26,8 @@ namespace Horticultist.Scripts.Mechanics
             TownEventBus.Instance.OnDayStart += UpdateWeekDayUI;
             TownEventBus.Instance.OnActionTaken += UpdateActionUI;
 
+            TownEventBus.Instance.OnObedienceLevelChange += UpdateObdLevelUI;
+
             gameInput.Player.Fire.performed += OnClickPerformed;
             gameInput.Player.Fire.Enable();
 
@@ -37,18 +40,15 @@ namespace Horticultist.Scripts.Mechanics
             TownEventBus.Instance.OnDayStart -= UpdateWeekDayUI;
             TownEventBus.Instance.OnActionTaken -= UpdateActionUI;
 
+            TownEventBus.Instance.OnObedienceLevelChange -= UpdateObdLevelUI;
+
             gameInput.Player.Fire.performed -= OnClickPerformed;
             gameInput.Player.Fire.Disable();
 
             gameInput.UI.RightClick.performed -= OnRightClickPerformed;
             gameInput.UI.RightClick.Disable();
 
-            npcHelpButton.onClick.RemoveAllListeners();
-            npcConvertButton.onClick.RemoveAllListeners();
-
-            happyButton.onClick.RemoveAllListeners();
-            angryButton.onClick.RemoveAllListeners();
-            cultistButton.onClick.RemoveAllListeners();
+            DeselectNpc();
         }
 
         [Header("Action UI")]
@@ -65,21 +65,32 @@ namespace Horticultist.Scripts.Mechanics
             dayFillMask.fillAmount = (float)taken / (float)max;
         }
 
-        [Header("NPC UI")]
+        [Header("NPC Basic Info UI")]
+        private bool panelIsOpen;
         [SerializeField] private RectTransform npcInfoPanel;
         [SerializeField] private TMP_Text npcTypeText;
         [SerializeField] private TMP_Text npcNameText;
-        [SerializeField] private TMP_Text npcObedienceText;
         [SerializeField] private TMP_Text npcDialogueText;
+
+        [Header("NPC Visual UI")]
         [SerializeField] private Image npcBodyImage;
         [SerializeField] private Image npcHeadgearImage;
         [SerializeField] private Image npcEyesImage;
         [SerializeField] private Image npcMouthImage;
+
+        [Header("NPC Buttons UI")]
         [SerializeField] private RectTransform npcCultistButtonSet;
         [SerializeField] private Button npcSacrificeButton;
         [SerializeField] private Button npcHelpButton;
         [SerializeField] private Button npcConvertButton;
-        private bool panelIsOpen;
+        [SerializeField] private Button scoldButton;
+        [SerializeField] private Button praiseButton;
+
+        [Header("NPC Obedience UI")]
+        [SerializeField] private RectTransform cultistObediencePanel;
+        [SerializeField] private TMP_Text npcObedienceText;
+        [SerializeField] private List<Image> obediencePots;
+        [SerializeField] private Image obedienceLeaf;
 
         private void OnClickPerformed(InputAction.CallbackContext context)
         {
@@ -143,10 +154,12 @@ namespace Horticultist.Scripts.Mechanics
             if (npc.NpcType == NpcTypeEnum.Cultist)
             {
                 npcObedienceText.enabled = true;
-                npcObedienceText.text = npc.ObedienceLevel;
+                cultistObediencePanel.gameObject.SetActive(true);
+                UpdateObdLevelUI(npc.ObedienceLevel);
             }
             else
             {
+                cultistObediencePanel.gameObject.SetActive(false);
                 npcObedienceText.enabled = false;
             }
 
@@ -158,8 +171,7 @@ namespace Horticultist.Scripts.Mechanics
             }
             else if (npc.NpcType.Equals(NpcTypeEnum.Cultist))
             {
-                var obedienceAction = npc.ObedienceActions.GetRandom();
-                dialogueText = obedienceAction.Text;
+                dialogueText = npc.obedienceDialogue;
             }
             else if (npc.NpcType.Equals(NpcTypeEnum.Townspeople) && npc.moodType.Equals(MoodTypeEnum.Angry))
             {
@@ -205,13 +217,27 @@ namespace Horticultist.Scripts.Mechanics
                     npcHelpButton.onClick.AddListener(() => StartHelp(npc));
                 }
             }
+
             // Cultist buttons
             else if (npc.NpcType == NpcTypeEnum.Cultist)
             {
-                npcCultistButtonSet.gameObject.SetActive(true);
                 if (npc.NpcType == NpcTypeEnum.Cultist && npc.ObedienceValue > 5)
                 {
                     npcSacrificeButton.gameObject.SetActive(true);
+                }
+                if (npc.HasObedienceAction)
+                {
+                    npcCultistButtonSet.gameObject.SetActive(true);
+                    praiseButton.onClick.AddListener(() => {
+                        npc.ObedienceAction(CultistObedienceActionEnum.Praise);
+                        npcCultistButtonSet.gameObject.SetActive(false);
+                        dialogueText = npc.obedienceDialogue;
+                    });
+                    scoldButton.onClick.AddListener(() => {
+                        npc.ObedienceAction(CultistObedienceActionEnum.Scold);
+                        npcCultistButtonSet.gameObject.SetActive(false);
+                        dialogueText = npc.obedienceDialogue;
+                    });
                 }
             }
 
@@ -223,10 +249,15 @@ namespace Horticultist.Scripts.Mechanics
         {
             npcHelpButton.onClick.RemoveAllListeners();
             npcConvertButton.onClick.RemoveAllListeners();
+            praiseButton.onClick.RemoveAllListeners();
+            scoldButton.onClick.RemoveAllListeners();
 
+            // Debugging
             happyButton.onClick.RemoveAllListeners();
             angryButton.onClick.RemoveAllListeners();
             cultistButton.onClick.RemoveAllListeners();
+            obedienceAddButton.onClick.RemoveAllListeners();
+            obedienceSubButton.onClick.RemoveAllListeners();
         }
 
         public void StartHelp(NpcController npc)
@@ -246,17 +277,48 @@ namespace Horticultist.Scripts.Mechanics
             }
         }
 
+        private void UpdateObdLevelUI(CultistObedienceLevelEnum obdLevel)
+        {
+            int obdPotIndex = 2;
+            switch(obdLevel)
+            {
+                case CultistObedienceLevelEnum.VeryRebellious:
+                    obdPotIndex = 0;
+                    break;
+                case CultistObedienceLevelEnum.Rebellious:
+                    obdPotIndex = 1;
+                    break;
+                case CultistObedienceLevelEnum.Neutral:
+                default:
+                    obdPotIndex = 2;
+                    break;
+                case CultistObedienceLevelEnum.Obedient:
+                    obdPotIndex = 3;
+                    break;
+                case CultistObedienceLevelEnum.VeryObedient:
+                    obdPotIndex = 4;
+                    break;
+            }
+            var activePotPos = obediencePots[obdPotIndex].transform.position;
+            npcObedienceText.text = obdLevel.DisplayString();
+            obedienceLeaf.transform.position = new Vector2(activePotPos.x, obedienceLeaf.transform.position.y);
+        }
+
         [Header("Debugging")]
         [SerializeField] private TestTherapyController testTherapy;
         [SerializeField] private Button happyButton;
         [SerializeField] private Button angryButton;
         [SerializeField] private Button cultistButton;
+        [SerializeField] private Button obedienceAddButton;
+        [SerializeField] private Button obedienceSubButton;
 
         private void SetTestButton(NpcController npc)
         {
             happyButton.onClick.AddListener(() => testTherapy.ConvertToHappy(npc));
             angryButton.onClick.AddListener(() => testTherapy.ConvertToAngry(npc));
             cultistButton.onClick.AddListener(() => testTherapy.ConvertToCultist(npc));
+            obedienceAddButton.onClick.AddListener(() => testTherapy.IncreaseObedience(npc));
+            obedienceSubButton.onClick.AddListener(() => testTherapy.DecreaseObedience(npc));
         }
     }
 }

@@ -11,6 +11,9 @@ namespace Horticultist.Scripts.Core
         public event Action<int, int> OnDayEnd;
         public event Action<int, int> OnDayStart;
         public event Action<int, int> OnActionTaken;
+        public event Action<CultistObedienceLevelEnum> OnObedienceLevelChange;
+        public event Action<string> OnCultistJoin;
+        public event Action<string> OnCultistLeave;
 
         private void Awake() {
             var eventBus = GameObject.FindObjectsOfType<TownEventBus>();
@@ -43,6 +46,30 @@ namespace Horticultist.Scripts.Core
             if (OnActionTaken != null)
             {
                 OnActionTaken.Invoke(taken, max);
+            }
+        }
+
+        public void DispatchOnObedienceLevelChange(CultistObedienceLevelEnum obedienceLevel)
+        {
+            if (OnObedienceLevelChange != null)
+            {
+                OnObedienceLevelChange.Invoke(obedienceLevel);
+            }
+        }
+
+        public void DispatchOnCultistJoin(string name)
+        {
+            if (OnCultistJoin != null)
+            {
+                OnCultistJoin.Invoke(name);
+            }
+        }
+
+        public void DispatchOnCultistLeave(string name)
+        {
+            if (OnCultistLeave != null)
+            {
+                OnCultistLeave.Invoke(name);
             }
         }
     }

@@ -41,7 +41,6 @@ namespace Horticultist.Scripts.Core
                 .Subsets
                 .Where(p => !SPECIAL_NPCS.Contains(p.Subset))
                 .ToList();
-            UnityEngine.Debug.Log(string.Join(", ", list));
             return list.GetRandom();
         }
 
