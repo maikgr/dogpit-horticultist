@@ -11,6 +11,7 @@ namespace Horticultist.Scripts.UI
     {
         [SerializeField] private TMP_Text vesselGrowthText;
         [SerializeField] private TMP_Text cultSizeText;
+        [SerializeField] private TMP_Text objectivesText;
         private int cultSize;
 
         private void OnEnable() {
@@ -26,12 +27,14 @@ namespace Horticultist.Scripts.UI
             TownEventBus.Instance.OnTreeGrowthChange += OnTreeGrowthChange;
             TownEventBus.Instance.OnCultistJoin += OnCultistJoin;
             TownEventBus.Instance.OnCultistLeave += OnCultistLeave;
+            TownEventBus.Instance.OnObjectiveUpdate += OnObjectiveUpdate;
         }
 
         private void OnDisable() {
             TownEventBus.Instance.OnTreeGrowthChange -= OnTreeGrowthChange;
             TownEventBus.Instance.OnCultistJoin -= OnCultistJoin;
             TownEventBus.Instance.OnCultistLeave -= OnCultistLeave;
+            TownEventBus.Instance.OnObjectiveUpdate -= OnObjectiveUpdate;
         }
 
         private void Start() {
@@ -54,6 +57,18 @@ namespace Horticultist.Scripts.UI
         {
             cultSize -= 1;
             cultSizeText.text = $"Cult size: {cultSize} members";
+        }
+
+        private void OnObjectiveUpdate(IEnumerable<string> objectives)
+        {
+            var sb = new System.Text.StringBuilder();
+            foreach(var objective in objectives)
+            {
+                sb.Append("- " + objective);
+                sb.AppendLine();
+            }
+            sb.Remove(sb.Length - 1, 1);
+            objectivesText.text = sb.ToString();
         }
     }
 }

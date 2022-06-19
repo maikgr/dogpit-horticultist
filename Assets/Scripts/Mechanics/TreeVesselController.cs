@@ -11,6 +11,7 @@ namespace Horticultist.Scripts.Mechanics
     {
         [SerializeField] private List<TreeVesselStage> stageValueThreshold;
         public int GrowthValue { get; private set; }
+        public int CurrentStage { get; private set; }
         private void OnEnable() {
             StartCoroutine(OnEnableCoroutine());
         }
@@ -48,6 +49,7 @@ namespace Horticultist.Scripts.Mechanics
                 .First();
 
             treeStage.TreeGameObject.SetActive(true);
+            CurrentStage = treeStage.Stage;
             TownEventBus.Instance.DispatchOnTreeGrowthChange(GrowthValue, treeStage.Stage);
         }
     }

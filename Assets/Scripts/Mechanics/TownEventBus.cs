@@ -1,6 +1,7 @@
 namespace Horticultist.Scripts.Mechanics
 {
     using System;
+    using System.Collections.Generic;
     using UnityEngine;
     using Horticultist.Scripts.Core;
 
@@ -14,6 +15,7 @@ namespace Horticultist.Scripts.Mechanics
         public event Action<NpcController> OnCultistJoin;
         public event Action<NpcController> OnCultistLeave;
         public event Action<int, int> OnTreeGrowthChange;
+        public event Action<IEnumerable<string>> OnObjectiveUpdate;
 
         private void Awake() {
             var eventBus = GameObject.FindObjectsOfType<TownEventBus>();
@@ -78,6 +80,14 @@ namespace Horticultist.Scripts.Mechanics
             if (OnTreeGrowthChange != null)
             {
                 OnTreeGrowthChange.Invoke(value, stage);
+            }
+        }
+
+        public void DispatchOnObjectiveUpdate(IEnumerable<string> objectives)
+        {
+            if (OnObjectiveUpdate != null)
+            {
+                OnObjectiveUpdate.Invoke(objectives);
             }
         }
     }

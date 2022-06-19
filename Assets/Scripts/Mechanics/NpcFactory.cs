@@ -15,15 +15,17 @@ namespace Horticultist.Scripts.Mechanics
         [SerializeField] private TextAsset lastNameJson;
         [SerializeField] private List<Sprite> bodySprites;
         [SerializeField] private List<Sprite> headgearSprites;
-        [SerializeField] private List<Sprite> eyesSprites;
-        [SerializeField] private List<Sprite> mouthSprites;
+        [SerializeField] private List<NpcExpressionSet> eyesSet;
+        [SerializeField] private List<NpcExpressionSet> mouthSet;
+        [SerializeField] private float headgearChance;
 
         [Header("NPC Dialogues")]
         [SerializeField] private TextAsset genericDialogueJson;
         [SerializeField] private TextAsset cultistDialogueJson;
         private TownDialogueParser townDialogueParser;
-        private HorticultistInputActions gameInput;
-        private InputAction inputAction;
+
+        [Header("NPC Area")]
+        [SerializeField] private PolygonCollider2D allowedArea;
         private NpcPersonalityEnum[] personalities = new NpcPersonalityEnum[] {
             NpcPersonalityEnum.Health,
             NpcPersonalityEnum.Wealth,
@@ -35,38 +37,16 @@ namespace Horticultist.Scripts.Mechanics
         private void Awake() {
             firstNames = JsonConvert.DeserializeObject<string[]>(firstNameJson.text);
             lastNames = JsonConvert.DeserializeObject<string[]>(lastNameJson.text);
-            gameInput = new HorticultistInputActions();
-        }
-
-        private void OnEnable() {
-            inputAction = gameInput.Player.Fire;
-            inputAction.Enable();
-
-            gameInput.Player.Fire.performed += OnInputPerformed;
-            gameInput.Player.Fire.Enable();
-        }
-
-        private void Start()
-        {
             this.townDialogueParser = new TownDialogueParser(
                 genericDialogueJson.text,
                 cultistDialogueJson.text
             );
         }
 
-        private void OnDisable() {
-            gameInput.Player.Fire.Disable();
-            inputAction.Disable();
-        }
-
-        private void OnInputPerformed(InputAction.CallbackContext context)  
+        public NpcController GenerateNpc()
         {
-        }
-
-        public void GenerateNPC()
-        {
-            var npc = Instantiate(npcPrefab, TownPlazaAreaController.Instance.GetRandomPoint(), Quaternion.identity);
-            var hasHeadgear = Random.Range(0f, 1f) < 0.5f;
+            var npc = Instantiate(npcPrefab, allowedArea.GetRandomPoint(), Quaternion.identity);
+            var hasHeadgear = Random.Range(0f, 1f) < headgearChance;
             var npcName = $"{firstNames.GetRandom()} {lastNames.GetRandom()}";
             var personality = personalities.GetRandom();
             npc.GenerateNpc(
@@ -75,9 +55,12 @@ namespace Horticultist.Scripts.Mechanics
                 townDialogueParser.GenerateCultistActions(npcName, personality),
                 bodySprites.GetRandom(),
                 hasHeadgear ? headgearSprites.GetRandom() : null,
-                eyesSprites.GetRandom(),
-                mouthSprites.GetRandom()
+                eyesSet.GetRandom(),
+                mouthSet.GetRandom(),
+                allowedArea
             );
+
+            return npc;
         }
     }
 }

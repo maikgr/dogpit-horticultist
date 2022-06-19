@@ -1,5 +1,6 @@
 namespace Horticultist.Scripts.Mechanics
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
@@ -12,14 +13,18 @@ namespace Horticultist.Scripts.Mechanics
     {
         [Header("Assets")]
         [SerializeField] private TMP_Text npcName;
+        [SerializeField] private Transform visualParent;
         [SerializeField] private SpriteRenderer bodySpriteRenderer;
         public Sprite bodySprite => bodySpriteRenderer.sprite;
+        [SerializeField] private Animator bodyAnimator;
         [SerializeField] private SpriteRenderer headgearSpriteRenderer;
         public Sprite headgearSprite => headgearSpriteRenderer.sprite;
         [SerializeField] private SpriteRenderer eyesSpriteRenderer;
         public Sprite eyesSprite => eyesSpriteRenderer.sprite;
         [SerializeField] private SpriteRenderer mouthSpriteRenderer;
         public Sprite mouthSprite => mouthSpriteRenderer.sprite;
+        private NpcExpressionSet eyesExpressionSet;
+        private NpcExpressionSet mouthExpressionSet;
         
         // NPC Type Properties
         public string DisplayName { get; private set; }
@@ -41,6 +46,9 @@ namespace Horticultist.Scripts.Mechanics
         public int ObedienceValue { get; private set; }
         public int EfficiencyValue => (int)CultistRank + ObedienceValue;
         public CultistObedienceLevelEnum ObedienceLevel => ObdLevelThreshold[ObedienceValue];
+
+        // Mechanics
+        private PolygonCollider2D walkArea;
         public IDictionary<int, CultistObedienceLevelEnum> ObdLevelThreshold = new Dictionary<int, CultistObedienceLevelEnum>
         {
             {-6, CultistObedienceLevelEnum.VeryRebellious},
@@ -78,17 +86,21 @@ namespace Horticultist.Scripts.Mechanics
 
         public void GenerateNpc(string name, NpcPersonalityEnum personality,
             NpcDialogueSet dialogueSet, List<CultistObedienceAction> obedienceActions,
-            Sprite bodyAsset, Sprite headgearAsset, Sprite eyesAsset, Sprite mouthAsset)
+            Sprite bodyAsset, Sprite headgearAsset, NpcExpressionSet eyesSet, NpcExpressionSet mouthSet,
+            PolygonCollider2D walkArea)
         {
             // Basic Info
             DisplayName = name;
             npcName.text = name;
+            this.walkArea = walkArea;
 
             // Visual Assets
             bodySpriteRenderer.sprite = bodyAsset;
             headgearSpriteRenderer.sprite = headgearAsset;
-            eyesSpriteRenderer.sprite = eyesAsset;
-            mouthSpriteRenderer.sprite = mouthAsset;
+            eyesExpressionSet = eyesSet;
+            mouthExpressionSet = mouthSet;
+            eyesSpriteRenderer.sprite = eyesSet.neutral;
+            mouthSpriteRenderer.sprite = mouthSet.neutral;
 
             // Mechanic props
             NpcType = NpcTypeEnum.Visitor;
@@ -103,15 +115,31 @@ namespace Horticultist.Scripts.Mechanics
 
         private IEnumerator WalkAround()
         {
-            var isIdle = Random.Range(0f, 1f) < 0.5f;
-            while(isIdle)
+            var isIdle = true;
+            bodyAnimator.SetBool("isWalking", false);
+            do
             {
                 yield return new WaitForSeconds(1f);
-                isIdle = Random.Range(0f, 1f) < 0.5f;
+                isIdle = UnityEngine.Random.Range(0f, 1f) < 0.5f;
+            }
+            while (isIdle);
+
+            bodyAnimator.SetBool("isWalking", true);
+            var destination = walkArea.GetRandomPoint();
+            if (transform.position.x - destination.x > 0)
+            {
+                visualParent.DORotate(new Vector3(0, 180, 0), 0.5f)
+                    .SetEase(Ease.Linear)
+                    .SetId("npc");
+            }
+            else
+            {
+                visualParent.DORotate(new Vector3(0, 0, 0), 0.5f)
+                    .SetEase(Ease.Linear)
+                    .SetId("npc");
             }
 
-            var destination = TownPlazaAreaController.Instance.GetRandomPoint();
-            var tween = transform.DOMove(destination, 0.5f)
+            transform.DOMove(destination, 0.5f)
                 .SetSpeedBased(true)
                 .SetEase(Ease.Linear)
                 .OnComplete(() => {
@@ -219,5 +247,13 @@ namespace Horticultist.Scripts.Mechanics
                 HasObedienceAction = true;
             }
         }
+    }
+
+    [Serializable]
+    public class NpcExpressionSet
+    {
+        public Sprite neutral;
+        public Sprite happy;
+        public Sprite angry;
     }
 }

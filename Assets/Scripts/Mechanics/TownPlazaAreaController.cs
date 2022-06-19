@@ -10,6 +10,7 @@ namespace Horticultist.Scripts.Mechanics
 
         [SerializeField] private PolygonCollider2D spawnArea;
         [SerializeField] private PolygonCollider2D excludedArea;
+        public PolygonCollider2D SpawnArea => spawnArea;
 
         private void Awake()
         {
@@ -20,23 +21,6 @@ namespace Horticultist.Scripts.Mechanics
             }
 
             Instance = this;
-        }
-
-        public Vector2 GetRandomPoint()
-        {
-            var point = new Vector2(
-                Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x),
-                Random.Range(spawnArea.bounds.min.y, spawnArea.bounds.max.y)
-            );
-            while (!spawnArea.OverlapPoint(point) || excludedArea.OverlapPoint(point))
-            {
-                point = new Vector2(
-                    Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x),
-                    Random.Range(spawnArea.bounds.min.y, spawnArea.bounds.max.y)
-                );
-            }
-
-            return point;
         }
     }
 }

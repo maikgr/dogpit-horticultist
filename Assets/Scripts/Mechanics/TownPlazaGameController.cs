@@ -7,13 +7,31 @@ namespace Horticultist.Scripts.Mechanics
 
     public class TownPlazaGameController : MonoBehaviour
     {
-        [Header("Action Properties")]
         [SerializeField] private int maxAction;
+        [SerializeField] private TreeVesselController treeVesselController;
         public static TownPlazaGameController Instance { get; private set; }
+        public List<NpcController> CultMembers { get; private set; }
+        public List<string> SacrificedMembers { get; set; }
         private int weekNumber;
         private int dayNumber;
         private int actionTaken;
-        public List<NpcController> CultMembers { get; private set; }
+
+        private IDictionary<int, IEnumerable<string>> weekObjectives = new Dictionary<int, IEnumerable<string>>
+        {
+            { 0, new List<string> {
+                "Have 10 cult members or more by the end of the week"
+            }},
+            { 1, new List<string> {
+                "Have 20 cult members or more by the end of the week",
+                "Have at least 5 cultist members with cult rank 'High Tomatholyte'"
+            }},
+            { 2, new List<string> {
+                "Grow Tomathotep's vessel"
+            }},
+            { 3, new List<string> {
+                "Offer 10 sacrifices to Tomathotep's vessel"
+            }},
+        };
 
         private void Awake() {
             var eventBus = GameObject.FindObjectsOfType<TownPlazaGameController>();
@@ -47,9 +65,17 @@ namespace Horticultist.Scripts.Mechanics
         }
 
         private void Start() {
-            this.weekNumber = 1;
+            this.weekNumber = 0;
             this.dayNumber = 1;
+            StartCoroutine(DelayedEventDispatch());
+        }
+
+        // Make sure all listeners are ready;
+        private IEnumerator DelayedEventDispatch()
+        {
+            yield return new WaitForSeconds(0.2f);
             TownEventBus.Instance.DispatchOnDayStart(this.weekNumber, this.dayNumber);
+            TownEventBus.Instance.DispatchOnObjectiveUpdate(weekObjectives[0]);
         }
 
         public void EndDay()
@@ -67,6 +93,23 @@ namespace Horticultist.Scripts.Mechanics
             {
                 this.weekNumber += 1;
                 this.dayNumber = 1;
+
+                switch(this.weekNumber)
+                {
+                    case 1:
+                        Week1Assesment();
+                        break;
+                    case 2:
+                        Week2Assesment();
+                        break;
+                    case 3:
+                        Week3Assesment();
+                        break;
+                    case 4:
+                    default:
+                        Week4Assesment();
+                        break;
+                }
             }
             TownEventBus.Instance.DispatchOnDayStart(this.weekNumber, this.dayNumber);
         }
@@ -86,9 +129,64 @@ namespace Horticultist.Scripts.Mechanics
         {
             CultMembers.Add(npc);
         }
+
         private void OnCultistLeave(NpcController npc)
         {
             CultMembers.Remove(npc);
+        }
+
+        private void Week1Assesment()
+        {
+            if (CultMembers.Count < 10)
+            {
+                // Warn scene
+            }
+            else
+            {
+                // Praise scene
+            }
+            TownEventBus.Instance.DispatchOnObjectiveUpdate(weekObjectives[1]);
+        }
+
+        private void Week2Assesment()
+        {
+            var rank3Count = CultMembers.Where(mem => mem.CultistRank == Core.CultistRankEnum.Rank3).Count();
+            if (CultMembers.Count < 20 || rank3Count < 5)
+            {
+                // Failed leader ending
+            }
+            else
+            {
+                // Praise scene
+            }
+            TownEventBus.Instance.DispatchOnObjectiveUpdate(weekObjectives[2]);
+        }
+        private void Week3Assesment()
+        {
+            if (treeVesselController.CurrentStage > 2)
+            {
+                // Warn scene
+            }
+            else
+            {
+                // Praise scene
+            }
+            TownEventBus.Instance.DispatchOnObjectiveUpdate(weekObjectives[3]);
+        }
+
+        private void Week4Assesment()
+        {
+            var minRequired = CultMembers.Count * 0.1f;
+            var recRequired = CultMembers.Count * 0.3f;
+            if (SacrificedMembers.Count < minRequired)
+            {
+                // Pacifist scene
+            }
+            else
+            {
+                // Ultimate cult scene
+            }
+            TownEventBus.Instance.DispatchOnObjectiveUpdate(weekObjectives[3]);
         }
     }
 }
