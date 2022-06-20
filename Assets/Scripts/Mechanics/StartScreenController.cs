@@ -5,11 +5,13 @@ namespace Horticultist.Scripts.Mechanics
     using UnityEngine;
     using UnityEngine.SceneManagement;
     using Horticultist.Scripts.Extensions;
+    using Horticultist.Scripts.UI;
 
     public class StartScreenController : MonoBehaviour
     {
         [SerializeField] private string nextSceneName;
         [SerializeField] private NpcFactory npcFactory;
+        [SerializeField] private SplashUIController splashUIController;
         private Camera mainCamera;
         private NpcController trackedNpc;
 
@@ -24,6 +26,8 @@ namespace Horticultist.Scripts.Mechanics
                 npcList.Add(npcFactory.GenerateNpc());
             }
             trackedNpc = npcList.GetRandom();
+
+            splashUIController.StartSplash();
         }
 
         private void LateUpdate() {
@@ -36,7 +40,9 @@ namespace Horticultist.Scripts.Mechanics
 
         public void OnStartClick()
         {
-            StartCoroutine(NextSceneAsync(nextSceneName));
+            splashUIController.FadeOutScene(() => {
+                StartCoroutine(NextSceneAsync(nextSceneName));
+            });
         }
 
         private IEnumerator NextSceneAsync(string sceneName)

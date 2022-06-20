@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FailedLeaderScene.unity
     guid: 8fc39a7390d439a40b562e4883d32325
+  - enabled: 1
+    path: Assets/Scenes/IntroductionScene.unity
+    guid: 685ebfaec67cd6145ae0759280b0b1d0
   m_configObjects: {}
