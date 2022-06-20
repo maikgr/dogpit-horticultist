@@ -3004,7 +3004,7 @@ MonoBehaviour:
   visitorPerDayAmount: 4
   townPlazaSceneName: TownPlazaScene
   assessmentSceneName: AssessmentScene
-  fadeUIController: {fileID: 0}
+  fadeUIController: {fileID: 1147841520}
 --- !u!114 &838067872
 MonoBehaviour:
   m_ObjectHideFlags: 0
