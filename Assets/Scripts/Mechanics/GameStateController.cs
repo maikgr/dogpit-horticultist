@@ -8,6 +8,12 @@ namespace Horticultist.Scripts.Mechanics
     {
         public static GameStateController Instance { get; private set; }
         public NpcController SelectedNpc { get; private set; }
+        public List<NpcController> CultMembers { get; private set; }
+        public List<string> SacrificedMembers { get; set; }
+        public int treeStage;
+        public float treeHeight;
+        public int dayNumber;
+        public int weekNumber;
         public bool PlayerHasConverted => ConvertCount > 0;
         public int ConvertCount { get; private set; }
 
@@ -15,11 +21,14 @@ namespace Horticultist.Scripts.Mechanics
             var controllers = GameObject.FindObjectsOfType<GameStateController>();
             if (controllers.Length > 1)
             {
-                Debug.LogError("Only one GameStateController can be active!");
+                Destroy(this.gameObject);
             }
 
             Instance = this;
             GameObject.DontDestroyOnLoad(this);
+
+            CultMembers = new List<NpcController>();
+            SacrificedMembers = new List<string>();
         }
 
         private void Start() {

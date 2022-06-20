@@ -4,19 +4,23 @@ namespace Horticultist.Scripts.Mechanics
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.SceneManagement;
+    using Horticultist.Scripts.UI;
 
     public class TownPlazaGameController : MonoBehaviour
     {
         [SerializeField] private int maxAction;
         [SerializeField] private TreeVesselController treeVesselController;
         [SerializeField] private NpcFactory npcFactory;
-        [SerializeField] int visitorPerDayAmount;
+        [SerializeField] private int visitorPerDayAmount;
+        [SerializeField] private string townPlazaSceneName;
+        [SerializeField] private string assessmentSceneName;
+        [SerializeField] private FadeUIController fadeUIController;
         public static TownPlazaGameController Instance { get; private set; }
-        public List<NpcController> CultMembers { get; private set; }
-        public List<string> SacrificedMembers { get; set; }
-        private int weekNumber;
-        private int dayNumber;
         private int actionTaken;
+        private GameStateController gameState;
+        private int currWeek;
+        private int currDay;
 
         private IDictionary<int, IEnumerable<string>> weekObjectives = new Dictionary<int, IEnumerable<string>>
         {
@@ -31,7 +35,7 @@ namespace Horticultist.Scripts.Mechanics
                 "Grow Tomathotep's vessel"
             }},
             { 3, new List<string> {
-                "Offer 10 sacrifices to Tomathotep's vessel"
+                "Offer 5 sacrifices to Tomathotep's vessel"
             }},
         };
 
@@ -43,8 +47,6 @@ namespace Horticultist.Scripts.Mechanics
             }
 
             Instance = this;
-
-            CultMembers = new List<NpcController>();
         }
 
         private void OnEnable() {
@@ -59,27 +61,42 @@ namespace Horticultist.Scripts.Mechanics
             }
             TownEventBus.Instance.OnCultistJoin += OnCultistJoin;
             TownEventBus.Instance.OnCultistLeave += OnCultistLeave;
+            
+            SceneManager.activeSceneChanged += ChangedActiveScene;
         }
 
         private void OnDisable() {
             TownEventBus.Instance.OnCultistJoin -= OnCultistJoin;
             TownEventBus.Instance.OnCultistLeave -= OnCultistLeave;
+
+            SceneManager.activeSceneChanged -= ChangedActiveScene;
         }
 
         private void Start() {
+            gameState = GameStateController.Instance;
+            currWeek = gameState.weekNumber;
+            currDay = gameState.dayNumber;
             StartCoroutine(DelayedStart());
         }
 
         // Make sure all listeners are ready;
         private IEnumerator DelayedStart()
         {
-            this.weekNumber = 0;
-            this.dayNumber = 1;
+            gameState.weekNumber = 0;
+            gameState.dayNumber = 1;
             GenerateVisitors();
 
             yield return new WaitForSeconds(0.2f);
-            TownEventBus.Instance.DispatchOnDayStart(this.weekNumber, this.dayNumber);
+            TownEventBus.Instance.DispatchOnDayStart(gameState.weekNumber, gameState.dayNumber);
             TownEventBus.Instance.DispatchOnObjectiveUpdate(weekObjectives[0]);
+        }
+
+        private void ChangedActiveScene(Scene prev, Scene next)
+        {
+            if (prev.name == assessmentSceneName)
+            {
+                TownEventBus.Instance.DispatchOnDayStart(gameState.weekNumber, gameState.dayNumber);
+            }
         }
 
         public void EndDay()
@@ -91,31 +108,10 @@ namespace Horticultist.Scripts.Mechanics
 
         private void GoNextDay()
         {
-            TownEventBus.Instance.DispatchOnDayEnd(this.weekNumber, this.dayNumber);
-            this.dayNumber += 1;
-            if(this.dayNumber > 3)
-            {
-                this.weekNumber += 1;
-                this.dayNumber = 1;
-
-                switch(this.weekNumber)
-                {
-                    case 1:
-                        Week1Assesment();
-                        break;
-                    case 2:
-                        Week2Assesment();
-                        break;
-                    case 3:
-                        Week3Assesment();
-                        break;
-                    case 4:
-                    default:
-                        Week4Assesment();
-                        break;
-                }
-            }
-            TownEventBus.Instance.DispatchOnDayStart(this.weekNumber, this.dayNumber);
+            TownEventBus.Instance.DispatchOnDayEnd(gameState.weekNumber, gameState.dayNumber);
+            fadeUIController.FadeOutScreen(() => {
+                SceneManager.LoadScene(assessmentSceneName);
+            });
         }
 
         public void AddAction()
@@ -131,66 +127,12 @@ namespace Horticultist.Scripts.Mechanics
 
         private void OnCultistJoin(NpcController npc)
         {
-            CultMembers.Add(npc);
+            gameState.CultMembers.Add(npc);
         }
 
         private void OnCultistLeave(NpcController npc)
         {
-            CultMembers.Remove(npc);
-        }
-
-        private void Week1Assesment()
-        {
-            if (CultMembers.Count < 10)
-            {
-                // Warn scene
-            }
-            else
-            {
-                // Praise scene
-            }
-            TownEventBus.Instance.DispatchOnObjectiveUpdate(weekObjectives[1]);
-        }
-
-        private void Week2Assesment()
-        {
-            var rank3Count = CultMembers.Where(mem => mem.CultistRank == Core.CultistRankEnum.Rank3).Count();
-            if (CultMembers.Count < 20 || rank3Count < 5)
-            {
-                // Failed leader ending
-            }
-            else
-            {
-                // Praise scene
-            }
-            TownEventBus.Instance.DispatchOnObjectiveUpdate(weekObjectives[2]);
-        }
-        private void Week3Assesment()
-        {
-            if (treeVesselController.CurrentStage > 2)
-            {
-                // Warn scene
-            }
-            else
-            {
-                // Praise scene
-            }
-            TownEventBus.Instance.DispatchOnObjectiveUpdate(weekObjectives[3]);
-        }
-
-        private void Week4Assesment()
-        {
-            var minRequired = CultMembers.Count * 0.1f;
-            var recRequired = CultMembers.Count * 0.3f;
-            if (SacrificedMembers.Count < minRequired)
-            {
-                // Pacifist scene
-            }
-            else
-            {
-                // Ultimate cult scene
-            }
-            TownEventBus.Instance.DispatchOnObjectiveUpdate(weekObjectives[3]);
+            gameState.CultMembers.Remove(npc);
         }
 
         private void GenerateVisitors()

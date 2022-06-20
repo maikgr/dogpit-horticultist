@@ -3002,6 +3002,9 @@ MonoBehaviour:
   treeVesselController: {fileID: 838067874}
   npcFactory: {fileID: 838067870}
   visitorPerDayAmount: 4
+  townPlazaSceneName: TownPlazaScene
+  assessmentSceneName: AssessmentScene
+  fadeUIController: {fileID: 0}
 --- !u!114 &838067872
 MonoBehaviour:
   m_ObjectHideFlags: 0

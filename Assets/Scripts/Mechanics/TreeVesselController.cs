@@ -36,7 +36,7 @@ namespace Horticultist.Scripts.Mechanics
 
         private void OnDayEnd(int week, int day)
         {
-            var totalEf = TownPlazaGameController.Instance.CultMembers.Sum(m => m.EfficiencyValue);
+            var totalEf = GameStateController.Instance.CultMembers.Sum(m => m.EfficiencyValue);
             UpdateGrowth(totalEf);
         }
 
