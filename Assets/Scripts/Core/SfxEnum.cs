@@ -3,6 +3,8 @@ namespace Horticultist.Scripts.Core
     public enum SfxEnum
     {
         TransitionIn,
-        TransitionOut
+        TransitionOut,
+        ClickSelect,
+        ClickUnselect
     }
 }

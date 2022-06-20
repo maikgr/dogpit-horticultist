@@ -47,7 +47,6 @@ namespace Horticultist.Scripts.UI
                 .SetEase(Ease.Linear)
                 .OnComplete(() =>
                 {
-                    transScreen.gameObject.SetActive(false);
                     if (action != null)
                     {
                         action.Invoke();
@@ -88,6 +87,7 @@ namespace Horticultist.Scripts.UI
                     {
                         action.Invoke();
                     }
+                    transScreen.gameObject.SetActive(false);
                 });
         }
     }

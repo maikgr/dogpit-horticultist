@@ -3161,9 +3161,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioMaps:
   - sfx: 0
-    audio: {fileID: 8300000, guid: c5dcc1bb8d3b4c241ba772ae0676698a, type: 3}
-  - sfx: 1
     audio: {fileID: 8300000, guid: b0a8ed1db94d72248bd05e15abdc467f, type: 3}
+  - sfx: 1
+    audio: {fileID: 8300000, guid: c5dcc1bb8d3b4c241ba772ae0676698a, type: 3}
+  - sfx: 2
+    audio: {fileID: 8300000, guid: f6e3ac6132d0cb948828c6a0d552c1bf, type: 3}
+  - sfx: 3
+    audio: {fileID: 8300000, guid: f6e3ac6132d0cb948828c6a0d552c1bf, type: 3}
 --- !u!1 &841994954
 GameObject:
   m_ObjectHideFlags: 0
@@ -4850,6 +4854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50e30082efbfe894b82458659e75b9cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transitionScreen: {fileID: 1147841521}
   weekDayText: {fileID: 1320906565}
   dayFillMask: {fileID: 585135605}
   npcInfoPanel: {fileID: 596821803}

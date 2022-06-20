@@ -76,7 +76,7 @@ namespace Horticultist.Scripts.Mechanics
             this.weekNumber = 0;
             this.dayNumber = 1;
             GenerateVisitors();
-            
+
             yield return new WaitForSeconds(0.2f);
             TownEventBus.Instance.DispatchOnDayStart(this.weekNumber, this.dayNumber);
             TownEventBus.Instance.DispatchOnObjectiveUpdate(weekObjectives[0]);
@@ -93,7 +93,7 @@ namespace Horticultist.Scripts.Mechanics
         {
             TownEventBus.Instance.DispatchOnDayEnd(this.weekNumber, this.dayNumber);
             this.dayNumber += 1;
-            if(this.dayNumber > 7)
+            if(this.dayNumber > 3)
             {
                 this.weekNumber += 1;
                 this.dayNumber = 1;

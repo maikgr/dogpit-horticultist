@@ -10,9 +10,11 @@ namespace Horticultist.Scripts.Mechanics
     using TMPro;
     using Horticultist.Scripts.Core;
     using Horticultist.Scripts.Extensions;
+    using Horticultist.Scripts.UI;
 
     public class TownPlazaUIController : MonoBehaviour
     {
+        [SerializeField] private TransitionScreenUIController transitionScreen;
         private HorticultistInputActions gameInput;
         private Camera mainCamera;
         private TownPlazaCameraController cameraController;
@@ -65,7 +67,7 @@ namespace Horticultist.Scripts.Mechanics
 
         private void UpdateWeekDayUI(int weekNumber, int dayNumber)
         {
-            weekDayText.text = $"Week {weekNumber} Day {dayNumber}";
+            weekDayText.text = $"Phase {weekNumber} Day {dayNumber}";
         }
 
         private void UpdateActionUI(int taken, int max)
@@ -110,6 +112,7 @@ namespace Horticultist.Scripts.Mechanics
                 if (npc != null)
                 {
                     SelectNpc(npc);
+                    SfxController.Instance.PlaySfx(SfxEnum.ClickSelect);
                     OpenPanel();
                 }
             }
@@ -120,6 +123,7 @@ namespace Horticultist.Scripts.Mechanics
             // If button is pressed
             if (context.ReadValue<float>() > 0)
             {
+                SfxController.Instance.PlaySfx(SfxEnum.ClickUnselect);
                 ClosePanel();
             }
         }
@@ -301,7 +305,10 @@ namespace Horticultist.Scripts.Mechanics
         public void StartHelp(NpcController npc)
         {
             DOTween.Pause("npc");
-            StartCoroutine(LoadTherapyScene());
+            GameStateController.Instance.SetSelectedNpc(npc);
+            transitionScreen.TransitionIn(
+                () => StartCoroutine(LoadTherapyScene())
+            );
         }
 
         private IEnumerator LoadTherapyScene()
