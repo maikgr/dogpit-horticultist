@@ -15,10 +15,12 @@ namespace Horticultist.Scripts.Mechanics
     {
         private HorticultistInputActions gameInput;
         private Camera mainCamera;
+        private TownPlazaCameraController cameraController;
         private void Awake()
         {
             gameInput = new HorticultistInputActions();
             mainCamera = Camera.main;
+            cameraController = mainCamera.GetComponent<TownPlazaCameraController>();
         }
 
         private void OnEnable()
@@ -33,6 +35,9 @@ namespace Horticultist.Scripts.Mechanics
 
             gameInput.UI.RightClick.performed += OnRightClickPerformed;
             gameInput.UI.RightClick.Enable();
+
+            gameInput.UI.Point.performed += OnPointPerformed;
+            gameInput.UI.Point.Enable();
         }
 
         private void OnDisable()
@@ -47,6 +52,9 @@ namespace Horticultist.Scripts.Mechanics
 
             gameInput.UI.RightClick.performed -= OnRightClickPerformed;
             gameInput.UI.RightClick.Disable();
+
+            gameInput.UI.Point.performed -= OnPointPerformed;
+            gameInput.UI.Point.Disable();
 
             DeselectNpc();
         }
@@ -116,6 +124,27 @@ namespace Horticultist.Scripts.Mechanics
             }
         }
 
+        private NpcController pointedNpc;
+        private void OnPointPerformed(InputAction.CallbackContext context)
+        {
+            var worldPos = mainCamera.ScreenToWorldPoint(context.ReadValue<Vector2>());
+            var hit = Physics2D.Raycast(worldPos, Vector2.zero);
+            if (hit.collider != null)
+            {
+                var npc = hit.collider.GetComponent<NpcController>();
+                if (npc != null && !npc.IsHovered)
+                {
+                    npc.SetHovered();
+                    pointedNpc = npc;
+                }
+                else if (pointedNpc != null && pointedNpc != npc)
+                {
+                    pointedNpc.UnsetHovered();
+                    pointedNpc = null;
+                }
+            }
+        }
+
         private void OpenPanel()
         {
             if (panelIsOpen) return;
@@ -147,6 +176,8 @@ namespace Horticultist.Scripts.Mechanics
         {
             // Make sure previous NPC is unselected
             DeselectNpc();
+            GameStateController.Instance.SetSelectedNpc(npc);
+            cameraController.TrackNpc(npc);
 
             // Info section
             npcTypeText.text = npc.NpcType.ToString();
@@ -196,6 +227,7 @@ namespace Horticultist.Scripts.Mechanics
                 npcHeadgearImage.enabled = true;
                 npcHeadgearImage.sprite = npc.headgearSprite;
             }
+            npc.SetHighlighted();
 
             // Prepare conditional interaction by disabling all buttons
             npcHelpButton.gameObject.SetActive(false);
@@ -247,6 +279,12 @@ namespace Horticultist.Scripts.Mechanics
 
         private void DeselectNpc()
         {
+            if (GameStateController.Instance.SelectedNpc != null)
+            {
+                GameStateController.Instance.SelectedNpc.UnsetHighlighted();
+                GameStateController.Instance.SetSelectedNpc(null);
+            }
+            cameraController.StopTrackNpc();
             npcHelpButton.onClick.RemoveAllListeners();
             npcConvertButton.onClick.RemoveAllListeners();
             praiseButton.onClick.RemoveAllListeners();
@@ -262,7 +300,6 @@ namespace Horticultist.Scripts.Mechanics
 
         public void StartHelp(NpcController npc)
         {
-            GameStateController.Instance.SetSelectedNpc(npc);
             DOTween.Pause("npc");
             StartCoroutine(LoadTherapyScene());
         }

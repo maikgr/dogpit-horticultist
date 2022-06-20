@@ -4,17 +4,37 @@ namespace Horticultist.Scripts.Mechanics
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.InputSystem;
+    using DG.Tweening;
 
     [RequireComponent(typeof(Camera))]
     public class TownPlazaCameraController : MonoBehaviour
     {
         [SerializeField] private float buttonSpeed;
         [SerializeField] private float mouseDragSpeed;
-        [SerializeField] private Vector2 MinCameraPos;
-        [SerializeField] private Vector2 MaxCameraPos;
         [SerializeField] private float MinZoomValue;
         [SerializeField] private float MaxZoomValue;
         [SerializeField] private float ZoomStepValue;
+        private NpcController trackingNpc;
+        private Vector2 MinCameraPos
+        {
+            get
+            {
+                return new Vector2(
+                    -(13.5f - (cameraControl.orthographicSize * 1.75f)),
+                    -(9.65f - (cameraControl.orthographicSize * 1f))
+                );
+            }
+        }
+        private Vector2 MaxCameraPos
+        {
+            get
+            {
+                return new Vector2(
+                    13.5f - (cameraControl.orthographicSize * 1.75f),
+                    9.65f - (cameraControl.orthographicSize * 1f)
+                );
+            }
+        }
         private HorticultistInputActions gameInput;
         private Camera cameraControl;
 
@@ -59,7 +79,15 @@ namespace Horticultist.Scripts.Mechanics
         
         private void LateUpdate()
         {
-            if (buttonDirection != Vector2.zero)
+            if (trackingNpc != null)
+            {
+                transform.position = new Vector3(
+                    Mathf.Clamp(trackingNpc.transform.position.x, MinCameraPos.x, MaxCameraPos.x),
+                    Mathf.Clamp(trackingNpc.transform.position.y, MinCameraPos.y, MaxCameraPos.y),
+                    transform.position.z
+                );
+            }
+            else if (buttonDirection != Vector2.zero)
             {
                 transform.position = new Vector3(
                     Mathf.Clamp(transform.position.x + buttonDirection.x * Time.deltaTime * buttonSpeed, MinCameraPos.x, MaxCameraPos.x),
@@ -109,6 +137,30 @@ namespace Horticultist.Scripts.Mechanics
                 MinZoomValue,
                 MaxZoomValue
             );
+            transform.position = new Vector3(
+                Mathf.Clamp(transform.position.x, MinCameraPos.x, MaxCameraPos.x),
+                Mathf.Clamp(transform.position.y, MinCameraPos.y, MaxCameraPos.y),
+                transform.position.z
+            );
+        }
+
+        public void TrackNpc(NpcController npc)
+        {
+            transform.DOMove(
+                new Vector3(
+                    Mathf.Clamp(npc.transform.position.x, MinCameraPos.x, MaxCameraPos.x),
+                    Mathf.Clamp(npc.transform.position.y, MinCameraPos.y, MaxCameraPos.y),
+                    transform.position.z
+                ),
+                0.2f
+            )
+            .SetEase(Ease.Linear)
+            .OnComplete(() => trackingNpc = npc);
+        }
+
+        public void StopTrackNpc()
+        {
+            trackingNpc = null;
         }
     }
 }

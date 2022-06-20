@@ -47,12 +47,13 @@ namespace Horticultist.Scripts.Mechanics
         {
             var npc = Instantiate(npcPrefab, allowedArea.GetRandomPoint(), Quaternion.identity);
             var hasHeadgear = Random.Range(0f, 1f) < headgearChance;
-            var npcName = $"{firstNames.GetRandom()} {lastNames.GetRandom()}";
+            var firstName = firstNames.GetRandom();
+            var lastName = lastNames.GetRandom();
             var personality = personalities.GetRandom();
             npc.GenerateNpc(
-                npcName, personality,
+                firstName, lastName, personality,
                 townDialogueParser.GenerateDialogueSet(personality),
-                townDialogueParser.GenerateCultistActions(npcName, personality),
+                townDialogueParser.GenerateCultistActions($"{firstName} {lastName}", personality),
                 bodySprites.GetRandom(),
                 hasHeadgear ? headgearSprites.GetRandom() : null,
                 eyesSet.GetRandom(),

@@ -12,25 +12,25 @@ namespace Horticultist.Scripts.UI
         [SerializeField] private AudioSource bgmSource;
         [SerializeField] private float transTime;
         [SerializeField] private float baseTransScreenSize;
+        private Camera mainCamera;
 
-        private void Start() {
-            StartCoroutine(DelayedStart());
-        }
-
-        private IEnumerator DelayedStart()
-        {
-            yield return new WaitForSeconds(1f);
-            TransitionOut();
+        private void Awake() {
+            mainCamera = Camera.main;
+            transScreen.gameObject.SetActive(false);
         }
 
         public void TransitionIn(System.Action action = null)
         {
-            TransitionIn(Vector2.zero, action);
+            TransitionIn(
+                mainCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f, mainCamera.nearClipPlane)),
+                action
+            );
         }
 
         public void TransitionIn(Vector2 target, System.Action action = null)
         {
             SfxController.Instance.PlaySfx(Core.SfxEnum.TransitionIn);
+            transScreen.gameObject.SetActive(true);
             DOTween.Sequence()
                 .Append(
                     transScreen.rectTransform.DOMove(target, 0)
@@ -47,6 +47,7 @@ namespace Horticultist.Scripts.UI
                 .SetEase(Ease.Linear)
                 .OnComplete(() =>
                 {
+                    transScreen.gameObject.SetActive(false);
                     if (action != null)
                     {
                         action.Invoke();
@@ -56,12 +57,16 @@ namespace Horticultist.Scripts.UI
 
         public void TransitionOut(System.Action action = null)
         {
-            TransitionOut(Vector2.zero, action);
+            TransitionOut(
+                mainCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f, mainCamera.nearClipPlane)),
+                action
+            );
         }
 
         public void TransitionOut(Vector2 target, System.Action action = null)
         {
             bgmSource.volume = 0;
+            transScreen.gameObject.SetActive(true);
             SfxController.Instance.PlaySfx(Core.SfxEnum.TransitionOut);
             DOTween.Sequence()
                 .Append(

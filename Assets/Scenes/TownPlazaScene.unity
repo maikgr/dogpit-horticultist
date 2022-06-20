@@ -398,7 +398,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &50137009
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2211,9 +2211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonSpeed: 10
   mouseDragSpeed: 2.7
-  MinCameraPos: {x: -4.67, y: -3.94}
-  MaxCameraPos: {x: 4.67, y: 3.94}
-  MinZoomValue: 2.5
+  MinZoomValue: 2
   MaxZoomValue: 5
   ZoomStepValue: 0.3
 --- !u!1 &560199638
@@ -3001,7 +2999,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAction: 8
-  treeVesselController: {fileID: 0}
+  treeVesselController: {fileID: 838067874}
+  npcFactory: {fileID: 838067870}
+  visitorPerDayAmount: 4
 --- !u!114 &838067872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4330,7 +4330,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1040739565
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4924,6 +4924,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transScreen: {fileID: 50137011}
+  bgmSource: {fileID: 838067875}
   transTime: 1
   baseTransScreenSize: 2000
 --- !u!1 &1207570916
@@ -7688,7 +7689,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1767698379
 RectTransform:
   m_ObjectHideFlags: 0

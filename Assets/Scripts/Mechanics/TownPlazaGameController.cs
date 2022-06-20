@@ -9,6 +9,8 @@ namespace Horticultist.Scripts.Mechanics
     {
         [SerializeField] private int maxAction;
         [SerializeField] private TreeVesselController treeVesselController;
+        [SerializeField] private NpcFactory npcFactory;
+        [SerializeField] int visitorPerDayAmount;
         public static TownPlazaGameController Instance { get; private set; }
         public List<NpcController> CultMembers { get; private set; }
         public List<string> SacrificedMembers { get; set; }
@@ -65,14 +67,16 @@ namespace Horticultist.Scripts.Mechanics
         }
 
         private void Start() {
-            this.weekNumber = 0;
-            this.dayNumber = 1;
-            StartCoroutine(DelayedEventDispatch());
+            StartCoroutine(DelayedStart());
         }
 
         // Make sure all listeners are ready;
-        private IEnumerator DelayedEventDispatch()
+        private IEnumerator DelayedStart()
         {
+            this.weekNumber = 0;
+            this.dayNumber = 1;
+            GenerateVisitors();
+            
             yield return new WaitForSeconds(0.2f);
             TownEventBus.Instance.DispatchOnDayStart(this.weekNumber, this.dayNumber);
             TownEventBus.Instance.DispatchOnObjectiveUpdate(weekObjectives[0]);
@@ -187,6 +191,14 @@ namespace Horticultist.Scripts.Mechanics
                 // Ultimate cult scene
             }
             TownEventBus.Instance.DispatchOnObjectiveUpdate(weekObjectives[3]);
+        }
+
+        private void GenerateVisitors()
+        {
+            for (var i = 0; i < visitorPerDayAmount; ++i)
+            {
+                npcFactory.GenerateNpc();
+            }
         }
     }
 }

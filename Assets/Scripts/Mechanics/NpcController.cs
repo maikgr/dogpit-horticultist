@@ -12,7 +12,8 @@ namespace Horticultist.Scripts.Mechanics
     public class NpcController : MonoBehaviour
     {
         [Header("Assets")]
-        [SerializeField] private TMP_Text npcName;
+        [SerializeField] private TMP_Text npcNameText;
+        [SerializeField] private TMP_Text npcTypeText;
         [SerializeField] private Transform visualParent;
         [SerializeField] private SpriteRenderer bodySpriteRenderer;
         public Sprite bodySprite => bodySpriteRenderer.sprite;
@@ -25,6 +26,9 @@ namespace Horticultist.Scripts.Mechanics
         public Sprite mouthSprite => mouthSpriteRenderer.sprite;
         private NpcExpressionSet eyesExpressionSet;
         private NpcExpressionSet mouthExpressionSet;
+        [SerializeField] private Color highlightColor;
+        public bool IsHighlighted { get; private set; }
+        public bool IsHovered { get; private set; }
         
         // NPC Type Properties
         public string DisplayName { get; private set; }
@@ -84,14 +88,15 @@ namespace Horticultist.Scripts.Mechanics
             DOTween.Kill(transform);
         }
 
-        public void GenerateNpc(string name, NpcPersonalityEnum personality,
+        public void GenerateNpc(string firstName, string lastName, NpcPersonalityEnum personality,
             NpcDialogueSet dialogueSet, List<CultistObedienceAction> obedienceActions,
             Sprite bodyAsset, Sprite headgearAsset, NpcExpressionSet eyesSet, NpcExpressionSet mouthSet,
             PolygonCollider2D walkArea)
         {
             // Basic Info
-            DisplayName = name;
-            npcName.text = name;
+            DisplayName = firstName + " " + lastName;
+            npcNameText.text = firstName;
+            npcTypeText.text = NpcTypeEnum.Visitor.ToString();
             this.walkArea = walkArea;
 
             // Visual Assets
@@ -162,6 +167,7 @@ namespace Horticultist.Scripts.Mechanics
         public void ChangeType(NpcTypeEnum npcTypeEnum)
         {
             this.NpcType = npcTypeEnum;
+            npcTypeText.text = npcTypeEnum.ToString();
             if (npcTypeEnum.Equals(NpcTypeEnum.Cultist))
             {
                 this.CultistRank = CultistRankEnum.Rank1;
@@ -211,6 +217,67 @@ namespace Horticultist.Scripts.Mechanics
             
             HasObedienceAction = false;
             TownPlazaGameController.Instance.AddAction();
+        }
+
+        public void SetHighlighted()
+        {
+            this.IsHighlighted = true;
+            SetHighlighted(this.bodySpriteRenderer);
+            SetHighlighted(this.headgearSpriteRenderer);
+            SetHighlighted(this.eyesSpriteRenderer);
+            SetHighlighted(this.mouthSpriteRenderer);
+        }
+
+        public void UnsetHighlighted()
+        {
+            this.IsHighlighted = false;
+            DOTween.Kill("highlight" + DisplayName);
+            UnsetHighlighted(this.bodySpriteRenderer);
+            UnsetHighlighted(this.headgearSpriteRenderer);
+            UnsetHighlighted(this.eyesSpriteRenderer);
+            UnsetHighlighted(this.mouthSpriteRenderer);
+        }
+
+        public void SetHovered()
+        {
+            this.IsHovered = true;
+            SetHovered(this.bodySpriteRenderer);
+            SetHovered(this.headgearSpriteRenderer);
+            SetHovered(this.eyesSpriteRenderer);
+            SetHovered(this.mouthSpriteRenderer);
+        }
+
+        public void UnsetHovered()
+        {
+            this.IsHovered = false;
+            UnsetHovered(this.bodySpriteRenderer);
+            UnsetHovered(this.headgearSpriteRenderer);
+            UnsetHovered(this.eyesSpriteRenderer);
+            UnsetHovered(this.mouthSpriteRenderer);
+        }
+
+        private void SetHighlighted(SpriteRenderer renderer)
+        {
+            renderer.color = Color.white;
+            renderer.DOColor(highlightColor, 0.3f)
+                .SetEase(Ease.Linear)
+                .SetId("highlight" + DisplayName)
+                .SetLoops(-1, LoopType.Yoyo);
+        }
+        
+        private void UnsetHighlighted(SpriteRenderer renderer)
+        {
+            renderer.color = Color.white;
+        }
+        
+        private void SetHovered(SpriteRenderer renderer)
+        {
+            renderer.color = highlightColor;
+        }
+        
+        private void UnsetHovered(SpriteRenderer renderer)
+        {
+            renderer.color = Color.white;
         }
 
         private void OnDayEnd(int week, int day)

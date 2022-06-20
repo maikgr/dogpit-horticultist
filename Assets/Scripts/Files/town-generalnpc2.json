@@ -1,0 +1,526 @@
+[
+    {
+        "personality": "wealth",
+        "subsets": [
+            {
+                "subset": "humble",
+                "visitor": [
+                    "I don't really have much to lose by coming here. Hopefully your cult can help me pay rent."
+                ],
+                "therapy": {
+                    "intro": [
+                        "I don't really have much to lose by coming here. Hopefully your cult can help me pay rent."
+                    ],
+                    "moodup": [
+                        "Holy cabbages! So this is Tomathotep's wisdom... wealth is nothing in the face of His greatness!",
+                        "So that was the trick the whole time? Now I can save so much more money",
+                        "Thank you! My family will be so happy to hear this!"
+                    ],
+                    "mooddown": [
+                        "What?! Hey, can I still afford to put dinner on the table after this?",
+                        "That makes no sense! I'm trying to pay rent, not get kicked out!",
+                        "If this keeps up, I won't be able to face my family anymore..."
+                    ],
+                    "moodup_misc": [
+                        "So this is what Tomathotep's blessing feels like."
+                    ],
+                    "mooddown_misc": [
+                        "I dunno, that doesn't feel very good..."
+                    ],
+                    "success": [
+                        "Alright, you guys have me convinced. I'll be a part of this thing!"
+                    ],
+                    "unrecruited": [
+                        "Hey, this talk really helped me. I can put my back into work now. But uhh... not too keen about your gods and stuff, sorry!"
+                    ],
+                    "Failure": [
+                        "Sorry bud. You guys are kinda sus. I'd rather go back to the fields."
+                    ]
+                },
+                "happy_person": [
+                    "Hail Tomathotep! I hope the harvest will be good this year."
+                ],
+                "angry_person": [
+                    "Get away from me, you creep! Leave my folks alone!"
+                ]
+            },
+            {
+                "subset": "pompous",
+                "visitor": [
+                    "What a ramshackle place this is, I say! But the peasantry's gossip had me curious... so don't waste my precious time with idle talk!"
+                ],
+                "therapy": {
+                    "intro": [
+                        "What a ramshackle place this is, I say! But the peasantry's gossip had me curious... so don't waste my precious time with idle talk!"
+                    ],
+                    "moodup": [
+                        "Wow... I had all this money lying around, and I've just been using it the wrong way.",
+                        "A splendid suggestion! I was just thinking the same..."
+                    ],
+                    "mooddown": [
+                        "I say! You are not fit to tie my bootlaces, let alone lay hands on my treasures",
+                        "What uncouth manner! Sod off, scumbag! Don't touch my money!",
+                        "Are you just trying to rob me now? I'll call the guards on you if this keeps up!"
+                    ],
+                    "moodup_misc": [
+                        "Most intriguing. I had thought cults were all fiction and fantasy for the poor, but this..."
+                    ],
+                    "mooddown_misc": [
+                        "Bollocks! How dare you!"
+                    ],
+                    "success": [
+                        "Hail Tomathotep... I shall see to it that your endeavors prosper! I'll have you know that no business venture of mine has ever failed!"
+                    ],
+                    "unrecruited": [
+                        "Quite a curious bunch, you are. Clearly you are wise, but what I desire is wealth, not wisdom. I shall watch your endeavors from a distance."
+                    ],
+                    "Failure": [
+                        "As expected, you lot are nothing but a bunch of penniless louts playing make believe. Go peddle your trade in a circus!"
+                    ]
+                },
+                "happy_person": [
+                    "Hear, hear! Our great Lord [Player] passes through! May Tomathotep bless the ground he treads!"
+                ],
+                "angry_person": [
+                    "What are you sorry lot still doing here? Get out of my sight!"
+                ]
+            },
+            {
+                "subset": "ash1",
+                "visitor": [
+                    "Heya, player. G'mornin'! I hear you've been talkin' with lotsa people lately. What's that all about?"
+                ],
+                "therapy": {
+                    "intro": [
+                        "Heya, player. G'mornin'! I hear you've been talkin' with lotsa people lately. What's that all about?"
+                    ],
+                    "moodup": [
+                        "Yer sayin' that if I join up... I don't have to live on the streets no more? Wow...",
+                        "I'd always thought money was somethin' only grown ups could have... wow..."
+                    ],
+                    "mooddown": [
+                        "Hey, quit it! I barely got anythin' to my name!",
+                        "That don't seem like somethin' I can put up with..."
+                    ],
+                    "moodup_misc": [
+                        "Whew! That's mighty kind of ya, [Player]. You the sort that's  always looked out for me."
+                    ],
+                    "mooddown_misc": [
+                        "I thought we were friends..."
+                    ],
+                    "success": [
+                        "I don't really get this Toe-May-Toady guy, but he seems awright. If he's got your vote, then I'll do anythin' I can to help!"
+                    ],
+                    "unrecruited": [
+                        "I'm not really sure what you're on about, but thanks for the chat! You always brighten my day!"
+                    ],
+                    "Failure": [
+                        "Yer scarin' me, [Player]. You wasn't like this last week. What's got into ya? I'm leavin'!"
+                    ]
+                },
+                "happy_person": [
+                    "Hail Lord Toe-May-Toady! Eh? Aw, right, it's To-ma-tho-tep, whoops!"
+                ],
+                "angry_person": [
+                    "Don't talk to me, you! What've ya done to [Player]?!"
+                ]
+            }
+        ]
+    },
+    {
+        "personality": "health",
+        "subsets": [
+            {
+                "subset": "family_man",
+                "visitor": [
+                    "I got a family to take care of, y'hear? This had better be worth my time."
+                ],
+                "therapy": {
+                    "intro": [
+                        "I got a family to take care of, y'hear? This had better be worth my time."
+                    ],
+                    "moodup": [
+                        "I see! So in Tomathotep, all can find wellness and peace!",
+                        "That's very different from what the doctors say... but uh, you look smarter, I guess!"
+                    ],
+                    "mooddown": [
+                        "The doctors said just the opposite... You sure you know what you're doing?",
+                        "Hey, that doesn't seem very sensible...",
+                        "This is starting to sound a bit suspicious... you sure you guys are for real?"
+                    ],
+                    "moodup_misc": [
+                        "I never thought to think of it that way! You're quite the expert."
+                    ],
+                    "mooddown_misc": [
+                        "Ugh, that's no good. Can't see this helping my folks at all."
+                    ],
+                    "success": [
+                        "Alright, Tomathotep seems like a legit guy. I believe you. Where do I sign up?"
+                    ],
+                    "unrecruited": [
+                        "Well, guess it wasn't a complete waste. At least I got some good ideas about how to take care of my family."
+                    ],
+                    "Failure": [
+                        "What a waste of time. You guys are just quacks in stupid clothes."
+                    ]
+                },
+                "happy_person": [
+                    "Thanks to Tomathotep and Lord [Player], my family is happy and well! Hail, hail!"
+                ],
+                "angry_person": [
+                    "I'm gonna get my family out of here as soon as my letter reaches the capital... and don't you try and stop me!"
+                ]
+            },
+            {
+                "subset": "sick",
+                "visitor": [
+                    "ACHOO! Blegh. Sorry. Any prayers you can offer that'll get me well again?"
+                ],
+                "therapy": {
+                    "intro": [
+                        "ACHOO! Blegh. Sorry. Any prayers you can offer that'll get me well again?"
+                    ],
+                    "moodup": [
+                        "Hoho. Just thinking about this makes me feel better already.",
+                        "ACH— oh, my sneeze stopped itself?! This must be a divine sign!"
+                    ],
+                    "mooddown": [
+                        "Blegh. Think I'm gonna puke.",
+                        "Hoho... that sounds a little gross. I ain't buying it."
+                    ],
+                    "moodup_misc": [
+                        "Sick! Uh, not, like, SICK sick. I mean that's some great knowledge right there."
+                    ],
+                    "mooddown_misc": [
+                        "Wow, that's totally not cool at all. Is this what you guys are peddling?"
+                    ],
+                    "success": [
+                        "Wow, my airways suddenly feel super clear. Is this what it's like to be enlightened?! I want more! Sign me up!"
+                    ],
+                    "unrecruited": [
+                        "ACHOO! Ugh. Good talk, but I think I'll see a doctor about this flu instead."
+                    ],
+                    "Failure": [
+                        "BWAAAAARGH. Ugh, sorry about the mess. Your fantasy crap just made me puke, I couldn't help it."
+                    ]
+                },
+                "happy_person": [
+                    "My head feels so light and clear, almost like it's empty! No icky flu or cough can stop me now! Hail Tomathotep!"
+                ],
+                "angry_person": [
+                    "Best you get outta my sight, if you don't want my puke on your crappy boots."
+                ]
+            },
+            {
+                "subset": "persica1",
+                "visitor": [
+                    "Crap. Forgot my coffee today. Whatever. Tell me about your cult."
+                ],
+                "therapy": {
+                    "intro": [
+                        "Crap. Forgot my coffee today. Whatever. Tell me about your cult."
+                    ],
+                    "moodup": [
+                        "You mean to say... this Tomathotep of yours could enhance my medical skills? Huh. Fascinating.",
+                        "Praying to a tomato god sure seems a lot easier and more effective than actually working... hmm..."
+                    ],
+                    "mooddown": [
+                        "If you really think your cult will save lives, then you're delusional. Utterly delusional.",
+                        "The more you yap on, the more I think that maybe I should've finished medical school and got my license legally..."
+                    ],
+                    "moodup_misc": [
+                        "Hey, that sorta makes sense... I wonder..."
+                    ],
+                    "mooddown_misc": [
+                        "Ugh, my head hurts just thinking about this, and I don't think it's the coffee."
+                    ],
+                    "success": [
+                        "Woo. Got a real kick out of that sesh. Guess I should mix some of your new-age wisdom into my future remedies... and count me in as part of your family, 'kay?"
+                    ],
+                    "unrecruited": [
+                        "Hm hm. That was alright. Appreciate the talk, but I'm gonna go back to loafing around in my clinic. And getting my coffee."
+                    ],
+                    "Failure": [
+                        "Yeah, nope. You should come down as soon as possible to get that head of yours checked. I'll do your lobotomy for free if you turn up by tomorrow."
+                    ]
+                },
+                "happy_person": [
+                    "Yo, leader. How's the vessel coming along? You done with your daily dose of punishing sinners?"
+                ],
+                "angry_person": [
+                    "Hey. Your lobotomy's waiting for you. You're sick enough that I might even pay you to show up."
+                ]
+            },
+            {
+                "subset": "persica2",
+                "visitor": [
+                    "Good morning, great leader. Did you know that an average villager can only resist Tomathotep's brain parasites for about ten seconds before they start bleeding from the eyes?"
+                ],
+                "therapy": {
+                    "intro": [
+                        "Good morning, great leader. Did you know that an average villager can only resist Tomathotep's brain parasites for about ten seconds before they start bleeding from the eyes?"
+                    ],
+                    "moodup": [
+                        "Glad you see it that way. Some patients start screaming once I get in close... but family is all about hugging and mind-breaking, right?",
+                        "You're a natural at this, leader... the perfect family can only exist under great Tomathotep."
+                    ],
+                    "mooddown": [
+                        "Anything that sways our familial love is evil, and must be destroyed. Don't test my faith.",
+                        "I quit drinking coffee since I joined the family... but you're starting to make me regret that decision."
+                    ],
+                    "moodup_misc": [
+                        "Aha, yeah. That's more like it. Hail Tomathotep!"
+                    ],
+                    "mooddown_misc": [
+                        "That didn't sound like it came from Tomathotep. You sure you're not sick?"
+                    ],
+                    "success": [
+                        "This is the best family I've ever had... and I owe everything to you, great leader. Ahh... I can hear it calling for my flesh. Not long now... I will become one with Him..."
+                    ],
+                    "unrecruited": [
+
+                    ],
+                    "Failure": [
+                        "Sounds like you need a surgical dose of His wisdom. By which I mean stuffing brain parasites into your ears."
+                    ]
+                },
+                "happy_person": [
+                    "Yo, leader. How's the vessel coming along? You done with your daily dose of punishing sinners?"
+                ],
+                "angry_person": [
+                    "Hey. Your lobotomy's waiting for you. You're sick enough that I might even pay you to show up."
+                ]
+            }
+        ]
+    },
+    {
+        "personality": "love",
+        "subsets": [
+            {
+                "subset": "lovey_dovey",
+                "visitor": [
+                    "Oooh, can you help me out? I'm a bit of a romantic, but it makes me so sad sometimes...! I hear people who talk to you can find inner peace!"
+                ],
+                "therapy": {
+                    "intro": [
+                        "Oooh, can you help me out? I'm a bit of a romantic, but it makes me so sad sometimes...! I hear people who talk to you can find inner peace!"
+                    ],
+                    "moodup": [
+                        "Tomathotep... what a beautiful name... could this be fate?",
+                        "Oh! Oh! My heart throbs so... could this be the boundless love I've been looking for?"
+                    ],
+                    "mooddown": [
+                        "Alas! It seems perhaps, this cult business is not for me...",
+                        "You do not seem to understand! Romance needs a more delicate touch..."
+                    ],
+                    "moodup_misc": [
+                        "Ah... so this is the light of the gods above?"
+                    ],
+                    "mooddown_misc": [
+                        "What a sad tale you spin for me... am I to suffer this fate?"
+                    ],
+                    "success": [
+                        "UOOOOOH! I feel it! I feel His love, flowing through us both! Thank you... thank you for showing me the light of life!"
+                    ],
+                    "unrecruited": [
+                        "A lovely chat... but I'm afraid I must get going. My true love yet awaits me, elsewhere."
+                    ],
+                    "Failure": [
+                        "You craven fool... ah, is this the sorry sight of one blinded by a false love, strung along by an evil god like a frail puppet?"
+                    ]
+                },
+                "happy_person": [
+                    "Tomathotep's wisdom and love is overwhelming... it makes me want to break out into song!"
+                ],
+                "angry_person": [
+                    "I have no love for the loveless. Begone, you who remains blind to the truth of your actions!"
+                ]
+            },
+            {
+                "subset": "uwu_demon",
+                "visitor": [
+                    "Weee! Squeeze! Glompy-glomp~! Uwu, wwhat's awll thwis hwere? Awww, a cwult! Thwat's swo cuuuute! Lemme in! >3< Rawr! *Snuggles you*"
+                ],
+                "therapy": {
+                    "intro": [
+                        "Weee! Squeeze! Glompy-glomp~! Uwu, wwhat's awll thwis hwere? Awww, a cwult! Thwat's swo cuuuute! Lemme in! >3< Rawr! *Snuggles you*"
+                    ],
+                    "moodup": [
+                        "OwO wwhat's thwis?! Mwy hweart is thwumping like cwazy! I thwink I'm in LWOVE wwith ywou~! >w<",
+                        "OwU *glomps* Wowee! Awren't ywou a sweetie-pwoo!"
+                    ],
+                    "mooddown": [
+                        ">n< Thwat's nwo gwood! Ywou're swuch a mweanie! Bwully! No likey! Bad!",
+                        "I'm losing patience, possibly faster than you are..."
+                    ],
+                    "moodup_misc": [
+                        "Uweeeee! I fweel swo ENWIGHTENED! Tweach mwe mwore!"
+                    ],
+                    "mooddown_misc": [
+                        "Nwoooo! Dwon't wanna!"
+                    ],
+                    "success": [
+                        "Wowee! x3 *nuzzles* Awright, I'm gwonna jwoin! o3o Dwon't let mwe dwown, Towomato dwaddy! •///•  nyaaaa~ >3< chuu!"
+                    ],
+                    "unrecruited": [
+                        "Uwu... nwot vwewy cwonvwincing... ywou mway nweed swome mwore pwacticwe! Rawr x3 uwntil nwext twime!"
+                    ],
+                    "Failure": [
+                        "This wasn't worth it. And now I'm going to hell because of everything I said earlier. Sorry, player."
+                    ]
+                },
+                "happy_person": [
+                    "Hwail Towomathotwep! Wee! Bwestest gwod ever! I WWOVE thwis cwult!"
+                ],
+                "angry_person": [
+                    "Leave me alone. Unless you want me to drag you to Uwu Hell."
+                ]
+            },
+            {
+                "subset": "radishgon",
+                "visitor": [
+                    "I HAVE DRIFTED FAR, FROM A DISTANT LAND. PROVE THAT YOU ARE WORTHY OF MY AUDIENCE."
+                ],
+                "therapy": {
+                    "intro": [
+                        "I HAVE DRIFTED FAR, FROM A DISTANT LAND. PROVE THAT YOU ARE WORTHY OF MY AUDIENCE."
+                    ],
+                    "moodup": [
+                        "SO EVEN MY AFFECTIONS FALL SHORT WHEN FACED WITH TOMATHOTEP'S MAGNANIMITY."
+                    ],
+                    "mooddown": [
+                        "DISAPPOINTING. THAT WAS SHORTSIGHTED OF YOU."
+                    ],
+                    "moodup_misc": [
+                        "THAT IS RAD... ISH."
+                    ],
+                    "mooddown_misc": [
+                        "YOU DON'T HAVE THE RIGHT, O YOU DON'T HAVE THE RIGHT."
+                    ],
+                    "success": [
+                        "INTRIGUING. TOMATHOTEP... I HAD NOT KNOWN SUCH A GOD COULD EXIST. I WILL JOIN YOUR CAUSE."
+                    ],
+                    "unrecruited": [
+                        "HMM. YOU HAVE WARRIOR BLOOD IN YOUR VEINS, BUT IT IS NOT ENOUGH. PERHAPS YOU MAY CONVINCE A LESSER CREATURE."
+                    ],
+                    "Failure": [
+                        "PUT THESE FOOLISH AMBITIONS TO REST."
+                    ]
+                },
+                "happy_person": [
+                    "RELUCTANT AS I AM TO BOW TO ANOTHER... HAIL TOMATHOTEP."
+                ],
+                "angry_person": [
+                    "COULD THIS BE A DOG? YOU CERTAINLY BARK LIKE ONE, FOUL VEGETABLE."
+                ]
+            },
+            {
+                "subset": "alocasia1",
+                "visitor": [
+                    "Greetings, [PLAYER]. I have heard rumours of a “cult”, and have been directed to this establishment to investigate."
+                ],
+                "therapy": {
+                    "intro": [
+                        "Greetings, [PLAYER]. I have heard rumours of a “cult”, and have been directed to this establishment to investigate."
+                    ],
+                    "moodup": [
+                        "I... suppose you are right. It has been a bit lonely of late.",
+                        "You do have a point. The knightly order does seem rather cold and emotionless at times.",
+                        "Perhaps... this Tomathotep of yours could offer what I didn't know I was lacking."
+                    ],
+                    "mooddown": [
+                        "How dare you? I do not need anything from this heretical cult of yours.",
+                        "Watch your tongue, heretic. I will not stand for this slander."
+                    ],
+                    "moodup_misc": [
+                        "I see... This cult of yours isn't quite like what they described in my training. How interesting."
+                    ],
+                    "mooddown_misc": [
+                        "Keep on like this and I'll report you to the authorities."
+                    ],
+                    "success": [
+                        "You do have a point... Perhaps this Tomatothep can help me find what I am lacking. I shall visit again, in due time."
+                    ],
+                    "unrecruited": [
+                        "I see... This conversation was enlightening. But I must return to my order and report my findings."
+                    ],
+                    "Failure": [
+                        "Heretic... I'm reporting you and your hogwash cult to the authorities. Expect a visit soon."
+                    ]
+                },
+                "happy_person": [
+                    "I have been pondering the teachings of Tomathotep. Though I hesitate to call it 'praying', it is nonetheless... fruitful."
+                ],
+                "angry_person": [
+                    "Come any closer and I'll have you thrown in jail, heretic."
+                ]
+            },
+            {
+                "subset": "alocasia2",
+                "visitor": [
+                    "Ah, Lord [PLAYER]. Just the person I was looking for. Might you have time to share with me more about Tomathotep and His teachings?"
+                ],
+                "therapy": {
+                    "intro": [
+                        "Ah, Lord [PLAYER]. Just the person I was looking for. Might you have time to share with me more about Tomathotep and His teachings?"
+                    ],
+                    "moodup": [
+                        "Indeed. Tomathotep is benevolent and loves all His faithful devotees..."
+                    ],
+                    "mooddown": [
+                        "That sounds... rather similar to the knights' doctrines. I thought you said you were different."
+                    ],
+                    "moodup_misc": [
+
+                    ],
+                    "mooddown_misc": [
+                        "I do not mean to question your authority as Tomathotep's champion, but... are you sure?"
+                    ],
+                    "success": [
+                        "Thank you, Lord [PLAYER]. I would never have discovered the grace of Tomathotep if I hadn't been sent on this assignment... perhaps it was meant to be, hm? Hail Tomathotep."
+                    ],
+                    "unrecruited": [
+
+                    ],
+                    "Failure": [
+                        "...Have you just been messing with me? Was this a practical joke, or some kind of test? Damn it... I need to process this."
+                    ]
+                },
+                "happy_person": [
+                    "I have been pondering the teachings of Tomathotep. Though I hesitate to call it 'praying', it is nonetheless... fruitful."
+                ],
+                "angry_person": [
+                    "Come any closer and I'll have you thrown in jail, heretic."
+                ]
+            }
+        ]
+    },
+    {
+        "personality": "misc",
+        "subsets": [
+            {
+                "subset": "",
+                "visitor": [
+                ],
+                "therapy": {
+                    "intro": [
+                    ],
+                    "moodup": [
+                    ],
+                    "mooddown": [
+                    ],
+                    "success": [
+                    ],
+                    "unrecruited": [
+                    ],
+                    "Failure": [
+                    ]
+                },
+                "happy_person": [
+                ],
+                "angry_person": [
+                ]
+            }
+        ]
+    }
+]
