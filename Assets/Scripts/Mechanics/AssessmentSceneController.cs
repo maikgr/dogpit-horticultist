@@ -47,21 +47,21 @@ namespace Horticultist.Scripts.Mechanics
             fadeUIController.FadeInScreen(
                 () =>
                 {
-                    if (gameState.weekNumber == 0)
+                    if (gameState.WeekNumber == 0)
                     {
-                        Week1Assesment(gameState.dayNumber);
+                        Week1Assesment(gameState.DayNumber);
                     }
-                    else if (gameState.weekNumber == 1)
+                    else if (gameState.WeekNumber == 1)
                     {
-                        Week2Assesment(gameState.dayNumber);
+                        Week2Assesment(gameState.DayNumber);
                     }
-                    else if (gameState.weekNumber == 2)
+                    else if (gameState.WeekNumber == 2)
                     {
-                        Week3Assesment(gameState.dayNumber);
+                        Week3Assesment(gameState.DayNumber);
                     }
-                    else if (gameState.weekNumber == 3)
+                    else if (gameState.WeekNumber == 3)
                     {
-                        Week4Assesment(gameState.dayNumber);
+                        Week4Assesment(gameState.DayNumber);
                     }
                     StartCoroutine(ShowDialogue(currentIndex));
                 }
@@ -84,12 +84,7 @@ namespace Horticultist.Scripts.Mechanics
                 else
                 {
                     fadeUIController.FadeOutScreen(() => {
-                        gameState.dayNumber += 1;
-                        if(gameState.dayNumber > 3)
-                        {
-                            gameState.weekNumber += 1;
-                            gameState.dayNumber = 1;
-                        }
+                        gameState.AddDay();
                         SceneManager.LoadScene(nextSceneName);
                     });
                 }
@@ -125,7 +120,7 @@ namespace Horticultist.Scripts.Mechanics
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Remember, I need you to recruit <color=\"blue\">10 people</color> and you have <color=\"red\">{day - 3} days left</color>."
+                        text = $"Remember, I need you to recruit <color=\"blue\">10 people</color> and you have <color=\"red\">{3 - day} days left</color>."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -165,7 +160,7 @@ namespace Horticultist.Scripts.Mechanics
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Keep this up for<color=\"red\">{day - 3} days left</color> and you will earn your place in the world!"
+                        text = $"Keep this up for<color=\"red\">{3 - day} days left</color> and you will earn your place in the world!"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -211,7 +206,7 @@ namespace Horticultist.Scripts.Mechanics
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Remember, I need you to recruit <color=\"blue\">20 people and have at least 5 high ranking cult members</color> and you have <color=\"red\">{day - 3} days left</color>."
+                        text = $"Remember, I need you to recruit <color=\"blue\">20 people and have at least 5 high ranking cult members</color> and you have <color=\"red\">{3 - day} days left</color>."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -249,7 +244,7 @@ namespace Horticultist.Scripts.Mechanics
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Keep this up for<color=\"red\">{day - 3} days left</color> and you will earn your place in the world!"
+                        text = $"Keep this up for<color=\"red\">{3 - day} days left</color> and you will earn your place in the world!"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -283,19 +278,19 @@ namespace Horticultist.Scripts.Mechanics
 
         private void Week3Assesment(int day)
         {
-            if (day < 3 && gameState.treeStage < 3)
+            if (day < 3 && gameState.TreeStage < 3)
             {
                 // Warn scene
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"The tree has only reached <color=\"red\">{gameState.treeHeight.ToString("F2")}m</color>, it is not enough!"
+                        text = $"The tree has only reached <color=\"red\">{gameState.TreeHeight.ToString("F2")}m</color>, it is not enough!"
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"I need it to <color=\"blue\">grow bigger</color> to be a fitting vessel for me and you have <color=\"red\">{day - 3} days left</color>."
+                        text = $"I need it to <color=\"blue\">grow bigger</color> to be a fitting vessel for me and you have <color=\"red\">{3 - day} days left</color>."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -304,14 +299,14 @@ namespace Horticultist.Scripts.Mechanics
                 };
                 nextSceneName = townSceneName;
             }
-            else if (day >= 3 && gameState.treeStage < 3)
+            else if (day >= 3 && gameState.TreeStage < 3)
             {
                 // Warn scene
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"You failed to grow tree, only reached <color=\"red\">{gameState.treeHeight.ToString("F2")}m</color>."
+                        text = $"You failed to grow tree, only reached <color=\"red\">{gameState.TreeHeight.ToString("F2")}m</color>."
 
                     },
                     new DialogueSceneText {
@@ -321,19 +316,19 @@ namespace Horticultist.Scripts.Mechanics
                 };
                 nextSceneName = failedLeaderSceneName;
             }
-            else if (day < 3 && gameState.treeStage >= 3)
+            else if (day < 3 && gameState.TreeStage >= 3)
             {
                 // Praise scene
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job, you have grown the tree to <color=\"green\">{gameState.treeHeight.ToString("F2")}m</color> which is big enough to be my vessel."
+                        text = $"Good job, you have grown the tree to <color=\"green\">{gameState.TreeHeight.ToString("F2")}m</color> which is big enough to be my vessel."
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"The more it grows, the stronger I will be! You have <color=\"red\">{day - 3} days left</color>!"
+                        text = $"The more it grows, the stronger I will be! You have <color=\"red\">{3 - day} days left</color>!"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -342,14 +337,14 @@ namespace Horticultist.Scripts.Mechanics
                 };
                 nextSceneName = townSceneName;
             }
-            else if (day >= 3 && gameState.treeStage >= 3)
+            else if (day >= 3 && gameState.TreeStage >= 3)
             {
                 // Praise scene
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job, you have grown the tree to <color=\"green\">{gameState.treeHeight.ToString("F2")}m</color> which is big enough to be my vessel."
+                        text = $"Good job, you have grown the tree to <color=\"green\">{gameState.TreeHeight.ToString("F2")}m</color> which is big enough to be my vessel."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -377,15 +372,14 @@ namespace Horticultist.Scripts.Mechanics
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"You have <color=\"red\">{day - 3} days left</color> to achieve this, don't disappoint me."
-
+                        text = $"You have <color=\"red\">{3 - day} days left</color> to achieve this, don't disappoint me."
                     }
                 };
                 nextSceneName = townSceneName;
             }
-            else if (day >= 3 && gameState.treeStage < 3)
+            else if (day >= 3 && gameState.TreeStage < 3)
             {
-                // Warn scene
+                // Pacifist ending scene
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
@@ -400,19 +394,19 @@ namespace Horticultist.Scripts.Mechanics
                 };
                 nextSceneName = pacifistScene;
             }
-            else if (day < 3 && gameState.treeStage >= 3)
+            else if (day < 3 && gameState.TreeStage >= 3)
             {
                 // Praise scene
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job, you have grown the tree to <color=\"green\">{gameState.treeHeight.ToString("F2")}m</color> which is big enough to be my vessel."
+                        text = $"Good job, you have grown the tree to <color=\"green\">{gameState.TreeHeight.ToString("F2")}m</color> which is big enough to be my vessel."
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"The more it grows, the stronger I will be! You have <color=\"red\">{day - 3} days left</color>!"
+                        text = $"The more it grows, the stronger I will be! You have <color=\"red\">{3 - day} days left</color>!"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -427,15 +421,15 @@ namespace Horticultist.Scripts.Mechanics
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Keep this up for<color=\"red\">{day - 3} days left</color> and you will earn your place in the world!"
+                        text = $"Keep this up for<color=\"red\">{3 - day} days left</color> and you will earn your place in the world!"
 
                     }
                 };
                 nextSceneName = townSceneName;
             }
-            else if (day >= 3 && gameState.treeStage >= 3)
+            else if (day >= 3 && gameState.TreeStage >= 3)
             {
-                // Praise scene
+                // Ulltimate cult ending
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {

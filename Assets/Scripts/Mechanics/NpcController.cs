@@ -4,6 +4,7 @@ namespace Horticultist.Scripts.Mechanics
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.SceneManagement;
     using TMPro;
     using DG.Tweening;
     using Horticultist.Scripts.Core;
@@ -77,15 +78,27 @@ namespace Horticultist.Scripts.Mechanics
         private void OnEnable() {
             TownEventBus.Instance.OnDayEnd += OnDayEnd;
             TownEventBus.Instance.OnDayStart += OnDayStart;
+
+            SceneManager.activeSceneChanged += OnActiveSceneChanged;
         }
 
         private void OnDisable() {
             TownEventBus.Instance.OnDayEnd -= OnDayEnd;
             TownEventBus.Instance.OnDayStart -= OnDayStart;
+
+            SceneManager.activeSceneChanged -= OnActiveSceneChanged;
         }
 
         private void OnDestroy() {
-            DOTween.Kill(transform);
+            if (transform != null)
+            {
+                DOTween.Kill(transform);
+            }
+        }
+        
+        private void OnActiveSceneChanged(Scene prev, Scene next)
+        {
+            OnDestroy();
         }
 
         public void GenerateNpc(string firstName, string lastName, NpcPersonalityEnum personality,

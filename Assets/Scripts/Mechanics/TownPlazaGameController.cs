@@ -19,8 +19,6 @@ namespace Horticultist.Scripts.Mechanics
         public static TownPlazaGameController Instance { get; private set; }
         private int actionTaken;
         private GameStateController gameState;
-        private int currWeek;
-        private int currDay;
 
         private IDictionary<int, IEnumerable<string>> weekObjectives = new Dictionary<int, IEnumerable<string>>
         {
@@ -74,20 +72,16 @@ namespace Horticultist.Scripts.Mechanics
 
         private void Start() {
             gameState = GameStateController.Instance;
-            currWeek = gameState.weekNumber;
-            currDay = gameState.dayNumber;
             StartCoroutine(DelayedStart());
         }
 
         // Make sure all listeners are ready;
         private IEnumerator DelayedStart()
         {
-            gameState.weekNumber = 0;
-            gameState.dayNumber = 1;
             GenerateVisitors();
 
             yield return new WaitForSeconds(0.2f);
-            TownEventBus.Instance.DispatchOnDayStart(gameState.weekNumber, gameState.dayNumber);
+            TownEventBus.Instance.DispatchOnDayStart(gameState.WeekNumber, gameState.DayNumber);
             TownEventBus.Instance.DispatchOnObjectiveUpdate(weekObjectives[0]);
         }
 
@@ -95,7 +89,7 @@ namespace Horticultist.Scripts.Mechanics
         {
             if (prev.name == assessmentSceneName)
             {
-                TownEventBus.Instance.DispatchOnDayStart(gameState.weekNumber, gameState.dayNumber);
+                TownEventBus.Instance.DispatchOnDayStart(gameState.WeekNumber, gameState.DayNumber);
             }
         }
 
@@ -108,7 +102,8 @@ namespace Horticultist.Scripts.Mechanics
 
         private void GoNextDay()
         {
-            TownEventBus.Instance.DispatchOnDayEnd(gameState.weekNumber, gameState.dayNumber);
+            TownEventBus.Instance.DispatchOnDayEnd(gameState.WeekNumber, gameState.DayNumber);
+            
             fadeUIController.FadeOutScreen(() => {
                 SceneManager.LoadScene(assessmentSceneName);
             });
