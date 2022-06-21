@@ -13,7 +13,7 @@ namespace Horticultist.Scripts.Mechanics
         [SerializeField] private NpcController npcPrefab;
         [SerializeField] private TextAsset firstNameJson;
         [SerializeField] private TextAsset lastNameJson;
-        [SerializeField] private List<Sprite> bodySprites;
+        [SerializeField] private List<NpcBodySet> bodySprites;
         [SerializeField] private List<Sprite> headgearSprites;
         [SerializeField] private List<NpcExpressionSet> eyesSet;
         [SerializeField] private List<NpcExpressionSet> mouthSet;

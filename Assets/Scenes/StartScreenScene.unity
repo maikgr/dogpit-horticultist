@@ -1388,7 +1388,14 @@ MonoBehaviour:
   firstNameJson: {fileID: 4900000, guid: e14485e6f930e384a8c441710e058272, type: 3}
   lastNameJson: {fileID: 4900000, guid: e1c03e2c3e145d34d90cbc277710fc13, type: 3}
   bodySprites:
-  - {fileID: 21300000, guid: dd739da4033316b4ca244da362b537dc, type: 3}
+  - body: {fileID: 21300000, guid: 2239b768f36b43c40b37cb6ed166269d, type: 3}
+    animatorController: {fileID: 9100000, guid: 885649b8df5135040b711a73ecd3103b, type: 2}
+  - body: {fileID: 21300000, guid: 2239b768f36b43c40b37cb6ed166269d, type: 3}
+    animatorController: {fileID: 9100000, guid: 19526da2dc68beb499415a71cc937a31, type: 2}
+  - body: {fileID: 21300000, guid: 2239b768f36b43c40b37cb6ed166269d, type: 3}
+    animatorController: {fileID: 9100000, guid: 043354bf127a3ba4692555e4ce829883, type: 2}
+  - body: {fileID: 21300000, guid: 2239b768f36b43c40b37cb6ed166269d, type: 3}
+    animatorController: {fileID: 9100000, guid: c83a86783df74a34f836df1bd90cecc4, type: 2}
   headgearSprites:
   - {fileID: 21300000, guid: f5848924ae948884c97867f81d59ab86, type: 3}
   eyesSet:

@@ -103,7 +103,7 @@ namespace Horticultist.Scripts.Mechanics
 
         public void GenerateNpc(string firstName, string lastName, NpcPersonalityEnum personality,
             NpcDialogueSet dialogueSet, List<CultistObedienceAction> obedienceActions,
-            Sprite bodyAsset, Sprite headgearAsset, NpcExpressionSet eyesSet, NpcExpressionSet mouthSet,
+            NpcBodySet bodyAsset, Sprite headgearAsset, NpcExpressionSet eyesSet, NpcExpressionSet mouthSet,
             PolygonCollider2D walkArea)
         {
             // Basic Info
@@ -113,12 +113,13 @@ namespace Horticultist.Scripts.Mechanics
             this.walkArea = walkArea;
 
             // Visual Assets
-            bodySpriteRenderer.sprite = bodyAsset;
+            bodySpriteRenderer.sprite = bodyAsset.body;
             headgearSpriteRenderer.sprite = headgearAsset;
             eyesExpressionSet = eyesSet;
             mouthExpressionSet = mouthSet;
             eyesSpriteRenderer.sprite = eyesSet.neutral;
             mouthSpriteRenderer.sprite = mouthSet.neutral;
+            bodyAnimator.runtimeAnimatorController = bodyAsset.animatorController;
 
             // Mechanic props
             NpcType = NpcTypeEnum.Visitor;
@@ -335,5 +336,12 @@ namespace Horticultist.Scripts.Mechanics
         public Sprite neutral;
         public Sprite happy;
         public Sprite angry;
+    }
+
+    [Serializable]
+    public class NpcBodySet
+    {
+        public Sprite body;
+        public RuntimeAnimatorController animatorController;
     }
 }
