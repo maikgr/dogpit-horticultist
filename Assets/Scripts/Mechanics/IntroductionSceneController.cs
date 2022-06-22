@@ -18,6 +18,9 @@ namespace Horticultist.Scripts.Mechanics
         private bool isTyping;
         private int currentIndex;
 
+        Coroutine c;
+        bool coroutineHasStartedAtLeastOnce = false;
+
         private void Awake()
         {
             gameInputs = new HorticultistInputActions();
@@ -38,7 +41,10 @@ namespace Horticultist.Scripts.Mechanics
         private void Start()
         {
             fadeUIController.FadeInScreen(
-                () => StartCoroutine(ShowDialogue(currentIndex))
+                () => { 
+                    c = StartCoroutine(ShowDialogue(currentIndex)); 
+                    coroutineHasStartedAtLeastOnce = true;
+                }
             );
         }
 
@@ -56,13 +62,14 @@ namespace Horticultist.Scripts.Mechanics
 
         private void OnClickPerformed(InputAction.CallbackContext context)
         {
+            if (!coroutineHasStartedAtLeastOnce) return;
             if (context.ReadValue<float>() == 0) return;
             if (!isTyping)
             {
                 var nextIndex = currentIndex + 1;
                 if (nextIndex < dialogues.Count)
                 {
-                    StartCoroutine(ShowDialogue(nextIndex));
+                    c = StartCoroutine(ShowDialogue(nextIndex));
                     currentIndex = nextIndex;
                 }
                 else
@@ -72,17 +79,24 @@ namespace Horticultist.Scripts.Mechanics
                     );
                 }
             }
+            else 
+            {
+                isTyping = false;
+                StopCoroutine(c);
+                dialogueText.text = dialogues[currentIndex].text;
+            }
         }
 
         private IEnumerator ShowDialogue(int index)
         {
+            isTyping = true;
             nameText.text = dialogues[index].name;
             var text = dialogues[index].text;
             var curLetterIdx = 0;
             dialogueText.text = string.Empty;
             while (curLetterIdx < text.Length)
             {
-                isTyping = true;
+
                 dialogueText.text += text[curLetterIdx++];
                 yield return new WaitForFixedUpdate();
             }

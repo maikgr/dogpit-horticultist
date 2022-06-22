@@ -24,6 +24,9 @@ namespace Horticultist.Scripts.Mechanics
         private int currentIndex;
         private string nextSceneName;
 
+        Coroutine c;
+        bool coroutineHasStartedAtLeastOnce = false;
+
         private void Awake()
         {
             gameInputs = new HorticultistInputActions();
@@ -63,7 +66,8 @@ namespace Horticultist.Scripts.Mechanics
                     {
                         Week4Assesment(gameState.DayNumber);
                     }
-                    StartCoroutine(ShowDialogue(currentIndex));
+                    c = StartCoroutine(ShowDialogue(currentIndex));
+                    coroutineHasStartedAtLeastOnce = true;
                 }
             );
         }
@@ -72,13 +76,14 @@ namespace Horticultist.Scripts.Mechanics
 
         private void OnClickPerformed(InputAction.CallbackContext context)
         {
+            if (!coroutineHasStartedAtLeastOnce) return;
             if (context.ReadValue<float>() == 0) return;
             if (!isTyping)
             {
                 var nextIndex = currentIndex + 1;
                 if (nextIndex < dialogues.Count)
                 {
-                    StartCoroutine(ShowDialogue(nextIndex));
+                    c = StartCoroutine(ShowDialogue(nextIndex));
                     currentIndex = nextIndex;
                 }
                 else
@@ -89,18 +94,58 @@ namespace Horticultist.Scripts.Mechanics
                     });
                 }
             }
+            else 
+            {
+                isTyping = false;
+                StopCoroutine(c);
+                dialogueText.text = dialogues[currentIndex].text.Replace("*", "<color=\"red\">").Replace("]", "</color>").Replace("[", "<color=\"blue\">").Replace("@", "<color=\"green\">");
+            }
         }
 
         private IEnumerator ShowDialogue(int index)
         {
+            isTyping = true;
+
             nameText.text = dialogues[index].name;
             var text = dialogues[index].text;
             var curLetterIdx = 0;
             dialogueText.text = string.Empty;
+
+            var openTag = "";
+            var closeTag = "";
+
             while (curLetterIdx < text.Length)
             {
-                isTyping = true;
-                dialogueText.text += text[curLetterIdx++];
+                var c = text[curLetterIdx++];
+
+                if (c == '*') 
+                {
+                    openTag = "<color=\"red\">";
+                    closeTag = "</color>";
+
+                }
+                else if (c == '[') 
+                {
+                    openTag = "<color=\"blue\">";
+                    closeTag = "</color>";
+                }
+                else if (c == '@') 
+                {
+                    openTag = "<color=\"green\">";
+                    closeTag = "</color>";
+
+                }
+                else if (c == ']') 
+                {
+                    openTag = "";
+                    closeTag = "";
+
+                }
+                else
+                {
+                    dialogueText.text += openTag + c + closeTag;
+                }
+
                 yield return new WaitForFixedUpdate();
             }
             isTyping = false;
@@ -115,12 +160,12 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"I see you've only recruited <color=\"red\">{gameState.CultMembers.Count} people</color> to serve me."
+                        text = $"I see you've only recruited *{gameState.CultMembers.Count} people] to serve me."
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Remember, I need you to recruit <color=\"blue\">10 people</color> and you have <color=\"red\">{3 - day} days left</color>."
+                        text = $"Remember, I need you to recruit [10 people] and you have *{3 - day} days left]."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -135,12 +180,12 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"I'm disappointed in you, you've only recruited <color=\"red\">{gameState.CultMembers.Count} people</color> to serve me."
+                        text = $"I'm disappointed in you, you've only recruited *{gameState.CultMembers.Count} people] to serve me."
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "I will let it go this time, but make sure you recruit <color=\"blue\">20 people and have at least 5 high ranking cult members</color>, or you will <color=\"red\">face the consequnce</color>."
+                        text = "I will let it go this time, but make sure you recruit [20 people and have at least 5 high ranking cult members], or you will *face the consequnce]."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -155,12 +200,12 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job, you have recruited <color=\"green\">{gameState.CultMembers.Count} people</color> to serve me."
+                        text = $"Good job, you have recruited @{gameState.CultMembers.Count} people] to serve me."
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Keep this up for<color=\"red\">{3 - day} days left</color> and you will earn your place in the world!"
+                        text = $"Keep this up for *{3 - day} days left] and you will earn your place in the world!"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -175,12 +220,12 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job, you have recruited <color=\"green\">{gameState.CultMembers.Count} people</color> to serve me."
+                        text = $"Good job, you have recruited @{gameState.CultMembers.Count} people] to serve me."
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Now for your next task, recruit <color=\"blue\">20 people and have at least 5 high ranking cult members</color>!"
+                        text = $"Now for your next task, recruit [20 people and have at least 5 high ranking cult members]!"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -201,12 +246,12 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"I see you've only recruited <color=\"red\">{gameState.CultMembers.Count} people</color> and there are only <color=\"red\">{rank3Count} high ranking members in the cult</color>."
+                        text = $"I see you've only recruited *{gameState.CultMembers.Count} people] and there are only *{rank3Count} high ranking members in the cult]."
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Remember, I need you to recruit <color=\"blue\">20 people and have at least 5 high ranking cult members</color> and you have <color=\"red\">{3 - day} days left</color>."
+                        text = $"Remember, I need you to recruit [20 people and have at least 5 high ranking cult members] and you have *{3 - day} days left]."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -222,12 +267,12 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"I'm disappointed in you, you've only recruited <color=\"red\">{gameState.CultMembers.Count} people</color> and there are only <color=\"red\">{rank3Count} high ranking members in the cult</color>."
+                        text = $"I'm disappointed in you, you've only recruited *{gameState.CultMembers.Count} people] and there are only *{rank3Count} high ranking members in the cult]."
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "Now you have to <color=\"red\">face the consequnce!</color>."
+                        text = "Now you have to *face the consequnce!]."
                     }
                 };
                 nextSceneName = failedLeaderSceneName;
@@ -239,12 +284,12 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job, you have recruited <color=\"green\">{gameState.CultMembers.Count} people</color> and there are <color=\"green\">{rank3Count} high ranking members in the cult</color> to serve me."
+                        text = $"Good job, you have recruited @{gameState.CultMembers.Count} people] and there are @{rank3Count} high ranking members in the cult] to serve me."
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Keep this up for<color=\"red\">{3 - day} days left</color> and you will earn your place in the world!"
+                        text = $"Keep this up for *{3 - day} days left] and you will earn your place in the world!"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -260,12 +305,12 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job, you have recruited<color=\"green\">{gameState.CultMembers.Count} people</color> and there are <color=\"green\">{rank3Count} high ranking members in the cult</color> to serve me."
+                        text = $"Good job, you have recruited @{gameState.CultMembers.Count} people] and there are @{rank3Count} high ranking members in the cult] to serve me."
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Now for your next task, I want <color=\"blue\">the tree to be grown</color> as a fitting vessel for me!"
+                        text = $"Now for your next task, I want [the tree to be grown] as a fitting vessel for me!"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -285,12 +330,12 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"The tree has only reached <color=\"red\">{gameState.TreeHeight.ToString("F2")}m</color>, it is not enough!"
+                        text = $"The tree has only reached *{gameState.TreeHeight.ToString("F2")}m], it is not enough!"
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"I need it to <color=\"blue\">grow bigger</color> to be a fitting vessel for me and you have <color=\"red\">{3 - day} days left</color>."
+                        text = $"I need it to [grow bigger] to be a fitting vessel for me and you have *{3 - day} days left]."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -306,12 +351,12 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"You failed to grow tree, only reached <color=\"red\">{gameState.TreeHeight.ToString("F2")}m</color>."
+                        text = $"You failed to grow tree, only reached *{gameState.TreeHeight.ToString("F2")}m]."
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "Now you have to <color=\"red\">face the consequnce!</color>."
+                        text = "Now you have to *face the consequnce!]."
                     }
                 };
                 nextSceneName = failedLeaderSceneName;
@@ -323,12 +368,12 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job, you have grown the tree to <color=\"green\">{gameState.TreeHeight.ToString("F2")}m</color> which is big enough to be my vessel."
+                        text = $"Good job, you have grown the tree to @{gameState.TreeHeight.ToString("F2")}m] which is big enough to be my vessel."
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"The more it grows, the stronger I will be! You have <color=\"red\">{3 - day} days left</color>!"
+                        text = $"The more it grows, the stronger I will be! You have *{3 - day} days left]!"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -344,11 +389,11 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job, you have grown the tree to <color=\"green\">{gameState.TreeHeight.ToString("F2")}m</color> which is big enough to be my vessel."
+                        text = $"Good job, you have grown the tree to @{gameState.TreeHeight.ToString("F2")}m] which is big enough to be my vessel."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Now sacrifice <color=\"blue\">5 people</color> and you will rule the world together with me!"
+                        text = $"Now sacrifice [5 people] and you will rule the world together with me!"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -368,11 +413,11 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"The tree needs <color=\"blue\">5 sacrifices</color> and you've only sacrificed <color=\"red\">{gameState.SacrificedMembers.Count} people, it is not enough!</color>"
+                        text = $"The tree needs [5 sacrifices] and you've only sacrificed *{gameState.SacrificedMembers.Count} people, it is not enough!]"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"You have <color=\"red\">{3 - day} days left</color> to achieve this, don't disappoint me."
+                        text = $"You have *{3 - day} days left] to achieve this, don't disappoint me."
                     }
                 };
                 nextSceneName = townSceneName;
@@ -384,11 +429,11 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"The tree needs <color=\"blue\">5 sacrifices</color> and you've only sacrificed <color=\"red\">{gameState.SacrificedMembers.Count} people, it is not enough!</color>"
+                        text = $"The tree needs [5 sacrifices] and you've only sacrificed <{gameState.SacrificedMembers.Count} people, it is not enough!]"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "Now you have to <color=\"red\">face the consequnce!</color>."
+                        text = "Now you have to *face the consequnce!]."
 
                     }
                 };
@@ -401,12 +446,12 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job, you have grown the tree to <color=\"green\">{gameState.TreeHeight.ToString("F2")}m</color> which is big enough to be my vessel."
+                        text = $"Good job, you have grown the tree to @{gameState.TreeHeight.ToString("F2")}m] which is big enough to be my vessel."
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"The more it grows, the stronger I will be! You have <color=\"red\">{3 - day} days left</color>!"
+                        text = $"The more it grows, the stronger I will be! You have *{3 - day} days left]!"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -417,11 +462,11 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job, you've sacrificed <color=\"green\">{gameState.SacrificedMembers.Count} people</color>, you are worthy to be my servant."
+                        text = $"Good job, you've sacrificed @{gameState.SacrificedMembers.Count} people], you are worthy to be my servant."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Keep this up for<color=\"red\">{3 - day} days left</color> and you will earn your place in the world!"
+                        text = $"Keep this up for *{3 - day} days left] and you will earn your place in the world!"
 
                     }
                 };
@@ -434,7 +479,7 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job, you've sacrificed <color=\"green\">{gameState.SacrificedMembers.Count} people</color>, you are worthy to be my servant."
+                        text = $"Good job, you've sacrificed @{gameState.SacrificedMembers.Count} people], you are worthy to be my servant."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
