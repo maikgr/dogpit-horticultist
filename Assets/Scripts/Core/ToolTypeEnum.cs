@@ -6,9 +6,12 @@ namespace Horticultist.Scripts.Core
 
     public enum ToolTypeEnum
     {
+        None,
         CleaningTowel,
-        Glove,
-        Wrench
+        Broom,
+        Wrench,
+        Tomato,
+        Pray
     }
 
 }

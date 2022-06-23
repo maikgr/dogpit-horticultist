@@ -83,33 +83,15 @@ namespace Horticultist.Scripts.Mechanics
         private void OnEnable() {
             TownEventBus.Instance.OnDayEnd += OnDayEnd;
             TownEventBus.Instance.OnDayStart += OnDayStart;
-
-            SceneManager.activeSceneChanged += OnActiveSceneChanged;
-            DOTween.Restart(transform);
         }
 
         private void OnDisable() {
             TownEventBus.Instance.OnDayEnd -= OnDayEnd;
             TownEventBus.Instance.OnDayStart -= OnDayStart;
-
-            SceneManager.activeSceneChanged -= OnActiveSceneChanged;
-            DOTween.Pause(transform);
         }
 
         private void OnDestroy() {
             GameStateController.Instance.RemoveNpc(this);
-            if (transform != null)
-            {
-                DOTween.Kill(transform);
-            }
-        }
-        
-        private void OnActiveSceneChanged(Scene prev, Scene next)
-        {
-            if (transform != null)
-            {
-                DOTween.Pause(transform);
-            }
         }
 
         public void GenerateNpc(string firstName, string lastName, NpcPersonalityEnum personality,

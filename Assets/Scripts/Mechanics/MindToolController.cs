@@ -3,6 +3,7 @@ namespace Horticultist.Scripts.Mechanics
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.InputSystem;
     using Horticultist.Scripts.Core;
 
     public class MindToolController : MonoBehaviour
@@ -20,7 +21,44 @@ namespace Horticultist.Scripts.Mechanics
             }
 
             Instance = this;
+        }
 
+        public void SetWrenchTool()
+        {
+            SetTool(ToolTypeEnum.Wrench);
+        }
+        public void SetBroomTool()
+        {
+            SetTool(ToolTypeEnum.Broom);
+        }
+        public void SetTowelTool()
+        {
+            SetTool(ToolTypeEnum.CleaningTowel);
+        }
+        public void SetTomatoTool()
+        {
+            SetTool(ToolTypeEnum.Tomato);
+        }
+        public void SetPrayerTool()
+        {
+            SetTool(ToolTypeEnum.Pray);
+        }
+
+        private void SetTool(ToolTypeEnum tool)
+        {
+            if (activeToolType == tool)
+            {
+                UnsetTool();
+            }
+            else
+            {
+                activeToolType = tool;
+            }
+        }
+
+        private void UnsetTool()
+        {
+            activeToolType = ToolTypeEnum.None;
         }
     }
 }

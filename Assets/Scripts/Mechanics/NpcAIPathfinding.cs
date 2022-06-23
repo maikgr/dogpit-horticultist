@@ -3,6 +3,7 @@ namespace Horticultist.Scripts.Mechanics
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.SceneManagement;
     using DG.Tweening;
     using Pathfinding;
     using Horticultist.Scripts.Core;
@@ -17,17 +18,33 @@ namespace Horticultist.Scripts.Mechanics
         private void Awake() {
             seeker = GetComponent<Seeker>();
         }
-
-        private void Start() {
+        
+        private void OnEnable() {
+            SceneManager.activeSceneChanged += OnActiveSceneChanged;
+            seeker.pathCallback += OnPathComplete;
             StartCoroutine(TryWalking());
         }
 
-        private void OnEnable() {
-            seeker.pathCallback += OnPathComplete;
+        private void OnDisable() {
+            SceneManager.activeSceneChanged -= OnActiveSceneChanged;
+            seeker.pathCallback -= OnPathComplete;
+            DOTween.Kill(transform);
+            StopCoroutine(TryWalking());
         }
 
-        private void OnDisable() {
-            seeker.pathCallback -= OnPathComplete;
+        private void OnDestroy() {
+            if (transform != null)
+            {
+                DOTween.Kill(transform);
+            }
+        }
+
+        private void OnActiveSceneChanged(Scene prev, Scene next)
+        {
+            if (transform != null)
+            {
+                DOTween.Kill(transform);
+            }
         }
 
         private IEnumerator TryWalking()
@@ -84,8 +101,11 @@ namespace Horticultist.Scripts.Mechanics
                 }
             }
             sequence.OnComplete(() => {
-                StopCoroutine(TryWalking());
-                StartCoroutine(TryWalking());
+                if (gameObject.activeInHierarchy)
+                {
+                    StopCoroutine(TryWalking());
+                    StartCoroutine(TryWalking());
+                }
             });
         }
 

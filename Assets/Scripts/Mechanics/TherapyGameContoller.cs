@@ -1,17 +1,22 @@
 namespace Horticultist.Scripts.Mechanics
 {
+    using System.Linq;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.InputSystem;
+    using UnityEngine.UI;
     using Horticultist.Scripts.Core;
 
     public class TherapyGameContoller : MonoBehaviour
     {
-
         [SerializeField] private GameObject WealthRoomTemplate;
         [SerializeField] private GameObject HealthRoomTemplate;
         [SerializeField] private GameObject LoveRoomTemplate;
+        [SerializeField] private Image cursorIconContainer;
+        
+        [Header("Tool Icons")]
+        [SerializeField] private List<TherapyToolIcon> therapyToolIcons;
 
         private HorticultistInputActions gameInput;
         private Camera mainCamera;
@@ -36,6 +41,7 @@ namespace Horticultist.Scripts.Mechanics
 
         private void OnDisable()
         {
+            Cursor.visible = true;
             gameInput.Player.Fire.performed -= OnClickDown;
             gameInput.Player.Fire.canceled -= OnClickUp;
             gameInput.UI.Point.performed -= OnPoint;
@@ -72,9 +78,39 @@ namespace Horticultist.Scripts.Mechanics
             }
         }
 
+        private void ResetCursor()
+        {
+            cursorIconContainer.enabled = false;
+            Cursor.visible = true;
+        }
+
+        private void SetCursor(ToolTypeEnum setTool)
+        {
+            cursorIconContainer.sprite = therapyToolIcons.First(tool => tool.toolType.Equals(setTool)).toolIcon;
+            cursorIconContainer.enabled = true;
+            Cursor.visible = false;
+        }
+
         private MindClutter hoveredClutter;
+        private ToolTypeEnum currentActiveTool;
         private void OnPoint(InputAction.CallbackContext context)
         {
+            var activeTool = MindToolController.Instance.ActiveToolType;
+            if (activeTool != ToolTypeEnum.None && currentActiveTool != activeTool)
+            {
+                currentActiveTool = activeTool;
+                SetCursor(activeTool);
+            }
+            else if (activeTool == ToolTypeEnum.None && cursorIconContainer.enabled)
+            {
+                ResetCursor();
+            }
+
+            if (cursorIconContainer.enabled)
+            {
+                cursorIconContainer.transform.position = context.ReadValue<Vector2>();
+            }
+            
             var worldPos = mainCamera.ScreenToWorldPoint(context.ReadValue<Vector2>());
             var hit = Physics2D.Raycast(worldPos, Vector2.zero);
             if (hit.collider != null)
@@ -115,6 +151,13 @@ namespace Horticultist.Scripts.Mechanics
             }
         }
 
+    }
+
+    [System.Serializable]
+    public class TherapyToolIcon
+    {
+        public ToolTypeEnum toolType;
+        public Sprite toolIcon;
     }
     
 }
