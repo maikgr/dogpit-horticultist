@@ -216,9 +216,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toolInteractions:
-  - {fileID: 4840271438946202582, guid: 8bd658c42a4f944429865cfa71c07fca, type: 3}
-  - {fileID: 3638749245157556404, guid: 12026ae6be9234a51a99928a1555d2fd, type: 3}
-  - {fileID: 5429003379732252192, guid: 5be08e46513e34bf293fd372384c9f33, type: 3}
+  - MindToolType: 0
+    PatienceValue: 0
+    IndoctrinationValue: 0
+    MoodInpact: 0
+  - MindToolType: 0
+    PatienceValue: 0
+    IndoctrinationValue: 0
+    MoodInpact: 0
+  - MindToolType: 0
+    PatienceValue: 0
+    IndoctrinationValue: 0
+    MoodInpact: 0
   cleaningWorkTime: 3
   indoctrinationWorkTime: 1
   clutterSpriteRenderer: {fileID: 2120949279364425306}
@@ -490,11 +499,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toolInteractions:
-  - {fileID: 4840271438946202582, guid: 8bd658c42a4f944429865cfa71c07fca, type: 3}
-  - {fileID: 3638749245157556404, guid: 12026ae6be9234a51a99928a1555d2fd, type: 3}
-  - {fileID: 5429003379732252192, guid: 5be08e46513e34bf293fd372384c9f33, type: 3}
+  - MindToolType: 1
+    PatienceValue: 10
+    IndoctrinationValue: 0
+    MoodInpact: 1
+  - MindToolType: 2
+    PatienceValue: 40
+    IndoctrinationValue: 0
+    MoodInpact: 2
+  - MindToolType: 3
+    PatienceValue: 20
+    IndoctrinationValue: 0
+    MoodInpact: 1
+  - MindToolType: 4
+    PatienceValue: 10
+    IndoctrinationValue: 15
+    MoodInpact: 2
+  - MindToolType: 5
+    PatienceValue: 15
+    IndoctrinationValue: 25
+    MoodInpact: 2
   cleaningWorkTime: 3
-  indoctrinationWorkTime: 1
+  indoctrinationWorkTime: 3
   clutterSpriteRenderer: {fileID: 9001679563768159705}
   dirtySprite: {fileID: 21300000, guid: f0ef45298920ffd449d9e22919afd253, type: 3}
   cleanSprite: {fileID: 21300000, guid: 70426b77d37d77345a43307d72409b28, type: 3}
@@ -770,11 +796,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toolInteractions:
-  - {fileID: 4840271438946202582, guid: 8bd658c42a4f944429865cfa71c07fca, type: 3}
-  - {fileID: 3638749245157556404, guid: 12026ae6be9234a51a99928a1555d2fd, type: 3}
-  - {fileID: 5429003379732252192, guid: 5be08e46513e34bf293fd372384c9f33, type: 3}
+  - MindToolType: 1
+    PatienceValue: 10
+    IndoctrinationValue: 0
+    MoodInpact: 1
+  - MindToolType: 2
+    PatienceValue: 40
+    IndoctrinationValue: 0
+    MoodInpact: 2
+  - MindToolType: 3
+    PatienceValue: 20
+    IndoctrinationValue: 0
+    MoodInpact: 1
+  - MindToolType: 4
+    PatienceValue: 10
+    IndoctrinationValue: 15
+    MoodInpact: 2
+  - MindToolType: 5
+    PatienceValue: 15
+    IndoctrinationValue: 25
+    MoodInpact: 2
   cleaningWorkTime: 3
-  indoctrinationWorkTime: 1
+  indoctrinationWorkTime: 3
   clutterSpriteRenderer: {fileID: 8619301765433302855}
   dirtySprite: {fileID: 21300000, guid: a3baf0f717dd5004ebe95d2ee09fec59, type: 3}
   cleanSprite: {fileID: 21300000, guid: d6feb46815c9d6846aed2bdf6a609612, type: 3}
@@ -966,11 +1009,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toolInteractions:
-  - {fileID: 4840271438946202582, guid: 8bd658c42a4f944429865cfa71c07fca, type: 3}
-  - {fileID: 3638749245157556404, guid: 12026ae6be9234a51a99928a1555d2fd, type: 3}
-  - {fileID: 5429003379732252192, guid: 5be08e46513e34bf293fd372384c9f33, type: 3}
+  - MindToolType: 1
+    PatienceValue: 10
+    IndoctrinationValue: 0
+    MoodInpact: 1
+  - MindToolType: 2
+    PatienceValue: 40
+    IndoctrinationValue: 0
+    MoodInpact: 2
+  - MindToolType: 3
+    PatienceValue: 20
+    IndoctrinationValue: 0
+    MoodInpact: 1
+  - MindToolType: 4
+    PatienceValue: 10
+    IndoctrinationValue: 15
+    MoodInpact: 2
+  - MindToolType: 5
+    PatienceValue: 15
+    IndoctrinationValue: 25
+    MoodInpact: 2
   cleaningWorkTime: 3
-  indoctrinationWorkTime: 1
+  indoctrinationWorkTime: 3
   clutterSpriteRenderer: {fileID: 143882252985609515}
   dirtySprite: {fileID: 21300000, guid: d5b6e6a1dee32b649ac51496e5c66bee, type: 3}
   cleanSprite: {fileID: 21300000, guid: 9eb1102d16ea3fa4cab942896dacc9df, type: 3}
@@ -1168,11 +1228,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toolInteractions:
-  - {fileID: 4840271438946202582, guid: 8bd658c42a4f944429865cfa71c07fca, type: 3}
-  - {fileID: 3638749245157556404, guid: 12026ae6be9234a51a99928a1555d2fd, type: 3}
-  - {fileID: 5429003379732252192, guid: 5be08e46513e34bf293fd372384c9f33, type: 3}
+  - MindToolType: 1
+    PatienceValue: 10
+    IndoctrinationValue: 0
+    MoodInpact: 1
+  - MindToolType: 2
+    PatienceValue: 40
+    IndoctrinationValue: 0
+    MoodInpact: 2
+  - MindToolType: 3
+    PatienceValue: 20
+    IndoctrinationValue: 0
+    MoodInpact: 1
+  - MindToolType: 4
+    PatienceValue: 10
+    IndoctrinationValue: 15
+    MoodInpact: 2
+  - MindToolType: 5
+    PatienceValue: 15
+    IndoctrinationValue: 25
+    MoodInpact: 2
   cleaningWorkTime: 3
-  indoctrinationWorkTime: 1
+  indoctrinationWorkTime: 3
   clutterSpriteRenderer: {fileID: 1555034845148633372}
   dirtySprite: {fileID: 21300000, guid: c8aa1f2fb609360409cb28acd0bc54b2, type: 3}
   cleanSprite: {fileID: 21300000, guid: 8ce28d23161d83047bb91177b4881fe7, type: 3}
@@ -1637,8 +1714,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toolInteractions:
-  - {fileID: 4840271438946202582, guid: 8bd658c42a4f944429865cfa71c07fca, type: 3}
-  - {fileID: 3638749245157556404, guid: 12026ae6be9234a51a99928a1555d2fd, type: 3}
+  - MindToolType: 1
+    PatienceValue: 10
+    IndoctrinationValue: 0
+    MoodInpact: 1
+  - MindToolType: 2
+    PatienceValue: 40
+    IndoctrinationValue: 0
+    MoodInpact: 2
+  - MindToolType: 3
+    PatienceValue: 20
+    IndoctrinationValue: 0
+    MoodInpact: 1
+  - MindToolType: 4
+    PatienceValue: 10
+    IndoctrinationValue: 15
+    MoodInpact: 2
+  - MindToolType: 5
+    PatienceValue: 15
+    IndoctrinationValue: 25
+    MoodInpact: 2
   cleaningWorkTime: 5
   indoctrinationWorkTime: 5
   clutterSpriteRenderer: {fileID: 7240051211320128153}
@@ -1888,11 +1983,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toolInteractions:
-  - {fileID: 4840271438946202582, guid: 8bd658c42a4f944429865cfa71c07fca, type: 3}
-  - {fileID: 3638749245157556404, guid: 12026ae6be9234a51a99928a1555d2fd, type: 3}
-  - {fileID: 5429003379732252192, guid: 5be08e46513e34bf293fd372384c9f33, type: 3}
+  - MindToolType: 1
+    PatienceValue: 10
+    IndoctrinationValue: 0
+    MoodInpact: 1
+  - MindToolType: 2
+    PatienceValue: 40
+    IndoctrinationValue: 0
+    MoodInpact: 2
+  - MindToolType: 3
+    PatienceValue: 20
+    IndoctrinationValue: 0
+    MoodInpact: 1
+  - MindToolType: 4
+    PatienceValue: 10
+    IndoctrinationValue: 15
+    MoodInpact: 2
+  - MindToolType: 5
+    PatienceValue: 15
+    IndoctrinationValue: 25
+    MoodInpact: 2
   cleaningWorkTime: 3
-  indoctrinationWorkTime: 1
+  indoctrinationWorkTime: 3
   clutterSpriteRenderer: {fileID: 2201283779746495520}
   dirtySprite: {fileID: 21300000, guid: 13772d6c3f03f3d4ab43af7fd41a6c6c, type: 3}
   cleanSprite: {fileID: 21300000, guid: 3df878897e51f1a46b9a61a6f8e0496b, type: 3}

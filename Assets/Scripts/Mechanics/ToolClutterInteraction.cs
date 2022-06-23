@@ -5,16 +5,12 @@ namespace Horticultist.Scripts.Mechanics
     using UnityEngine;
     using Horticultist.Scripts.Core;
 
-    public class ToolClutterInteraction : MonoBehaviour
+    [System.Serializable]
+    public class ToolClutterInteraction
     {
-        [SerializeField] private ToolTypeEnum mindToolType;
-        [SerializeField] private int patienceValue;
-        [SerializeField] private int indoctrinationValue;
-        [SerializeField] private MoodEnum moodInpact;
-
-        public ToolTypeEnum MindToolType => mindToolType;
-        public int PatienceValue => patienceValue;
-        public int IndoctrinationValue => indoctrinationValue;
-        public MoodEnum MoodInpact => moodInpact;
+        public ToolTypeEnum MindToolType;
+        public int PatienceValue;
+        public int IndoctrinationValue;
+        public MoodEnum MoodInpact;
     }
 }

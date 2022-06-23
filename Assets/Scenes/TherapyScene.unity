@@ -803,7 +803,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6fe75363796d42c44b204f1a0363a27f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c85328cb54d42bd44bb3d8bae820ff7d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1219,9 +1219,9 @@ RectTransform:
   m_Children:
   - {fileID: 894440071}
   - {fileID: 693330279}
-  - {fileID: 1516228157}
   - {fileID: 884142436}
   - {fileID: 579760355}
+  - {fileID: 1516228157}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1314,7 +1314,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 546507651}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2054,7 +2054,7 @@ RectTransform:
   - {fileID: 1207921177}
   - {fileID: 1837389826}
   m_Father: {fileID: 546507651}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -3411,7 +3411,7 @@ RectTransform:
   m_Children:
   - {fileID: 667048190}
   m_Father: {fileID: 546507651}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4286,7 +4286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonSpeed: 3
   mouseDragSpeed: 6
-  MinCameraPos: {x: -4.7, y: -2.2}
+  MinCameraPos: {x: -4.7, y: -3.3}
   MaxCameraPos: {x: 1.66, y: 2.2}
   IndicatorUp: {fileID: 494869361}
   IndicatorRight: {fileID: 2066291705}

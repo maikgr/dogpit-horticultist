@@ -820,6 +820,7 @@ MonoBehaviour:
   headgearSpriteRenderer: {fileID: 3627709152382836322}
   eyesSpriteRenderer: {fileID: 3627709152192933929}
   mouthSpriteRenderer: {fileID: 3627709150808351391}
+  cultistHat: {fileID: 21300000, guid: fdd63271973547c4f834bdd0d45c2ec7, type: 3}
   highlightColor: {r: 0.3726415, g: 0.7119085, b: 1, a: 1}
 --- !u!61 &1454859250456928247
 BoxCollider2D:

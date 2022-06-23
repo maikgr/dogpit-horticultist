@@ -27,6 +27,7 @@ namespace Horticultist.Scripts.Mechanics
         public Sprite eyesSprite => eyesSpriteRenderer.sprite;
         [SerializeField] private SpriteRenderer mouthSpriteRenderer;
         public Sprite mouthSprite => mouthSpriteRenderer.sprite;
+        [SerializeField] private Sprite cultistHat;
         private NpcExpressionSet eyesExpressionSet;
         private NpcExpressionSet mouthExpressionSet;
         [SerializeField] private Color highlightColor;
@@ -130,6 +131,7 @@ namespace Horticultist.Scripts.Mechanics
 
         public void SetIndoctrination(int value)
         {
+            Debug.Log("indoctrination set tto " + value);
             this.IndoctrinationValue = value;
         }
 
@@ -140,6 +142,7 @@ namespace Horticultist.Scripts.Mechanics
             if (npcTypeEnum.Equals(NpcTypeEnum.Cultist))
             {
                 this.CultistRank = CultistRankEnum.Rank1;
+                this.headgearSpriteRenderer.sprite = cultistHat;
                 ObedienceValue = 0;
                 ObedienceDialogue = DialogueSet.Therapy.Moodup.GetRandom();
                 TownEventBus.Instance.DispatchOnCultistJoin(this);

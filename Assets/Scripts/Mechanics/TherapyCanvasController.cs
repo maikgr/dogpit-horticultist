@@ -115,7 +115,8 @@ namespace Horticultist.Scripts.Mechanics
 
         private void OnIndoctrinationChanged(int value)
         {
-            currentNpc.SetIndoctrination(Mathf.Min(currentNpc.IndoctrinationValue + value, 0));
+            Debug.Log("UI change by " + value);
+            currentNpc.SetIndoctrination(Mathf.Min(currentNpc.IndoctrinationValue + value, 100));
             UpdateNpcParemeters();
         }
 

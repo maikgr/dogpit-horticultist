@@ -12,7 +12,7 @@ namespace Horticultist.Scripts.Mechanics
     public class MindClutter : MonoBehaviour
     {
 
-        [SerializeField] private List<GameObject> toolInteractions;
+        [SerializeField] private List<ToolClutterInteraction> toolInteractions;
         [SerializeField] private int cleaningWorkTime;
         [SerializeField] private int indoctrinationWorkTime;
         [SerializeField] private SpriteRenderer clutterSpriteRenderer;
@@ -42,21 +42,15 @@ namespace Horticultist.Scripts.Mechanics
             }
         }
 
-        private void Awake()
-        {
-            var availableToolInteractions = toolInteractions.Select((interaction) => interaction.GetComponent<ToolClutterInteraction>()).ToList();
-            availableToolMap = availableToolInteractions.ToDictionary(i => i.MindToolType, i => i);  
-        }
-
-
         public void OnClickDown()
         {
             var activeToolType = MindToolController.Instance.ActiveToolType;
+            var isToolValid = toolInteractions.Any(t => t.MindToolType.Equals(activeToolType));
             isIndoctrinatedToolSelected = isIndoctrinatedTool(activeToolType);
 
-            if (availableToolMap.ContainsKey(activeToolType) && CurrentState == ClutterStateEnum.Dirty)
+            if (isToolValid && CurrentState == ClutterStateEnum.Dirty)
             {
-                var values = availableToolMap[activeToolType];
+                var values = toolInteractions.First(t => t.MindToolType.Equals(activeToolType));
                 isButtonPressed = true;
                 StartCoroutine(UpdateValues(values));
             }
@@ -154,7 +148,7 @@ namespace Horticultist.Scripts.Mechanics
         // Utils
         public bool isIndoctrinatedTool(ToolTypeEnum toolType) 
         {
-            return toolType == ToolTypeEnum.Wrench;
+            return new ToolTypeEnum[2] { ToolTypeEnum.Tomato, ToolTypeEnum.Pray}.Any(s => s == toolType);
         }
     }
 }
