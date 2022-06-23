@@ -4,6 +4,7 @@ namespace Horticultist.Scripts.Mechanics
     using UnityEngine;
     using UnityEngine.InputSystem;
     using Newtonsoft.Json;
+    using Pathfinding;
     using Horticultist.Scripts.Extensions;
     using Horticultist.Scripts.Core;
 
@@ -24,8 +25,6 @@ namespace Horticultist.Scripts.Mechanics
         [SerializeField] private TextAsset cultistDialogueJson;
         private TownDialogueParser townDialogueParser;
 
-        [Header("NPC Area")]
-        [SerializeField] private PolygonCollider2D allowedArea;
         private NpcPersonalityEnum[] personalities = new NpcPersonalityEnum[] {
             NpcPersonalityEnum.Health,
             NpcPersonalityEnum.Wealth,
@@ -45,7 +44,7 @@ namespace Horticultist.Scripts.Mechanics
 
         public NpcController GenerateNpc()
         {
-            var npc = Instantiate(npcPrefab, allowedArea.GetRandomPoint(), Quaternion.identity);
+            var npc = Instantiate(npcPrefab, GetSpawnPoint(), Quaternion.identity);
             var hasHeadgear = Random.Range(0f, 1f) < headgearChance;
             var firstName = firstNames.GetRandom();
             var lastName = lastNames.GetRandom();
@@ -57,11 +56,29 @@ namespace Horticultist.Scripts.Mechanics
                 bodySprites.GetRandom(),
                 hasHeadgear ? headgearSprites.GetRandom() : null,
                 eyesSet.GetRandom(),
-                mouthSet.GetRandom(),
-                allowedArea
+                mouthSet.GetRandom()
             );
 
             return npc;
+        }
+
+        private Vector2 GetSpawnPoint()
+        {
+            GraphNode targetNode;
+            var maxTries = 20;
+            do
+            {
+                var grid = AstarPath.active.data.gridGraph;
+
+                targetNode = grid.nodes[Random.Range(0, grid.nodes.Length)];
+                maxTries -= 1;
+            }
+            while (!targetNode.Walkable || maxTries < 0);
+            var worldPos = (Vector3)targetNode.position;
+            return new Vector2(
+                worldPos.x,
+                worldPos.y
+            );
         }
     }
 }

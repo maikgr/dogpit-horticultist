@@ -12,6 +12,7 @@ namespace Horticultist.Scripts.Mechanics
         [SerializeField] private string nextSceneName;
         [SerializeField] private NpcFactory npcFactory;
         [SerializeField] private SplashUIController splashUIController;
+        [SerializeField] private float npcAmount;
         private List<NpcController> generatedNpcs;
         private Camera mainCamera;
         private NpcController trackedNpc;
@@ -22,7 +23,7 @@ namespace Horticultist.Scripts.Mechanics
 
         private void Start() {
             generatedNpcs = new List<NpcController>();
-            for (var i = 0; i < 5; ++i)
+            for (var i = 0; i < npcAmount; ++i)
             {
                 generatedNpcs.Add(npcFactory.GenerateNpc());
             }
@@ -56,7 +57,10 @@ namespace Horticultist.Scripts.Mechanics
         }
 
         private void OnDisable() {
-            generatedNpcs.ForEach(npc => Destroy(npc.gameObject));
+            generatedNpcs.ForEach(npc => {
+                if(npc != null)
+                    Destroy(npc.gameObject);
+            });
         }
     }
 }

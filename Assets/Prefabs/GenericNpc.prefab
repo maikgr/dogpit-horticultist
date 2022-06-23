@@ -775,6 +775,8 @@ GameObject:
   - component: {fileID: 3627709152221109447}
   - component: {fileID: 3627709152221109446}
   - component: {fileID: 1454859250456928247}
+  - component: {fileID: 8578639543600868818}
+  - component: {fileID: 8883662033313050413}
   m_Layer: 0
   m_Name: GenericNpc
   m_TagString: Untagged
@@ -813,7 +815,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcNameText: {fileID: 7224435889653059476}
   npcTypeText: {fileID: 887180233}
-  visualParent: {fileID: 6388979184294500836}
   bodySpriteRenderer: {fileID: 3627709150583161865}
   bodyAnimator: {fileID: 2908529404699845298}
   headgearSpriteRenderer: {fileID: 3627709152382836322}
@@ -833,7 +834,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.12}
+  m_Offset: {x: 0, y: -0.05}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -844,8 +845,50 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.76, y: 0.85}
+  m_Size: {x: 0.64, y: 0.64}
   m_EdgeRadius: 0
+--- !u!114 &8578639543600868818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3627709152221109464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
+--- !u!114 &8883662033313050413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3627709152221109464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d90ff928c133c9e46bfa41ad57d6b506, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyAnimator: {fileID: 2908529404699845298}
+  visualParent: {fileID: 6388979184294500836}
 --- !u!1 &3627709152382836324
 GameObject:
   m_ObjectHideFlags: 0

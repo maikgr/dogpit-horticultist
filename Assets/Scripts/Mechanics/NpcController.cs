@@ -1,21 +1,23 @@
 namespace Horticultist.Scripts.Mechanics
 {
     using System;
+    using System.Linq;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.SceneManagement;
+    using Random = UnityEngine.Random;
     using TMPro;
     using DG.Tweening;
     using Horticultist.Scripts.Core;
     using Horticultist.Scripts.Extensions;
+    using Pathfinding;
 
     public class NpcController : MonoBehaviour
     {
         [Header("Assets")]
         [SerializeField] private TMP_Text npcNameText;
         [SerializeField] private TMP_Text npcTypeText;
-        [SerializeField] private Transform visualParent;
         [SerializeField] private SpriteRenderer bodySpriteRenderer;
         public Sprite bodySprite => bodySpriteRenderer.sprite;
         [SerializeField] private Animator bodyAnimator;
@@ -53,7 +55,6 @@ namespace Horticultist.Scripts.Mechanics
         public CultistObedienceLevelEnum ObedienceLevel => ObdLevelThreshold[ObedienceValue];
 
         // Mechanics
-        private PolygonCollider2D walkArea;
         public IDictionary<int, CultistObedienceLevelEnum> ObdLevelThreshold = new Dictionary<int, CultistObedienceLevelEnum>
         {
             {-6, CultistObedienceLevelEnum.VeryRebellious},
@@ -77,7 +78,6 @@ namespace Horticultist.Scripts.Mechanics
 
         private void Start() {
             GameStateController.Instance.AddNpc(this);
-            StartCoroutine(WalkAround());
         }
 
         private void OnEnable() {
@@ -114,14 +114,12 @@ namespace Horticultist.Scripts.Mechanics
 
         public void GenerateNpc(string firstName, string lastName, NpcPersonalityEnum personality,
             NpcDialogueSet dialogueSet, List<CultistObedienceAction> obedienceActions,
-            NpcBodySet bodyAsset, Sprite headgearAsset, NpcExpressionSet eyesSet, NpcExpressionSet mouthSet,
-            PolygonCollider2D walkArea)
+            NpcBodySet bodyAsset, Sprite headgearAsset, NpcExpressionSet eyesSet, NpcExpressionSet mouthSet)
         {
             // Basic Info
             DisplayName = firstName + " " + lastName;
             npcNameText.text = firstName;
             npcTypeText.text = NpcTypeEnum.Visitor.ToString();
-            this.walkArea = walkArea;
 
             // Visual Assets
             bodySpriteRenderer.sprite = bodyAsset.body;
@@ -141,42 +139,6 @@ namespace Horticultist.Scripts.Mechanics
             // Dialogues
             DialogueSet = dialogueSet;
             this.obedienceActions = obedienceActions;
-        }
-
-        private IEnumerator WalkAround()
-        {
-            var isIdle = true;
-            bodyAnimator.SetBool("isWalking", false);
-            do
-            {
-                yield return new WaitForSeconds(1f);
-                isIdle = UnityEngine.Random.Range(0f, 1f) < 0.5f;
-            }
-            while (isIdle);
-
-            bodyAnimator.SetBool("isWalking", true);
-            var destination = walkArea.GetRandomPoint();
-            if (transform.position.x - destination.x > 0)
-            {
-                visualParent.DORotate(new Vector3(0, 180, 0), 0.5f)
-                    .SetEase(Ease.Linear)
-                    .SetId("npc");
-            }
-            else
-            {
-                visualParent.DORotate(new Vector3(0, 0, 0), 0.5f)
-                    .SetEase(Ease.Linear)
-                    .SetId("npc");
-            }
-
-            transform.DOMove(destination, 0.5f)
-                .SetSpeedBased(true)
-                .SetEase(Ease.Linear)
-                .OnComplete(() => {
-                    StopCoroutine(WalkAround());
-                    StartCoroutine(WalkAround());
-                })
-                .SetId("npc");
         }
 
         public void SetPatience(int value)
