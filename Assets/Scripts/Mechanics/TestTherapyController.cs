@@ -10,7 +10,7 @@ namespace Horticultist.Scripts.Mechanics
             npc.SetPatience(Random.Range(10, 90));
             npc.SetIndoctrination(Random.Range(10, 90));
             npc.ChangeType(NpcTypeEnum.Townspeople);
-            npc.SetMood(MoodTypeEnum.Happy);
+            npc.SetMood(MoodEnum.Happy);
             Debug.Log("updated " + npc.DisplayName + " to " + npc.NpcType.ToString());
         }
         
@@ -19,7 +19,7 @@ namespace Horticultist.Scripts.Mechanics
             npc.SetPatience(0);
             npc.SetIndoctrination(Random.Range(10, 90));
             npc.ChangeType(NpcTypeEnum.Townspeople);
-            npc.SetMood(MoodTypeEnum.Angry);
+            npc.SetMood(MoodEnum.Angry);
             Debug.Log("updated " + npc.DisplayName + " to " + npc.NpcType.ToString());
         }
 

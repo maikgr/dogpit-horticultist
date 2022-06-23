@@ -11,6 +11,7 @@ namespace Horticultist.Scripts.Core
         public event Action<int> OnPatienceChanged;
         public event Action<int> OnIndoctrinationChanged;
         public event Action<MoodEnum> OnMoodChanged;
+        public event Action<NpcTypeEnum, MoodEnum> OnTherapyEnds;
 
         private void Awake() {
             var eventBus = GameObject.FindObjectsOfType<TherapyEventBus>();
@@ -45,6 +46,14 @@ namespace Horticultist.Scripts.Core
                 OnMoodChanged.Invoke(mood);
             }
             
+        }
+
+        public void DispatchOnTherapyEnds(NpcTypeEnum npcType, MoodEnum mood)
+        {
+            if (OnTherapyEnds != null)
+            {
+                OnTherapyEnds.Invoke(npcType, mood);
+            }
         }
     }
 }

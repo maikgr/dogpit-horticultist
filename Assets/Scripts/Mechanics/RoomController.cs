@@ -1,14 +1,16 @@
 namespace Horticultist.Scripts.Mechanics
 {
+    using System.Linq;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
     using Random=System.Random;
+    using Horticultist.Scripts.Core;
 
     public class RoomController : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> clutters;
-        [SerializeField] private int numberOfClutters;
+        [SerializeField] private List<MindClutter> clutters;
+        [SerializeField] private int dirtyCluttersGenerateAmount;
 
         private void Awake()
         {
@@ -17,35 +19,63 @@ namespace Horticultist.Scripts.Mechanics
 
         private void RandomizeClutters()
         {
-            var randomNumbers = GetRandomNumbersInRange(numberOfClutters, clutters.Count);
+            var randomNumbers = GetRandomNumbersInRange(dirtyCluttersGenerateAmount, clutters.Count);
             for (int i = 0; i < clutters.Count; i++) {
                 if (randomNumbers.Contains(i)) {
-                    clutters[i].GetComponent<MindClutter>().SetStateDirty();
+                    clutters[i].SetStateDirty();
                 } 
                 else {
-                    clutters[i].GetComponent<MindClutter>().SetStateClean();
+                    clutters[i].SetStateClean();
                 }
+                clutters[i].onInteracted += OnClutterStateUpdate;
             }
+        }
+
+        private void OnDisable() {
+            clutters.ForEach(c => c.onInteracted -= OnClutterStateUpdate);
         }
 
         // Utils
         private List<int> GetRandomNumbersInRange(int size, int range)
         {
-            // if (number > range) throw error
+            return Enumerable.Range(0, range)
+                .OrderBy(_ => System.Guid.NewGuid()) // randomize list sort
+                .Take(size)
+                .ToList();
 
-            List<int> numbers = new List<int>();
-            int number = 0;
-            Random r = new Random();
+            // List<int> numbers = new List<int>();
+            // int number = 0;
+            // Random r = new Random();
 
-            for (int i = 0; i < size; i++) {
-                number = r.Next(0, range);
-                while (numbers.Contains(number)) {
-                    number = r.Next(0, range);
-                }
-                numbers.Add(number);
+            // for (int i = 0; i < size; i++) {
+            //     number = r.Next(0, range);
+            //     while (numbers.Contains(number)) {
+            //         number = r.Next(0, range);
+            //     }
+            //     numbers.Add(number);
+            // }
+
+            // return numbers;
+        }
+
+        private void OnClutterStateUpdate()
+        {
+            if(!clutters.Any(c => c.CurrentState == ClutterStateEnum.Dirty))
+            {
+                TherapyEventBus.Instance.DispatchOnTherapyEnds(NpcTypeEnum.Townspeople, MoodEnum.Happy);
             }
-
-            return numbers;
+            else
+            {
+                var currentNpc = GameStateController.Instance.SelectedNpc;
+                if (currentNpc.PatienceValue <= 0)
+                {
+                    TherapyEventBus.Instance.DispatchOnTherapyEnds(NpcTypeEnum.Townspeople, MoodEnum.Angry);
+                }
+                else if (currentNpc.IndoctrinationValue >= 100)
+                {
+                    TherapyEventBus.Instance.DispatchOnTherapyEnds(NpcTypeEnum.Cultist, MoodEnum.Neutral);
+                }
+            }
         }
     }
 }

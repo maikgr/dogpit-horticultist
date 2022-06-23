@@ -748,7 +748,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4041349925001855708}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1376,9 +1376,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clutters:
-  - {fileID: 2120949279438142943}
-  - {fileID: 7240051211397474588}
-  numberOfClutters: 2
+  - {fileID: 2120949279438142940}
+  - {fileID: 7240051211397474591}
+  - {fileID: 1167939393203363589}
+  - {fileID: 652742709568534761}
+  - {fileID: 2605707335050205161}
+  - {fileID: 5161382724161195895}
+  - {fileID: 5694647205196842883}
+  dirtyCluttersGenerateAmount: 4
 --- !u!1 &6126600103206285448
 GameObject:
   m_ObjectHideFlags: 0

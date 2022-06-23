@@ -40,7 +40,7 @@ namespace Horticultist.Scripts.Mechanics
         public int IndoctrinationValue { get; private set; }
 
         // Townspeople Props
-        public MoodTypeEnum moodType { get; private set; }
+        public MoodEnum moodType { get; private set; }
 
         // Cultist Props
         public CultistRankEnum CultistRank { get; private set; }
@@ -85,6 +85,7 @@ namespace Horticultist.Scripts.Mechanics
             TownEventBus.Instance.OnDayStart += OnDayStart;
 
             SceneManager.activeSceneChanged += OnActiveSceneChanged;
+            DOTween.Restart(transform);
         }
 
         private void OnDisable() {
@@ -199,12 +200,30 @@ namespace Horticultist.Scripts.Mechanics
                 ObedienceDialogue = DialogueSet.Therapy.Moodup.GetRandom();
                 TownEventBus.Instance.DispatchOnCultistJoin(this);
             }
-            TownPlazaGameController.Instance.AddAction();
         }
 
-        public void SetMood(MoodTypeEnum moodType)
+        public void SetMood(MoodEnum moodType)
         {
             this.moodType = moodType;
+            switch(moodType)
+            {
+                case MoodEnum.Happy:
+                    this.eyesSpriteRenderer.sprite = this.eyesExpressionSet.happy;
+                    this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.happy;
+                    this.ObedienceDialogue = this.DialogueSet.Therapy.Moodup.GetRandom();
+                    break;
+                case MoodEnum.Angry:
+                    this.eyesSpriteRenderer.sprite = this.eyesExpressionSet.angry;
+                    this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.angry;
+                    this.ObedienceDialogue = this.DialogueSet.Therapy.Mooddown.GetRandom();
+                    break;
+                case MoodEnum.Neutral:
+                default:
+                    this.eyesSpriteRenderer.sprite = this.eyesExpressionSet.happy;
+                    this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.happy;
+                    this.ObedienceDialogue = this.DialogueSet.Therapy.Moodup.GetRandom();
+                    break;
+            }
         }
 
         public void SetCultistRank(CultistRankEnum cultistRank)

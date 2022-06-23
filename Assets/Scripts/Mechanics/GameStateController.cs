@@ -4,12 +4,11 @@ namespace Horticultist.Scripts.Mechanics
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.SceneManagement;
+    using Horticultist.Scripts.Core;
 
     public class GameStateController : MonoBehaviour
     {
         [SerializeField] private int daysPerAssessment;
-        [SerializeField] private string townPlazaSceneName;
-        [SerializeField] private string therapySceneName;
         public static GameStateController Instance { get; private set; }
         public NpcController SelectedNpc { get; private set; }
         public List<NpcController> ActiveNpcs { get; private set; }
@@ -22,6 +21,7 @@ namespace Horticultist.Scripts.Mechanics
         public bool PlayerHasConverted => ConvertCount > 0;
         public int ConvertCount { get; private set; }
         public string PlayerName { get; private set; }
+        public string PrevScene { get; set; }
 
         private void Awake() {
             var controllers = GameObject.FindObjectsOfType<GameStateController>();
@@ -54,11 +54,11 @@ namespace Horticultist.Scripts.Mechanics
 
         private void OnActiveSceneChanged(Scene prev, Scene next)
         {
-            if (next.name != townPlazaSceneName)
+            if (next.name != SceneNameConstant.TOWN_PLAZA)
             {
                 ActiveNpcs.ForEach(npc => npc.gameObject.SetActive(false));
             }
-            else if (next.name == townPlazaSceneName)
+            else
             {
                 ActiveNpcs.ForEach(npc => npc.gameObject.SetActive(true));
             }

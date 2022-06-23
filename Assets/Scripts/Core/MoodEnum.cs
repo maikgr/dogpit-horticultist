@@ -6,7 +6,8 @@ namespace Horticultist.Scripts.Core
 
     public enum MoodEnum
     {
-        Happy,
-        Angry
+        Neutral = 0,
+        Happy = 1,
+        Angry = 2
     }
 }

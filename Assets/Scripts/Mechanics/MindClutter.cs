@@ -1,5 +1,6 @@
 namespace Horticultist.Scripts.Mechanics
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
@@ -26,6 +27,7 @@ namespace Horticultist.Scripts.Mechanics
         public ClutterStateEnum CurrentState { get; private set; }
         private bool isButtonPressed = false;
         private bool isIndoctrinatedToolSelected = false;
+        public Action onInteracted;
 
         void Update() {
             if (cleaningWorkTime <= 0) {
@@ -104,12 +106,20 @@ namespace Horticultist.Scripts.Mechanics
         {
             CurrentState = ClutterStateEnum.Clean;
             clutterSpriteRenderer.sprite = cleanSprite;
+            if (onInteracted != null)
+            {
+                onInteracted.Invoke();
+            }
         }
 
         public void SetStateIndoctrinated() 
         {
             CurrentState = ClutterStateEnum.Indoctrinated;
             clutterSpriteRenderer.sprite = indoctrinatedSprite;
+            if (onInteracted != null)
+            {
+                onInteracted.Invoke();
+            }
         }
 
         private void UpdatePatience(int value) 

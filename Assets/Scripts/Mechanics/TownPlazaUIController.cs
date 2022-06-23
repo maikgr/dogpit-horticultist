@@ -32,6 +32,8 @@ namespace Horticultist.Scripts.Mechanics
 
             TownEventBus.Instance.OnObedienceLevelChange += UpdateObdLevelUI;
 
+            SceneManager.activeSceneChanged += OnSceneChanged;
+
             gameInput.Player.Fire.performed += OnClickPerformed;
             gameInput.Player.Fire.Enable();
 
@@ -48,6 +50,8 @@ namespace Horticultist.Scripts.Mechanics
             TownEventBus.Instance.OnActionTaken -= UpdateActionUI;
 
             TownEventBus.Instance.OnObedienceLevelChange -= UpdateObdLevelUI;
+
+            SceneManager.activeSceneChanged -= OnSceneChanged;
 
             gameInput.Player.Fire.performed -= OnClickPerformed;
             gameInput.Player.Fire.Disable();
@@ -208,7 +212,7 @@ namespace Horticultist.Scripts.Mechanics
             {
                 dialogueText = npc.ObedienceDialogue;
             }
-            else if (npc.NpcType.Equals(NpcTypeEnum.Townspeople) && npc.moodType.Equals(MoodTypeEnum.Angry))
+            else if (npc.NpcType.Equals(NpcTypeEnum.Townspeople) && npc.moodType.Equals(MoodEnum.Angry))
             {
                 dialogueText = npc.DialogueSet.Angry_person.GetRandom();
             }
@@ -344,6 +348,15 @@ namespace Horticultist.Scripts.Mechanics
             var activePotPos = obediencePots[obdPotIndex].transform.position;
             npcObedienceText.text = obdLevel.DisplayString();
             obedienceLeaf.transform.position = new Vector2(activePotPos.x, obedienceLeaf.transform.position.y);
+        }
+
+        private void OnSceneChanged(Scene prev, Scene next)
+        {
+            if (GameStateController.Instance.PrevScene == SceneNameConstant.THERAPY)
+            {
+                transitionScreen.TransitionOut();
+            }
+            GameStateController.Instance.PrevScene = SceneNameConstant.TOWN_PLAZA;
         }
 
         [Header("Debugging")]

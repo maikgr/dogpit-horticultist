@@ -6,6 +6,7 @@ namespace Horticultist.Scripts.Mechanics
     using UnityEngine;
     using UnityEngine.SceneManagement;
     using Horticultist.Scripts.UI;
+    using Horticultist.Scripts.Core;
 
     public class TownPlazaGameController : MonoBehaviour
     {
@@ -72,6 +73,7 @@ namespace Horticultist.Scripts.Mechanics
 
         private void Start() {
             gameState = GameStateController.Instance;
+            GameStateController.Instance.PrevScene = SceneNameConstant.TOWN_PLAZA;
             StartCoroutine(DelayedStart());
         }
 
