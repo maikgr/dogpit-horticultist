@@ -18,11 +18,12 @@ namespace Horticultist.Scripts.Mechanics
         [SerializeField] private Sprite dirtySprite;
         [SerializeField] private Sprite cleanSprite;
         [SerializeField] private Sprite indoctrinatedSprite;
+        [SerializeField] private Sprite highlightSprite;
 
         private HorticultistInputActions gameInput;
         private Camera mainCamera;
         private Dictionary<ToolTypeEnum, ToolClutterInteraction> availableToolMap;
-        private ClutterStateEnum currentState;
+        public ClutterStateEnum CurrentState { get; private set; }
         private bool isButtonPressed = false;
         private bool isIndoctrinatedToolSelected = false;
 
@@ -51,7 +52,7 @@ namespace Horticultist.Scripts.Mechanics
             var activeToolType = MindToolController.Instance.ActiveToolType;
             isIndoctrinatedToolSelected = isIndoctrinatedTool(activeToolType);
 
-            if (availableToolMap.ContainsKey(activeToolType) && currentState == ClutterStateEnum.Dirty)
+            if (availableToolMap.ContainsKey(activeToolType) && CurrentState == ClutterStateEnum.Dirty)
             {
                 var values = availableToolMap[activeToolType];
                 isButtonPressed = true;
@@ -64,6 +65,22 @@ namespace Horticultist.Scripts.Mechanics
         {
             isButtonPressed = false;
             StopCoroutine(UpdateValues(null));
+        }
+
+        public void OnHoverEnter()
+        {
+            if (CurrentState == ClutterStateEnum.Dirty)
+            {
+                clutterSpriteRenderer.sprite = highlightSprite;
+            }
+        }
+
+        public void OnHoverExit()
+        {
+            if (CurrentState == ClutterStateEnum.Dirty)
+            {
+                clutterSpriteRenderer.sprite = dirtySprite;
+            }
         }
 
         private IEnumerator UpdateValues(ToolClutterInteraction values)
@@ -79,19 +96,19 @@ namespace Horticultist.Scripts.Mechanics
 
         public void SetStateDirty() 
         {
-            currentState = ClutterStateEnum.Dirty;
+            CurrentState = ClutterStateEnum.Dirty;
             clutterSpriteRenderer.sprite = dirtySprite;
         }
 
         public void SetStateClean() 
         {
-            currentState = ClutterStateEnum.Clean;
+            CurrentState = ClutterStateEnum.Clean;
             clutterSpriteRenderer.sprite = cleanSprite;
         }
 
         public void SetStateIndoctrinated() 
         {
-            currentState = ClutterStateEnum.Indoctrinated;
+            CurrentState = ClutterStateEnum.Indoctrinated;
             clutterSpriteRenderer.sprite = indoctrinatedSprite;
         }
 

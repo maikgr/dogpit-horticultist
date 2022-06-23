@@ -17,15 +17,6 @@ namespace Horticultist.Scripts.Mechanics
         private Camera mainCamera;
         private MindClutter targettedClutter;
 
-        void Start()
-        {
-            var npc = GameStateController.Instance.SelectedNpc;
-
-            // var npcPersonality = npc.npcPersonality;
-            // InstantiateRoomTemplate(npcPersonality);
-
-            InstantiateRoomTemplate(NpcPersonalityEnum.Wealth);
-        }
 
         private void Awake()
         {
@@ -37,16 +28,26 @@ namespace Horticultist.Scripts.Mechanics
         {
             gameInput.Player.Fire.performed += OnClickDown;
             gameInput.Player.Fire.canceled += OnClickUp;
+            gameInput.UI.Point.performed += OnPoint;
 
             gameInput.Player.Fire.Enable();
+            gameInput.UI.Point.Enable();
         }
 
         private void OnDisable()
         {
             gameInput.Player.Fire.performed -= OnClickDown;
             gameInput.Player.Fire.canceled -= OnClickUp;
+            gameInput.UI.Point.performed -= OnPoint;
 
             gameInput.Player.Fire.Disable();
+            gameInput.UI.Point.Disable();
+        }
+        
+        private void Start()
+        {
+            var npc = GameStateController.Instance.SelectedNpc;
+            InstantiateRoomTemplate(npc.npcPersonality);
         }
 
         private void OnClickDown(InputAction.CallbackContext context)
@@ -71,6 +72,32 @@ namespace Horticultist.Scripts.Mechanics
             }
         }
 
+        private MindClutter hoveredClutter;
+        private void OnPoint(InputAction.CallbackContext context)
+        {
+            var worldPos = mainCamera.ScreenToWorldPoint(context.ReadValue<Vector2>());
+            var hit = Physics2D.Raycast(worldPos, Vector2.zero);
+            if (hit.collider != null)
+            {
+                var clutter = hit.collider.GetComponent<MindClutter>();
+                if (clutter != null && clutter.CurrentState == ClutterStateEnum.Dirty)
+                {
+                    clutter.OnHoverEnter();
+                    hoveredClutter = clutter;
+                }
+                else if (hoveredClutter != null && hoveredClutter != clutter)
+                {
+                    hoveredClutter.OnHoverExit();
+                    hoveredClutter = null;
+                }
+            }
+            else if (hoveredClutter != null)
+            {
+                hoveredClutter.OnHoverExit();
+                hoveredClutter = null;
+            }
+        }
+
         private void InstantiateRoomTemplate(NpcPersonalityEnum personality)
         {
 
@@ -89,5 +116,5 @@ namespace Horticultist.Scripts.Mechanics
         }
 
     }
-
+    
 }

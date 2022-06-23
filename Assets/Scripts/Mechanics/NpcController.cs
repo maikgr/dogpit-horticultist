@@ -71,7 +71,12 @@ namespace Horticultist.Scripts.Mechanics
             {6, CultistObedienceLevelEnum.VeryObedient},
         };
 
+        private void Awake() {
+            DontDestroyOnLoad(gameObject);
+        }
+
         private void Start() {
+            GameStateController.Instance.AddNpc(this);
             StartCoroutine(WalkAround());
         }
 
@@ -87,9 +92,11 @@ namespace Horticultist.Scripts.Mechanics
             TownEventBus.Instance.OnDayStart -= OnDayStart;
 
             SceneManager.activeSceneChanged -= OnActiveSceneChanged;
+            DOTween.Pause(transform);
         }
 
         private void OnDestroy() {
+            GameStateController.Instance.RemoveNpc(this);
             if (transform != null)
             {
                 DOTween.Kill(transform);
@@ -98,7 +105,10 @@ namespace Horticultist.Scripts.Mechanics
         
         private void OnActiveSceneChanged(Scene prev, Scene next)
         {
-            OnDestroy();
+            if (transform != null)
+            {
+                DOTween.Pause(transform);
+            }
         }
 
         public void GenerateNpc(string firstName, string lastName, NpcPersonalityEnum personality,
@@ -205,13 +215,11 @@ namespace Horticultist.Scripts.Mechanics
         public void DecreaseObedienceValue(int val)
         {
             this.ObedienceValue = Mathf.Max(this.ObedienceValue - val, -6);
-            Debug.Log(DisplayName + " obd: " + this.ObedienceValue);
             TownEventBus.Instance.DispatchOnObedienceLevelChange(this.ObedienceLevel);
         }
         public void IncreaseObedienceValue(int val)
         {
             this.ObedienceValue = Mathf.Min(this.ObedienceValue + val, 6);
-            Debug.Log(DisplayName + " obd: " + this.ObedienceValue);
             TownEventBus.Instance.DispatchOnObedienceLevelChange(this.ObedienceLevel);
         }
 

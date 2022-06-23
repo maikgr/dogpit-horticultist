@@ -286,7 +286,6 @@ namespace Horticultist.Scripts.Mechanics
             if (GameStateController.Instance.SelectedNpc != null)
             {
                 GameStateController.Instance.SelectedNpc.UnsetHighlighted();
-                GameStateController.Instance.SetSelectedNpc(null);
             }
             cameraController.StopTrackNpc();
             npcHelpButton.onClick.RemoveAllListeners();
@@ -305,7 +304,6 @@ namespace Horticultist.Scripts.Mechanics
         public void StartHelp(NpcController npc)
         {
             DOTween.Pause("npc");
-            GameStateController.Instance.SetSelectedNpc(npc);
             transitionScreen.TransitionIn(
                 () => StartCoroutine(LoadTherapyScene())
             );

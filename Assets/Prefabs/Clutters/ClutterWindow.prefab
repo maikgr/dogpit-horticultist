@@ -52,9 +52,9 @@ MonoBehaviour:
   cleaningWorkTime: 5
   indoctrinationWorkTime: 5
   clutterSpriteRenderer: {fileID: 3566809548244516961}
-  dirtySprite: {fileID: 21300000, guid: 7526836dcd8a9491b81eb8ffcf0f3e44, type: 3}
-  cleanSprite: {fileID: 21300000, guid: 2e7852cafc62c4e8eb5257402d1c3efa, type: 3}
-  indoctrinatedSprite: {fileID: 21300000, guid: 61c7340f85eae40b3b5516513442f5fe, type: 3}
+  dirtySprite: {fileID: 21300000, guid: 5c8a0238f780f894182fb95546308ea2, type: 3}
+  cleanSprite: {fileID: 21300000, guid: 47146c44e8c0b0243933b5a417533037, type: 3}
+  indoctrinatedSprite: {fileID: 21300000, guid: 24d6408357a4a1f48a66151f779024af, type: 3}
 --- !u!61 &3566809547902475225
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -68,7 +68,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.003965378, y: 0.007930875}
+  m_Offset: {x: 1.11, y: -2.15}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -79,7 +79,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.451345, y: 2.506861}
+  m_Size: {x: 2.22, y: 1.73}
   m_EdgeRadius: 0
 --- !u!1 &3566809548244516975
 GameObject:
@@ -154,7 +154,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7526836dcd8a9491b81eb8ffcf0f3e44, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5c8a0238f780f894182fb95546308ea2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
