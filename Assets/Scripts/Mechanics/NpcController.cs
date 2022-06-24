@@ -83,12 +83,10 @@ namespace Horticultist.Scripts.Mechanics
 
         private void OnEnable() {
             TownEventBus.Instance.OnDayEnd += OnDayEnd;
-            TownEventBus.Instance.OnDayStart += OnDayStart;
         }
 
         private void OnDisable() {
             TownEventBus.Instance.OnDayEnd -= OnDayEnd;
-            TownEventBus.Instance.OnDayStart -= OnDayStart;
             DOTween.Kill("highlight" + DisplayName);
             if (transform != null)
             {
@@ -149,37 +147,29 @@ namespace Horticultist.Scripts.Mechanics
                 this.CultistRank = CultistRankEnum.Rank1;
                 this.headgearSpriteRenderer.sprite = cultistHat;
                 ObedienceValue = 0;
-                ObedienceDialogue = DialogueSet.therapy.moodup.GetRandom();
+                HasObedienceAction = false;
+                ObedienceDialogue = DialogueSet.therapy.success.GetRandom();
             }
         }
 
         public void SetMood(MoodEnum moodType)
         {
             this.moodType = moodType;
-            switch(moodType)
+            if (NpcType != NpcTypeEnum.Cultist && moodType == MoodEnum.Happy)
             {
-                case MoodEnum.Happy:
-                    this.eyesSpriteRenderer.sprite = this.eyesExpressionSet.happy;
-                    this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.happy;
-                    this.ObedienceDialogue = this.DialogueSet.therapy.moodup.GetRandom();
-                    break;
-                case MoodEnum.Angry:
-                    this.eyesSpriteRenderer.sprite = this.eyesExpressionSet.angry;
-                    this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.angry;
-                    this.ObedienceDialogue = this.DialogueSet.therapy.mooddown.GetRandom();
-                    break;
-                case MoodEnum.Neutral:
-                default:
-                    this.eyesSpriteRenderer.sprite = this.eyesExpressionSet.happy;
-                    this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.happy;
-                    this.ObedienceDialogue = this.DialogueSet.therapy.moodup.GetRandom();
-                    break;
+                this.eyesSpriteRenderer.sprite = this.eyesExpressionSet.happy;
+                this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.happy;
             }
-        }
-
-        public void SetCultistRank(CultistRankEnum cultistRank)
-        {
-            this.CultistRank = cultistRank;
+            else if (NpcType != NpcTypeEnum.Cultist && moodType == MoodEnum.Angry)
+            {
+                this.eyesSpriteRenderer.sprite = this.eyesExpressionSet.happy;
+                this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.happy;
+            }
+            else
+            {
+                this.eyesSpriteRenderer.sprite = this.eyesExpressionSet.neutral;
+                this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.neutral;
+            }
         }
 
         public void DecreaseObedienceValue(int val)
@@ -193,7 +183,7 @@ namespace Horticultist.Scripts.Mechanics
             TownEventBus.Instance.DispatchOnObedienceLevelChange(this.ObedienceLevel);
         }
 
-        public void ObedienceAction(CultistObedienceActionEnum action)
+        public void AnswerObedienceAction(CultistObedienceActionEnum action)
         {
             if (!HasObedienceAction) return;
             if (currentObedienceAction.action.Equals(action))
@@ -295,13 +285,11 @@ namespace Horticultist.Scripts.Mechanics
             {
                 DecreaseObedienceValue(1);
             }
-        }
-
-        private void OnDayStart(int week, int day)
-        {
+            
             if (NpcType.Equals(NpcTypeEnum.Cultist))
             {
                 currentObedienceAction = obedienceActions.GetRandom();
+                ObedienceDialogue = currentObedienceAction.text;
                 HasObedienceAction = true;
             }
         }

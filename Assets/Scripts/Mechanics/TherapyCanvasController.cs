@@ -93,7 +93,14 @@ namespace Horticultist.Scripts.Mechanics
         private void OnMoodChanged(MoodEnum mood)
         {
             currentNpc.SetMood(mood);
-            npcDialogueText.text = currentNpc.ObedienceDialogue;
+            if (mood == MoodEnum.Angry)
+            {
+                npcDialogueText.text = currentNpc.DialogueSet.therapy.mooddown.GetRandom();
+            }
+            else
+            {
+                npcDialogueText.text = currentNpc.DialogueSet.therapy.moodup.GetRandom();
+            }
             UpdateNpcVisual();
         }
 

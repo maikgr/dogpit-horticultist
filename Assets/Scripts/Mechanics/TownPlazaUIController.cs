@@ -293,12 +293,12 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     npcCultistButtonSet.gameObject.SetActive(true);
                     praiseButton.onClick.AddListener(() => {
-                        npc.ObedienceAction(CultistObedienceActionEnum.Praise);
+                        npc.AnswerObedienceAction(CultistObedienceActionEnum.Praise);
                         npcCultistButtonSet.gameObject.SetActive(false);
                         dialogueText = npc.ObedienceDialogue;
                     });
                     scoldButton.onClick.AddListener(() => {
-                        npc.ObedienceAction(CultistObedienceActionEnum.Scold);
+                        npc.AnswerObedienceAction(CultistObedienceActionEnum.Scold);
                         npcCultistButtonSet.gameObject.SetActive(false);
                         dialogueText = npc.ObedienceDialogue;
                     });
