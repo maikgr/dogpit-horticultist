@@ -206,7 +206,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5466740679148861888, guid: 19019f6e40a3d7b48b0271cf9a859424, type: 3}
       propertyPath: maxActionPerDay
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5466740679148861888, guid: 19019f6e40a3d7b48b0271cf9a859424, type: 3}
       propertyPath: daysPerAssessment
