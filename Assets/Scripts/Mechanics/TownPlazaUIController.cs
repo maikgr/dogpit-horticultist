@@ -149,7 +149,7 @@ namespace Horticultist.Scripts.Mechanics
         private void OnRightClickPerformed(InputAction.CallbackContext context)
         {
             // If button is pressed
-            if (context.ReadValue<float>() > 0)
+            if (context.ReadValue<float>() > 0 && !panelIsOpen)
             {
                 SfxController.Instance.PlaySfx(SfxEnum.ClickUnselect);
                 ClosePanel();

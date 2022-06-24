@@ -37,10 +37,23 @@ namespace Horticultist.Scripts.Mechanics
 
             gameInput.Player.Fire.Enable();
             gameInput.UI.Point.Enable();
+            
+            StartCoroutine(OnEnableCoroutine());
+        }
+
+        private IEnumerator OnEnableCoroutine()
+        {
+            while(TherapyEventBus.Instance == null)
+            {
+                yield return new WaitForFixedUpdate();
+            }
+            TherapyEventBus.Instance.OnTherapyEnds += OnTherapyEnds;
         }
 
         private void OnDisable()
         {
+            TherapyEventBus.Instance.OnTherapyEnds -= OnTherapyEnds;
+
             Cursor.visible = true;
             gameInput.Player.Fire.performed -= OnClickDown;
             gameInput.Player.Fire.canceled -= OnClickUp;
@@ -149,6 +162,11 @@ namespace Horticultist.Scripts.Mechanics
             {
                 Instantiate(LoveRoomTemplate, new Vector3(0, 0, -1), Quaternion.identity);
             }
+        }
+
+        private void OnTherapyEnds(NpcTypeEnum npcType, MoodEnum mood)
+        {
+            OnDisable();
         }
 
     }

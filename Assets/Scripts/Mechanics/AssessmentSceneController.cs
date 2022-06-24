@@ -76,8 +76,10 @@ namespace Horticultist.Scripts.Mechanics
 
         private List<DialogueSceneText> dialogues = new List<DialogueSceneText>();
 
+        private bool isBlockAction;
         private void OnClickPerformed(InputAction.CallbackContext context)
         {
+            if (isBlockAction) return;
             if (!coroutineHasStartedAtLeastOnce) return;
             if (context.ReadValue<float>() == 0) return;
             if (!isTyping)
@@ -90,6 +92,7 @@ namespace Horticultist.Scripts.Mechanics
                 }
                 else
                 {
+                    isBlockAction = true;
                     fadeUIController.FadeOutScreen(() => {
                         gameState.AddDay();
                         SceneManager.LoadScene(nextSceneName);
