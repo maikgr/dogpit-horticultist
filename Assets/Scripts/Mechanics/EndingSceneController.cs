@@ -6,6 +6,7 @@ namespace Horticultist.Scripts.Mechanics
     using UnityEngine.InputSystem;
     using UnityEngine.SceneManagement;
     using TMPro;
+    using Horticultist.Scripts.Core;
 
     public class EndingSceneController : MonoBehaviour
     {
@@ -63,7 +64,7 @@ namespace Horticultist.Scripts.Mechanics
                 }
                 else
                 {
-                    SceneManager.LoadScene(0);
+                    Application.Quit();
                 }
             }
         }

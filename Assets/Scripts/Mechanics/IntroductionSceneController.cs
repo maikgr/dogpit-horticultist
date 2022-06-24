@@ -7,13 +7,15 @@ namespace Horticultist.Scripts.Mechanics
     using UnityEngine.SceneManagement;
     using TMPro;
     using Horticultist.Scripts.UI;
+    using Horticultist.Scripts.Core;
 
     public class IntroductionSceneController : MonoBehaviour
     {
+        [SerializeField] private Transform nameParent;
         [SerializeField] private TMP_Text nameText;
+        [SerializeField] private Transform dialogueParent;
         [SerializeField] private TMP_Text dialogueText;
         [SerializeField] private FadeUIController fadeUIController;
-        [SerializeField] private string nextSceneName;
         private HorticultistInputActions gameInputs;
         private bool isTyping;
         private int currentIndex;
@@ -75,7 +77,7 @@ namespace Horticultist.Scripts.Mechanics
                 else
                 {
                     fadeUIController.FadeOutScreen(
-                        () => SceneManager.LoadScene(nextSceneName)
+                        () => SceneManager.LoadScene(SceneNameConstant.TOWN_PLAZA)
                     );
                 }
             }
@@ -90,9 +92,11 @@ namespace Horticultist.Scripts.Mechanics
         private IEnumerator ShowDialogue(int index)
         {
             isTyping = true;
+            nameParent.gameObject.SetActive(true);
             nameText.text = dialogues[index].name;
             var text = dialogues[index].text;
             var curLetterIdx = 0;
+            dialogueParent.gameObject.SetActive(true);
             dialogueText.text = string.Empty;
             while (curLetterIdx < text.Length)
             {

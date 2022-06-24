@@ -14,7 +14,7 @@ namespace Horticultist.Scripts.Mechanics
         public event Action<CultistObedienceLevelEnum> OnObedienceLevelChange;
         public event Action<NpcController> OnCultistJoin;
         public event Action<NpcController> OnCultistLeave;
-        public event Action<int, int> OnTreeGrowthChange;
+        public event Action<float, int> OnTreeGrowthChange;
         public event Action<IEnumerable<string>> OnObjectiveUpdate;
 
         private void Awake() {
@@ -75,7 +75,7 @@ namespace Horticultist.Scripts.Mechanics
             }
         }
         
-        public void DispatchOnTreeGrowthChange(int value, int stage)
+        public void DispatchOnTreeGrowthChange(float value, int stage)
         {
             if (OnTreeGrowthChange != null)
             {

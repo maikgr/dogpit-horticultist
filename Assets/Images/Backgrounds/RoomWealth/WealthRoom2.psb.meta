@@ -1,0 +1,964 @@
+fileFormatVersion: 2
+guid: 5cb189ec5fbcfb8478748b967b13a54d
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: b2a9591990af98743ba3ff7cf1000886, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 1
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    isReadable: 0
+    streamingMipmaps: 1
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMasterTextureLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  spriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 0, y: 0}
+  mosaicSpriteImportData: []
+  rigSpriteImportData:
+  - name: Curves 4
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 736
+      y: 8099
+      width: 0
+      height: 0
+    spriteID: a78625eb7f99ad24a95f3414aa2498d8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -2772, y: 5619}
+  - name: Gradient Map 4
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 744
+      y: 8099
+      width: 0
+      height: 0
+    spriteID: aea45761ca2e5194c8250b982fb4176e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -2764, y: 5619}
+  - name: casino_vines
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 503
+      y: 7533
+      width: 470
+      height: 362
+    spriteID: 8390c5c1670e9e846bf9e1c186c0d05e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -1668, y: 7421}
+  - name: casino_dirty
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 7074
+      width: 499
+      height: 451
+    spriteID: 2f4f102370472af44be3e5d92650f4d9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -2148, y: 6974}
+  - name: empty
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 752
+      y: 8099
+      width: 0
+      height: 0
+    spriteID: fb0883ee98c31f342aa28874fbb627c1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -2756, y: 5619}
+  - name: vines_dusty_obj
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 981
+      y: 7533
+      width: 519
+      height: 212
+    spriteID: 1dbecebe9e790844aa5fbff76553bef5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -1414, y: 7155}
+  - name: dust
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 6473
+      width: 1113
+      height: 593
+    spriteID: 5aac53080df529c4984789a520989ef0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -1924, y: 6473}
+  - name: empty
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 760
+      y: 8099
+      width: 0
+      height: 0
+    spriteID: 8bbfe380caee14c48b600775cb1e1464
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -2748, y: 5619}
+  - name: EXalc_vines
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 511
+      y: 7074
+      width: 489
+      height: 398
+    spriteID: 6f51ff20241f1ba49bf53ae8bc412163
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -970, y: 7074}
+  - name: EXalc_dirty
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1125
+      y: 6473
+      width: 481
+      height: 540
+    spriteID: 8ccbfbc137d1cb84fbc7038cce82c701
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -360, y: 6473}
+  - name: empty
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 768
+      y: 8099
+      width: 0
+      height: 0
+    spriteID: 82b94733af3b80d4797e3eaf802787bf
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -2740, y: 5619}
+  - name: vines_lotto
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 7895
+      width: 338
+      height: 178
+    spriteID: e3db900fd9100fc4bb61605ad56e72de
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -1101, y: 7434}
+  - name: lotto_dirty
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 503
+      y: 7903
+      width: 225
+      height: 223
+    spriteID: de06227d030910445b727f37df7a590a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -695, y: 7443}
+  - name: empty
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 776
+      y: 8099
+      width: 0
+      height: 0
+    spriteID: 6b1b521eec3585a4398bc097e7aa63dc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -2732, y: 5619}
+  - name: money_vines
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 7533
+      width: 491
+      height: 354
+    spriteID: 9a3676070b76bb84193a7427314a1bf6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -270, y: 7512}
+  - name: money_dirty
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1008
+      y: 7074
+      width: 520
+      height: 362
+    spriteID: d8c17a6a48d4c7d4aa8450f49dbe7d3e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 762, y: 7063}
+  - name: empty
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 784
+      y: 8099
+      width: 0
+      height: 0
+    spriteID: 5897047f0dbedc6469c7b1cf67024988
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -2724, y: 5619}
+  - name: phone_vines
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 918
+      y: 7903
+      width: 172
+      height: 188
+    spriteID: f09a7335f10d8984ebf3358872cdaa7b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -867, y: 6997}
+  - name: phone_dirty
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 736
+      y: 7903
+      width: 174
+      height: 188
+    spriteID: 7f9100a044dd58941b095bc3d3d39465
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -1048, y: 6996}
+  - name: frame_vines
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 2492
+      width: 1657
+      height: 1411
+    spriteID: 2b5be0d2286b88d4e839b1909e611152
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -369, y: 1572}
+  - name: frame_dirty
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 3911
+      width: 1575
+      height: 1273
+    spriteID: 202b9954292264048bacfd2d7d5d24d9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -433, y: 2965}
+  - name: frame_clean
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 5192
+      width: 1575
+      height: 1273
+    spriteID: 7d4452a8c965a4347884310e985d386e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -433, y: 4246}
+  - name: Layer 1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 3508
+      height: 2480
+    spriteID: b79b05ccaf5944b4e9daeb1a3c33d0ff
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4, y: 4}
+  characterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    boneReadOnly: 0
+  sharedRigSpriteImportData: []
+  sharedRigCharacterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    boneReadOnly: 0
+  platformSettings: []
+  mosaicLayers: 1
+  characterMode: 1
+  documentPivot: {x: 0, y: 0}
+  documentAlignment: 7
+  importHiddenLayers: 0
+  layerMappingOption: 2
+  generatePhysicsShape: 0
+  paperDollMode: 0
+  keepDupilcateSpriteName: 1
+  skeletonAssetReferenceID: 
+  spriteCategoryList:
+    categories: []
+  spritePackingTag: 
+  resliceFromLayer: 0
+  mosaicPSDLayers: []
+  rigPSDLayers:
+  - name: Green
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 78
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Curves 4
+    spriteName: Curves 4
+    isGroup: 0
+    parentIndex: 0
+    spriteID: a78625eb7f99ad24a95f3414aa2498d8
+    layerID: 77
+    mosaicPosition: {x: 736, y: 8099}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Gradient Map 4
+    spriteName: Gradient Map 4
+    isGroup: 0
+    parentIndex: 0
+    spriteID: aea45761ca2e5194c8250b982fb4176e
+    layerID: 76
+    mosaicPosition: {x: 744, y: 8099}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Red
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 56
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Curves 4
+    spriteName: 
+    isGroup: 0
+    parentIndex: 3
+    spriteID: 00000000000000000000000000000000
+    layerID: 59
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Gradient Map 4
+    spriteName: 
+    isGroup: 0
+    parentIndex: 3
+    spriteID: 00000000000000000000000000000000
+    layerID: 58
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: casino
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 42
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: casino_vines
+    spriteName: casino_vines
+    isGroup: 0
+    parentIndex: 6
+    spriteID: 8390c5c1670e9e846bf9e1c186c0d05e
+    layerID: 39
+    mosaicPosition: {x: 503, y: 7533}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: casino_dirty
+    spriteName: casino_dirty
+    isGroup: 0
+    parentIndex: 6
+    spriteID: 2f4f102370472af44be3e5d92650f4d9
+    layerID: 40
+    mosaicPosition: {x: 4, y: 7074}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: empty
+    spriteName: empty
+    isGroup: 0
+    parentIndex: 6
+    spriteID: fb0883ee98c31f342aa28874fbb627c1
+    layerID: 41
+    mosaicPosition: {x: 752, y: 8099}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: dusty_obj
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 36
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: vines_dusty_obj
+    spriteName: vines_dusty_obj
+    isGroup: 0
+    parentIndex: 10
+    spriteID: 1dbecebe9e790844aa5fbff76553bef5
+    layerID: 34
+    mosaicPosition: {x: 981, y: 7533}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: dust
+    spriteName: dust
+    isGroup: 0
+    parentIndex: 10
+    spriteID: 5aac53080df529c4984789a520989ef0
+    layerID: 35
+    mosaicPosition: {x: 4, y: 6473}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: empty
+    spriteName: empty
+    isGroup: 0
+    parentIndex: 10
+    spriteID: 8bbfe380caee14c48b600775cb1e1464
+    layerID: 38
+    mosaicPosition: {x: 760, y: 8099}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: expencive_alc
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 32
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: EXalc_vines
+    spriteName: EXalc_vines
+    isGroup: 0
+    parentIndex: 14
+    spriteID: 6f51ff20241f1ba49bf53ae8bc412163
+    layerID: 29
+    mosaicPosition: {x: 511, y: 7074}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: EXalc_dirty
+    spriteName: EXalc_dirty
+    isGroup: 0
+    parentIndex: 14
+    spriteID: 8ccbfbc137d1cb84fbc7038cce82c701
+    layerID: 30
+    mosaicPosition: {x: 1125, y: 6473}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: empty
+    spriteName: empty
+    isGroup: 0
+    parentIndex: 14
+    spriteID: 82b94733af3b80d4797e3eaf802787bf
+    layerID: 31
+    mosaicPosition: {x: 768, y: 8099}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: lotto
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 21
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: vines_lotto
+    spriteName: vines_lotto
+    isGroup: 0
+    parentIndex: 18
+    spriteID: e3db900fd9100fc4bb61605ad56e72de
+    layerID: 18
+    mosaicPosition: {x: 4, y: 7895}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: lotto_dirty
+    spriteName: lotto_dirty
+    isGroup: 0
+    parentIndex: 18
+    spriteID: de06227d030910445b727f37df7a590a
+    layerID: 19
+    mosaicPosition: {x: 503, y: 7903}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: empty
+    spriteName: empty
+    isGroup: 0
+    parentIndex: 18
+    spriteID: 6b1b521eec3585a4398bc097e7aa63dc
+    layerID: 20
+    mosaicPosition: {x: 776, y: 8099}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: money
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 13
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: money_vines
+    spriteName: money_vines
+    isGroup: 0
+    parentIndex: 22
+    spriteID: 9a3676070b76bb84193a7427314a1bf6
+    layerID: 11
+    mosaicPosition: {x: 4, y: 7533}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: money_dirty
+    spriteName: money_dirty
+    isGroup: 0
+    parentIndex: 22
+    spriteID: d8c17a6a48d4c7d4aa8450f49dbe7d3e
+    layerID: 12
+    mosaicPosition: {x: 1008, y: 7074}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: empty
+    spriteName: empty
+    isGroup: 0
+    parentIndex: 22
+    spriteID: 5897047f0dbedc6469c7b1cf67024988
+    layerID: 15
+    mosaicPosition: {x: 784, y: 8099}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: phone
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 9
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: phone_vines
+    spriteName: phone_vines
+    isGroup: 0
+    parentIndex: 26
+    spriteID: f09a7335f10d8984ebf3358872cdaa7b
+    layerID: 8
+    mosaicPosition: {x: 918, y: 7903}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: phone_dirty
+    spriteName: phone_dirty
+    isGroup: 0
+    parentIndex: 26
+    spriteID: 7f9100a044dd58941b095bc3d3d39465
+    layerID: 6
+    mosaicPosition: {x: 736, y: 7903}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: phone_clean
+    spriteName: 
+    isGroup: 0
+    parentIndex: 26
+    spriteID: 00000000000000000000000000000000
+    layerID: 7
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: frame
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 27
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: frame_vines
+    spriteName: frame_vines
+    isGroup: 0
+    parentIndex: 30
+    spriteID: 2b5be0d2286b88d4e839b1909e611152
+    layerID: 23
+    mosaicPosition: {x: 4, y: 2492}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: frame_dirty
+    spriteName: frame_dirty
+    isGroup: 0
+    parentIndex: 30
+    spriteID: 202b9954292264048bacfd2d7d5d24d9
+    layerID: 26
+    mosaicPosition: {x: 4, y: 3911}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: frame_clean
+    spriteName: frame_clean
+    isGroup: 0
+    parentIndex: 30
+    spriteID: 7d4452a8c965a4347884310e985d386e
+    layerID: 24
+    mosaicPosition: {x: 4, y: 5192}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Layer 1
+    spriteName: Layer 1
+    isGroup: 0
+    parentIndex: -1
+    spriteID: b79b05ccaf5944b4e9daeb1a3c33d0ff
+    layerID: 2
+    mosaicPosition: {x: 4, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  sharedRigPSDLayers: []
+  pSDLayerImportSetting: []
+  generateGOHierarchy: 0
+  textureAssetName: 
+  prefabAssetName: 
+  spriteLibAssetName: 
+  skeletonAssetName: 
+  secondarySpriteTextures: []

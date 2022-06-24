@@ -6,10 +6,10 @@ namespace Horticultist.Scripts.Mechanics
     using UnityEngine.SceneManagement;
     using Horticultist.Scripts.Extensions;
     using Horticultist.Scripts.UI;
+    using Horticultist.Scripts.Core;
 
     public class StartScreenController : MonoBehaviour
     {
-        [SerializeField] private string nextSceneName;
         [SerializeField] private NpcFactory npcFactory;
         [SerializeField] private SplashUIController splashUIController;
         [SerializeField] private float npcAmount;
@@ -43,7 +43,7 @@ namespace Horticultist.Scripts.Mechanics
         public void OnStartClick()
         {
             splashUIController.FadeOutScene(() => {
-                StartCoroutine(NextSceneAsync(nextSceneName));
+                StartCoroutine(NextSceneAsync(SceneNameConstant.INTRODUCTION));
             });
         }
 

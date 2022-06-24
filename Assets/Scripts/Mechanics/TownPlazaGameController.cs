@@ -4,21 +4,14 @@ namespace Horticultist.Scripts.Mechanics
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
-    using UnityEngine.SceneManagement;
     using Horticultist.Scripts.UI;
     using Horticultist.Scripts.Core;
 
     public class TownPlazaGameController : MonoBehaviour
     {
-        [SerializeField] private int maxAction;
-        [SerializeField] private TreeVesselController treeVesselController;
         [SerializeField] private NpcFactory npcFactory;
         [SerializeField] private int visitorPerDayAmount;
-        [SerializeField] private string townPlazaSceneName;
-        [SerializeField] private string assessmentSceneName;
-        [SerializeField] private FadeUIController fadeUIController;
         public static TownPlazaGameController Instance { get; private set; }
-        private int actionTaken;
         private GameStateController gameState;
 
         private IDictionary<int, IEnumerable<string>> weekObjectives = new Dictionary<int, IEnumerable<string>>
@@ -60,66 +53,53 @@ namespace Horticultist.Scripts.Mechanics
             }
             TownEventBus.Instance.OnCultistJoin += OnCultistJoin;
             TownEventBus.Instance.OnCultistLeave += OnCultistLeave;
-            
-            SceneManager.activeSceneChanged += ChangedActiveScene;
         }
 
         private void OnDisable() {
             TownEventBus.Instance.OnCultistJoin -= OnCultistJoin;
             TownEventBus.Instance.OnCultistLeave -= OnCultistLeave;
-
-            SceneManager.activeSceneChanged -= ChangedActiveScene;
         }
 
         private void Start() {
             gameState = GameStateController.Instance;
-            GameStateController.Instance.PrevScene = SceneNameConstant.TOWN_PLAZA;
             StartCoroutine(DelayedStart());
         }
 
         // Make sure all listeners are ready;
         private IEnumerator DelayedStart()
         {
-            GenerateVisitors();
-
             yield return new WaitForSeconds(0.2f);
+            if (this.gameState.PrevScene == SceneNameConstant.ASSESSMENT || this.gameState.ActionTaken == 0)
+            {
+                GenerateVisitors();
+            }
+
             TownEventBus.Instance.DispatchOnDayStart(gameState.WeekNumber, gameState.DayNumber);
             TownEventBus.Instance.DispatchOnObjectiveUpdate(weekObjectives[0]);
-        }
-
-        private void ChangedActiveScene(Scene prev, Scene next)
-        {
-            if (prev.name == assessmentSceneName)
-            {
-                TownEventBus.Instance.DispatchOnDayStart(gameState.WeekNumber, gameState.DayNumber);
-            }
+            GameStateController.Instance.PrevScene = SceneNameConstant.TOWN_PLAZA;
         }
 
         public void EndDay()
         {
-            this.actionTaken = 0;
-            TownEventBus.Instance.DispatchOnActionTaken(this.actionTaken, this.maxAction);
+            this.gameState.ActionTaken = 0;
+            TownEventBus.Instance.DispatchOnActionTaken(this.gameState.ActionTaken, this.gameState.MaxAction);
             GoNextDay();
         }
 
         private void GoNextDay()
         {
             TownEventBus.Instance.DispatchOnDayEnd(gameState.WeekNumber, gameState.DayNumber);
-            
-            fadeUIController.FadeOutScreen(() => {
-                SceneManager.LoadScene(assessmentSceneName);
-            });
         }
 
         public void AddAction()
         {
-            this.actionTaken += 1;
-            if (this.actionTaken >= this.maxAction)
+            this.gameState.ActionTaken += 1;
+            if (this.gameState.ActionTaken >= this.gameState.MaxAction)
             {
-                this.actionTaken = 0;
+                this.gameState.ActionTaken = 0;
                 GoNextDay();
             }
-            TownEventBus.Instance.DispatchOnActionTaken(this.actionTaken, this.maxAction);
+            TownEventBus.Instance.DispatchOnActionTaken(this.gameState.ActionTaken, this.gameState.MaxAction);
         }
 
         private void OnCultistJoin(NpcController npc)
@@ -134,7 +114,8 @@ namespace Horticultist.Scripts.Mechanics
 
         private void GenerateVisitors()
         {
-            for (var i = 0; i < visitorPerDayAmount; ++i)
+            var randomLimit = Random.Range(1, visitorPerDayAmount + 1);
+            for (var i = 0; i < randomLimit; ++i)
             {
                 npcFactory.GenerateNpc();
             }

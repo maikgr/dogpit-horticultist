@@ -20,33 +20,16 @@ namespace Horticultist.Scripts.Mechanics
         }
         
         private void OnEnable() {
-            SceneManager.activeSceneChanged += OnActiveSceneChanged;
             seeker.pathCallback += OnPathComplete;
             StartCoroutine(TryWalking());
         }
 
         private void OnDisable() {
-            SceneManager.activeSceneChanged -= OnActiveSceneChanged;
             seeker.pathCallback -= OnPathComplete;
-            DOTween.Kill(transform);
             StopCoroutine(TryWalking());
+            DOTween.Kill("pathfinding");
         }
-
-        private void OnDestroy() {
-            if (transform != null)
-            {
-                DOTween.Kill(transform);
-            }
-        }
-
-        private void OnActiveSceneChanged(Scene prev, Scene next)
-        {
-            if (transform != null)
-            {
-                DOTween.Kill(transform);
-            }
-        }
-
+        
         private IEnumerator TryWalking()
         {
             bodyAnimator.SetBool("isWalking", false);
@@ -100,8 +83,9 @@ namespace Horticultist.Scripts.Mechanics
                     );
                 }
             }
+            sequence.SetId("pathfinding");
             sequence.OnComplete(() => {
-                if (gameObject.activeInHierarchy)
+                if (gameObject != null && gameObject.activeSelf)
                 {
                     StopCoroutine(TryWalking());
                     StartCoroutine(TryWalking());

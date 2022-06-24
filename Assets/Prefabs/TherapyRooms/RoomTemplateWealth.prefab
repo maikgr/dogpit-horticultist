@@ -72,8 +72,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4bdb2a0f69d30ec4b96cf1fa3846003b, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 9c6621031dd668c488dece54d1ecdf71, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -157,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a419008e9272c9946a8b7ac2978e4041, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8c59bccbb3137ad4fbbaceb4221fc353, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -178,8 +178,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2120949279438142941}
   - component: {fileID: 2120949279438142940}
-  - component: {fileID: 2120949279438142946}
   - component: {fileID: 7796129752971562188}
+  - component: {fileID: 7441374935526406198}
   m_Layer: 0
   m_Name: ClutterAlcohol
   m_TagString: Untagged
@@ -201,7 +201,7 @@ Transform:
   m_Children:
   - {fileID: 2120949279364425301}
   m_Father: {fileID: 6126600103206285463}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2120949279438142940
 MonoBehaviour:
@@ -216,51 +216,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toolInteractions:
-  - MindToolType: 0
-    PatienceValue: 0
+  - MindToolType: 1
+    PatienceValue: 10
     IndoctrinationValue: 0
-    MoodInpact: 0
-  - MindToolType: 0
-    PatienceValue: 0
+    MoodInpact: 1
+  - MindToolType: 2
+    PatienceValue: 40
     IndoctrinationValue: 0
-    MoodInpact: 0
-  - MindToolType: 0
-    PatienceValue: 0
+    MoodInpact: 2
+  - MindToolType: 3
+    PatienceValue: 20
     IndoctrinationValue: 0
-    MoodInpact: 0
+    MoodInpact: 1
+  - MindToolType: 4
+    PatienceValue: 10
+    IndoctrinationValue: 15
+    MoodInpact: 2
+  - MindToolType: 5
+    PatienceValue: 15
+    IndoctrinationValue: 25
+    MoodInpact: 2
   cleaningWorkTime: 3
   indoctrinationWorkTime: 1
   clutterSpriteRenderer: {fileID: 2120949279364425306}
-  dirtySprite: {fileID: 21300000, guid: a419008e9272c9946a8b7ac2978e4041, type: 3}
-  cleanSprite: {fileID: 21300000, guid: f3babb88214390e4ea6936a8b75d48dc, type: 3}
-  indoctrinatedSprite: {fileID: 21300000, guid: 5b90c24d368a79c439ff6f915937fdfe, type: 3}
-  highlightSprite: {fileID: 21300000, guid: ea36641083ee4ac4098259abca5245db, type: 3}
---- !u!61 &2120949279438142946
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2120949279438142943}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.2, y: -9.75}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.46, y: 2.52}
-    newSize: {x: 2.46, y: 2.52}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 4.51, y: 5.1}
-  m_EdgeRadius: 0
+  dirtySprite: {fileID: 21300000, guid: 8c59bccbb3137ad4fbbaceb4221fc353, type: 3}
+  cleanSprite: {fileID: 21300000, guid: da75a7f3ba45d754e910499de4af8fe6, type: 3}
+  indoctrinatedSprite: {fileID: 21300000, guid: 98b0e9811a311d24fb8b16b71f7436c4, type: 3}
+  highlightSprite: {fileID: 21300000, guid: 02d04d05d3430994c9750b0bd91f3b88, type: 3}
 --- !u!114 &7796129752971562188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,6 +349,42 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!60 &7441374935526406198
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120949279438142943}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.2, y: -9.75}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.051634744, y: 0.9188595}
+      - {x: -0.26683187, y: 2.5633082}
+      - {x: -0.9722484, y: 3.0139427}
+      - {x: -1.2809267, y: 0.84722614}
+      - {x: -2.1156032, y: 1.5347958}
+      - {x: -2.695256, y: 0.694726}
+      - {x: -2.5830574, y: -2.5553913}
+      - {x: 0.050328985, y: -2.60534}
+      - {x: 0.68853575, y: -2.9244547}
+      - {x: 2.3239434, y: -2.475729}
+      - {x: 2.3573442, y: 1.0555649}
 --- !u!1 &2678233867257161667
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,7 +458,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -2
-  m_Sprite: {fileID: 21300000, guid: a9fde7aed64976e40902bb48a78977f6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0c5f5345879dda04d8f92949f467f62b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -484,7 +502,7 @@ Transform:
   m_Children:
   - {fileID: 7998262875153994213}
   m_Father: {fileID: 6126600103206285463}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2605707335050205161
 MonoBehaviour:
@@ -522,10 +540,10 @@ MonoBehaviour:
   cleaningWorkTime: 3
   indoctrinationWorkTime: 3
   clutterSpriteRenderer: {fileID: 9001679563768159705}
-  dirtySprite: {fileID: 21300000, guid: f0ef45298920ffd449d9e22919afd253, type: 3}
-  cleanSprite: {fileID: 21300000, guid: 70426b77d37d77345a43307d72409b28, type: 3}
-  indoctrinatedSprite: {fileID: 21300000, guid: 9cb6c437fec9c1d40b1c2a1e9d199c1c, type: 3}
-  highlightSprite: {fileID: 21300000, guid: daed1bf3579590e4db591ed49bbcf141, type: 3}
+  dirtySprite: {fileID: 21300000, guid: 5a8a66205fa9edb43aab52cd2a12db6b, type: 3}
+  cleanSprite: {fileID: 21300000, guid: c17744615d3b0184e857c141c13074b5, type: 3}
+  indoctrinatedSprite: {fileID: 21300000, guid: cb0017c5dd2c3d441aa9187789da435f, type: 3}
+  highlightSprite: {fileID: 21300000, guid: 2cc858606a21af54e846552e6270e583, type: 3}
 --- !u!114 &7360524478545688177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -737,7 +755,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 13772d6c3f03f3d4ab43af7fd41a6c6c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3d30992b7f61df343b9056a4278fcb8d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -781,7 +799,7 @@ Transform:
   m_Children:
   - {fileID: 3378550695806168316}
   m_Father: {fileID: 6126600103206285463}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5161382724161195895
 MonoBehaviour:
@@ -819,10 +837,10 @@ MonoBehaviour:
   cleaningWorkTime: 3
   indoctrinationWorkTime: 3
   clutterSpriteRenderer: {fileID: 8619301765433302855}
-  dirtySprite: {fileID: 21300000, guid: a3baf0f717dd5004ebe95d2ee09fec59, type: 3}
-  cleanSprite: {fileID: 21300000, guid: d6feb46815c9d6846aed2bdf6a609612, type: 3}
-  indoctrinatedSprite: {fileID: 21300000, guid: 65a89e541da7bb149b58372a3eb42548, type: 3}
-  highlightSprite: {fileID: 21300000, guid: 1f719ffe9a6bf544b90c3d34ef3700ae, type: 3}
+  dirtySprite: {fileID: 21300000, guid: ccf55afc63650584193feb0543b4879a, type: 3}
+  cleanSprite: {fileID: 21300000, guid: 490af702890d6f346a59ed8077466ec9, type: 3}
+  indoctrinatedSprite: {fileID: 21300000, guid: d456fab6917962c4086429f15bd2754a, type: 3}
+  highlightSprite: {fileID: 21300000, guid: c2645715f3b520f47b69893ba1cf8757, type: 3}
 --- !u!114 &2726319817071802967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -987,14 +1005,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4813174124673859207}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8745164804187609872}
   m_Father: {fileID: 6126600103206285463}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &652742709568534761
 MonoBehaviour:
@@ -1032,10 +1050,10 @@ MonoBehaviour:
   cleaningWorkTime: 3
   indoctrinationWorkTime: 3
   clutterSpriteRenderer: {fileID: 143882252985609515}
-  dirtySprite: {fileID: 21300000, guid: d5b6e6a1dee32b649ac51496e5c66bee, type: 3}
-  cleanSprite: {fileID: 21300000, guid: 9eb1102d16ea3fa4cab942896dacc9df, type: 3}
-  indoctrinatedSprite: {fileID: 21300000, guid: c94c4d7676dbcd64bb05bc83ef965166, type: 3}
-  highlightSprite: {fileID: 21300000, guid: d4435ed0a99988148ba780a808d4e57c, type: 3}
+  dirtySprite: {fileID: 21300000, guid: 79561507e1902324194e6fdcfccb4512, type: 3}
+  cleanSprite: {fileID: 21300000, guid: 8921ac3dce684494caf4fd7f964e0515, type: 3}
+  indoctrinatedSprite: {fileID: 21300000, guid: 612fa61411ffa3d499e6332e0ef2784e, type: 3}
+  highlightSprite: {fileID: 21300000, guid: 485b53a8e8fdce242a58b4a17ad808c6, type: 3}
 --- !u!114 &3619821752033988522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1213,7 +1231,7 @@ Transform:
   m_Children:
   - {fileID: 8352917311557328429}
   m_Father: {fileID: 6126600103206285463}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1167939393203363589
 MonoBehaviour:
@@ -1251,10 +1269,10 @@ MonoBehaviour:
   cleaningWorkTime: 3
   indoctrinationWorkTime: 3
   clutterSpriteRenderer: {fileID: 1555034845148633372}
-  dirtySprite: {fileID: 21300000, guid: c8aa1f2fb609360409cb28acd0bc54b2, type: 3}
-  cleanSprite: {fileID: 21300000, guid: 8ce28d23161d83047bb91177b4881fe7, type: 3}
-  indoctrinatedSprite: {fileID: 21300000, guid: fb5c17b98d27707458fb4b513ddcf0aa, type: 3}
-  highlightSprite: {fileID: 21300000, guid: 24ea051e074f18e48b0385249b3c6b2d, type: 3}
+  dirtySprite: {fileID: 21300000, guid: 9c6621031dd668c488dece54d1ecdf71, type: 3}
+  cleanSprite: {fileID: 21300000, guid: 455770bb8520a494993966006052c4e9, type: 3}
+  indoctrinatedSprite: {fileID: 21300000, guid: a88f03e58550ec641b18140c05dc3288, type: 3}
+  highlightSprite: {fileID: 21300000, guid: 92fc73d97d4b62e4c91d0ffec5b319ee, type: 3}
 --- !u!114 &4846884210638586520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1386,17 +1404,20 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 1.9287043, y: 2.7988877}
-      - {x: 0.6623788, y: 1.6257286}
+    - - {x: 1.5653353, y: 0.9246688}
+      - {x: 0.7388773, y: 1.4153571}
       - {x: 0.28384066, y: 0.32224178}
       - {x: 0.53743935, y: -1.0050316}
       - {x: -1.3232493, y: -1.7014952}
-      - {x: -0.013310909, y: -3.6247454}
+      - {x: 0.15881157, y: -3.6247454}
       - {x: 1.603806, y: -3.4335203}
       - {x: 2.7204866, y: -2.8489923}
       - {x: 4.133379, y: -1.5685434}
-      - {x: 2.766684, y: -0.12442875}
-      - {x: 2.212132, y: 1.0508261}
+      - {x: 3.7123032, y: -1.1530275}
+      - {x: 3.2423687, y: -0.89764977}
+      - {x: 3.049965, y: -0.49943542}
+      - {x: 2.651936, y: 0.028568268}
+      - {x: 2.2312565, y: 0.9934521}
 --- !u!1 &6126600101320241504
 GameObject:
   m_ObjectHideFlags: 0
@@ -1489,12 +1510,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2120949279438142941}
-  - {fileID: 7240051211397474590}
   - {fileID: 7067399974131043998}
   - {fileID: 7753893038958204359}
+  - {fileID: 2120949279438142941}
   - {fileID: 8686034585218447169}
   - {fileID: 2439472227133027665}
+  - {fileID: 7240051211397474590}
   - {fileID: 340723709795238961}
   m_Father: {fileID: 6126600101320241517}
   m_RootOrder: 1
@@ -1572,7 +1593,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a3baf0f717dd5004ebe95d2ee09fec59, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ccf55afc63650584193feb0543b4879a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1655,8 +1676,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 872ec157c6b5e2d4d91a3d721b042b0f, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: ca421d6e3033edd42932120dbe040e09, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1699,7 +1720,7 @@ Transform:
   m_Children:
   - {fileID: 7240051211320128150}
   m_Father: {fileID: 6126600103206285463}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7240051211397474591
 MonoBehaviour:
@@ -1737,10 +1758,10 @@ MonoBehaviour:
   cleaningWorkTime: 5
   indoctrinationWorkTime: 5
   clutterSpriteRenderer: {fileID: 7240051211320128153}
-  dirtySprite: {fileID: 21300000, guid: 872ec157c6b5e2d4d91a3d721b042b0f, type: 3}
-  cleanSprite: {fileID: 21300000, guid: b474d08a850a6a24abdd742078372534, type: 3}
-  indoctrinatedSprite: {fileID: 21300000, guid: 731f5bdbd3cc8474e92e87783801270f, type: 3}
-  highlightSprite: {fileID: 21300000, guid: 3fd2afe901a6016448e41774849021ae, type: 3}
+  dirtySprite: {fileID: 21300000, guid: ca421d6e3033edd42932120dbe040e09, type: 3}
+  cleanSprite: {fileID: 21300000, guid: e5a1f393ba18eed4e88911ae84791432, type: 3}
+  indoctrinatedSprite: {fileID: 21300000, guid: 93be8f4c6975bee47bfca08290b449ca, type: 3}
+  highlightSprite: {fileID: 21300000, guid: d8dafcbac5fe34840bd26184535260f0, type: 3}
 --- !u!61 &7240051211397474593
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1840,7 +1861,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d5b6e6a1dee32b649ac51496e5c66bee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 79561507e1902324194e6fdcfccb4512, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1924,7 +1945,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f0ef45298920ffd449d9e22919afd253, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a8a66205fa9edb43aab52cd2a12db6b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2006,10 +2027,10 @@ MonoBehaviour:
   cleaningWorkTime: 3
   indoctrinationWorkTime: 3
   clutterSpriteRenderer: {fileID: 2201283779746495520}
-  dirtySprite: {fileID: 21300000, guid: 13772d6c3f03f3d4ab43af7fd41a6c6c, type: 3}
-  cleanSprite: {fileID: 21300000, guid: 3df878897e51f1a46b9a61a6f8e0496b, type: 3}
-  indoctrinatedSprite: {fileID: 21300000, guid: 9e1d63aeb697c584daabe0ede0185df0, type: 3}
-  highlightSprite: {fileID: 21300000, guid: 1cde7998de572284bbab41f4153fdfc7, type: 3}
+  dirtySprite: {fileID: 21300000, guid: 3d30992b7f61df343b9056a4278fcb8d, type: 3}
+  cleanSprite: {fileID: 21300000, guid: a12d78c2a629e414db157ac3134094e0, type: 3}
+  indoctrinatedSprite: {fileID: 21300000, guid: c6eec4b7b42e8e84d8bb4e2ac3d15503, type: 3}
+  highlightSprite: {fileID: 21300000, guid: 08719ddb172b2cd48835f21320d8998b, type: 3}
 --- !u!114 &1280344505581682415
 MonoBehaviour:
   m_ObjectHideFlags: 0

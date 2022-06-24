@@ -14,7 +14,6 @@ namespace Horticultist.Scripts.Mechanics
     {
         [Header("Effects and Transition")]
         [SerializeField] private TransitionScreenUIController transitionScreen;
-        [SerializeField] private string townPlazaSceneName;
 
         [Header("NPC Basic Info UI")]
         [SerializeField] private TMP_Text npcTypeText;
@@ -52,6 +51,7 @@ namespace Horticultist.Scripts.Mechanics
             transitionScreen.enabled = false;
             transitionScreen.enabled = true;
             transitionScreen.TransitionOut();
+            GameStateController.Instance.PrevScene = SceneNameConstant.THERAPY;
         }
 
         private void OnEnable() {
@@ -59,8 +59,6 @@ namespace Horticultist.Scripts.Mechanics
             TherapyEventBus.Instance.OnPatienceChanged += OnPatienceChanged;
             TherapyEventBus.Instance.OnIndoctrinationChanged += OnIndoctrinationChanged;
             TherapyEventBus.Instance.OnTherapyEnds += OnTherapyEnds;
-
-            SceneManager.activeSceneChanged += OnSceneChanged;
         }
 
         private void OnDisable() {
@@ -68,14 +66,6 @@ namespace Horticultist.Scripts.Mechanics
             TherapyEventBus.Instance.OnPatienceChanged -= OnPatienceChanged;
             TherapyEventBus.Instance.OnIndoctrinationChanged -= OnIndoctrinationChanged;
             TherapyEventBus.Instance.OnTherapyEnds -= OnTherapyEnds;
-
-            SceneManager.activeSceneChanged -= OnSceneChanged;
-        }
-
-        private void OnSceneChanged(Scene prev, Scene next)
-        {
-            GameStateController.Instance.PrevScene = SceneNameConstant.THERAPY;
-            isEnding = false;
         }
 
         private void UpdateNpcVisual()
@@ -140,13 +130,13 @@ namespace Horticultist.Scripts.Mechanics
             {
                 npcDialogueText.text = currentNpc.DialogueSet.Therapy.Unrecruited.GetRandom();
             }
-            StartCoroutine(LoadTownPlaza(3f));
+            StartCoroutine(LoadTownPlaza(2f));
         }
 
         private IEnumerator LoadTownPlaza(float delay)
         {
             yield return new WaitForSeconds(delay);
-            transitionScreen.TransitionIn(() => SceneManager.LoadScene(townPlazaSceneName));
+            transitionScreen.TransitionIn(() => SceneManager.LoadScene(SceneNameConstant.TOWN_PLAZA));
         }
     }
 }

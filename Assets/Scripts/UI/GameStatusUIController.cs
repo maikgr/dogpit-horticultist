@@ -42,9 +42,9 @@ namespace Horticultist.Scripts.UI
             vesselGrowthText.text = "Tree height: 0.1m";
         }
 
-        private void OnTreeGrowthChange(int value, int stage)
+        private void OnTreeGrowthChange(float value, int stage)
         {
-            var textVal = ((float)value/10).ToString("F2");
+            var textVal = (value/10).ToString("F2");
             vesselGrowthText.text = $"Tree Height: {textVal}m";
         }
 

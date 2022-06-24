@@ -14,7 +14,7 @@ namespace Horticultist.Scripts.UI
         [SerializeField] private AudioSource bgmSource;
         [SerializeField] private float fadeTime;
 
-        public void FadeInScreen(Action onComplete)
+        public void FadeInScreen(Action onComplete = null)
         {
             // Screen
             fadeScreen.gameObject.SetActive(true);
@@ -30,7 +30,10 @@ namespace Horticultist.Scripts.UI
             .SetEase(Ease.Linear)
             .OnComplete(() => {
                 fadeScreen.gameObject.SetActive(false);
-                onComplete.Invoke();
+                if (onComplete != null)
+                {
+                    onComplete.Invoke();
+                }
             });
 
             // BGM
@@ -38,7 +41,7 @@ namespace Horticultist.Scripts.UI
             bgmSource.DOFade(1, fadeTime);
         }
 
-        public void FadeOutScreen(Action onComplete)
+        public void FadeOutScreen(Action onComplete = null)
         {
             // Screen
             fadeScreen.gameObject.SetActive(true);
@@ -53,7 +56,10 @@ namespace Horticultist.Scripts.UI
             })
             .SetEase(Ease.Linear)
             .OnComplete(() => {
-                onComplete.Invoke();
+                if (onComplete != null)
+                {
+                    onComplete.Invoke();
+                }
             });
 
             // BGM

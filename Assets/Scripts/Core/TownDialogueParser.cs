@@ -116,7 +116,9 @@ namespace Horticultist.Scripts.Core
     {
         public string[] Intro { get; set; }
         public string[] Moodup { get; set; }
+        public string[] Moodup_misc { get; set; }
         public string[] Mooddown { get; set; }
+        public string[] Mooddown_misc { get; set; }
         public string[] Success { get; set; }
         public string[] Unrecruited { get; set; }
         public string[] Failure { get; set; }

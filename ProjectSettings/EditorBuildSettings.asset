@@ -6,21 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/StartScreenScene.unity
+    guid: 156d7b4a3e4a0de42896dd268be89880
+  - enabled: 1
+    path: Assets/Scenes/IntroductionScene.unity
+    guid: 685ebfaec67cd6145ae0759280b0b1d0
+  - enabled: 1
     path: Assets/Scenes/TownPlazaScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/TherapyScene.unity
     guid: 2eb8564851a6e724f9b1365afe4fb055
   - enabled: 1
-    path: Assets/Scenes/StartScreenScene.unity
-    guid: 156d7b4a3e4a0de42896dd268be89880
+    path: Assets/Scenes/AssessmentScene.unity
+    guid: c0f5c8babfd06e6498717d081ef66022
   - enabled: 1
     path: Assets/Scenes/FailedLeaderScene.unity
     guid: 8fc39a7390d439a40b562e4883d32325
-  - enabled: 1
-    path: Assets/Scenes/IntroductionScene.unity
-    guid: 685ebfaec67cd6145ae0759280b0b1d0
-  - enabled: 1
-    path: Assets/Scenes/AssessmentScene.unity
-    guid: c0f5c8babfd06e6498717d081ef66022
   m_configObjects: {}

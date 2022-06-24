@@ -19,6 +19,10 @@ namespace Horticultist.Scripts.UI
             transScreen.gameObject.SetActive(false);
         }
 
+        private void OnDisable() {
+            DOTween.Kill("transition");
+        }
+
         public void TransitionIn(System.Action action = null)
         {
             TransitionIn(
@@ -51,7 +55,8 @@ namespace Horticultist.Scripts.UI
                     {
                         action.Invoke();
                     }
-                });
+                })
+                .SetId("transition");
         }
 
         public void TransitionOut(System.Action action = null)
@@ -88,7 +93,8 @@ namespace Horticultist.Scripts.UI
                         action.Invoke();
                     }
                     transScreen.gameObject.SetActive(false);
-                });
+                })
+                .SetId("transition");
         }
     }
 }

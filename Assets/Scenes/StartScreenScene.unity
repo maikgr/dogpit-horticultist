@@ -174,7 +174,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &142295384
 RectTransform:
   m_ObjectHideFlags: 0
@@ -204,6 +204,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5466740679148861888, guid: 19019f6e40a3d7b48b0271cf9a859424, type: 3}
+      propertyPath: maxActionPerDay
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5466740679148861888, guid: 19019f6e40a3d7b48b0271cf9a859424, type: 3}
       propertyPath: daysPerAssessment
       value: 3
@@ -2075,7 +2079,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae5310241f5e03242b188d2577cd5f5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextSceneName: IntroductionScene
   npcFactory: {fileID: 1945194902}
   splashUIController: {fileID: 1945194904}
   npcAmount: 6
@@ -2092,8 +2095,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcPrefab: {fileID: 3627709152221109446, guid: 2a648e2964354cc41a19cb1475a80d5d, type: 3}
-  firstNameJson: {fileID: 4900000, guid: e14485e6f930e384a8c441710e058272, type: 3}
-  lastNameJson: {fileID: 4900000, guid: e1c03e2c3e145d34d90cbc277710fc13, type: 3}
   bodySprites:
   - body: {fileID: 21300000, guid: 2239b768f36b43c40b37cb6ed166269d, type: 3}
     animatorController: {fileID: 9100000, guid: 885649b8df5135040b711a73ecd3103b, type: 2}
@@ -2198,8 +2199,6 @@ MonoBehaviour:
     happy: {fileID: 21300000, guid: dbf4c0c80aa943c48937309092c2c0c4, type: 3}
     angry: {fileID: 21300000, guid: 3955cdf2c09d01e459fdcd92c9134c54, type: 3}
   headgearChance: 1
-  genericDialogueJson: {fileID: 4900000, guid: 3cd11a4eb5254d34599ff449928fa074, type: 3}
-  cultistDialogueJson: {fileID: 4900000, guid: 13386714a957a714881517e66237946e, type: 3}
 --- !u!114 &1945194903
 MonoBehaviour:
   m_ObjectHideFlags: 0

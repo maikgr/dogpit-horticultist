@@ -15,6 +15,7 @@ namespace Horticultist.Scripts.Mechanics
     public class TownPlazaUIController : MonoBehaviour
     {
         [SerializeField] private TransitionScreenUIController transitionScreen;
+        [SerializeField] private FadeUIController fadeUIController;
         private HorticultistInputActions gameInput;
         private Camera mainCamera;
         private TownPlazaCameraController cameraController;
@@ -25,14 +26,26 @@ namespace Horticultist.Scripts.Mechanics
             cameraController = mainCamera.GetComponent<TownPlazaCameraController>();
         }
 
+        private void Start()
+        {
+            if (GameStateController.Instance.PrevScene == SceneNameConstant.THERAPY)
+            {
+                transitionScreen.TransitionOut();
+                TownPlazaGameController.Instance.AddAction();
+            }
+            else
+            {
+                fadeUIController.FadeInScreen();
+            }
+        }
+
         private void OnEnable()
         {
             TownEventBus.Instance.OnDayStart += UpdateWeekDayUI;
+            TownEventBus.Instance.OnDayEnd += UpdateOnDayEnd;
             TownEventBus.Instance.OnActionTaken += UpdateActionUI;
 
             TownEventBus.Instance.OnObedienceLevelChange += UpdateObdLevelUI;
-
-            SceneManager.activeSceneChanged += OnSceneChanged;
 
             gameInput.Player.Fire.performed += OnClickPerformed;
             gameInput.Player.Fire.Enable();
@@ -47,11 +60,10 @@ namespace Horticultist.Scripts.Mechanics
         private void OnDisable()
         {
             TownEventBus.Instance.OnDayStart -= UpdateWeekDayUI;
+            TownEventBus.Instance.OnDayEnd -= UpdateOnDayEnd;
             TownEventBus.Instance.OnActionTaken -= UpdateActionUI;
 
             TownEventBus.Instance.OnObedienceLevelChange -= UpdateObdLevelUI;
-
-            SceneManager.activeSceneChanged -= OnSceneChanged;
 
             gameInput.Player.Fire.performed -= OnClickPerformed;
             gameInput.Player.Fire.Disable();
@@ -72,6 +84,18 @@ namespace Horticultist.Scripts.Mechanics
         private void UpdateWeekDayUI(int weekNumber, int dayNumber)
         {
             weekDayText.text = $"Phase {weekNumber} Day {dayNumber}";
+        }
+
+        private bool isEnding = false;
+        private void UpdateOnDayEnd(int weekNumber, int dayNumber)
+        {
+            // Prevent spam
+            if (isEnding) return;
+            isEnding = true;
+            
+            fadeUIController.FadeOutScreen(() => {
+                SceneManager.LoadScene(SceneNameConstant.ASSESSMENT);
+            });
         }
 
         private void UpdateActionUI(int taken, int max)
@@ -307,7 +331,7 @@ namespace Horticultist.Scripts.Mechanics
 
         public void StartHelp(NpcController npc)
         {
-            DOTween.Pause("npc");
+            DOTween.Kill("npc");
             transitionScreen.TransitionIn(
                 () => StartCoroutine(LoadTherapyScene())
             );
@@ -315,7 +339,7 @@ namespace Horticultist.Scripts.Mechanics
 
         private IEnumerator LoadTherapyScene()
         {
-            var asyncLoad = SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
+            var asyncLoad = SceneManager.LoadSceneAsync(SceneNameConstant.THERAPY, LoadSceneMode.Single);
 
             while (!asyncLoad.isDone)
             {
@@ -348,15 +372,6 @@ namespace Horticultist.Scripts.Mechanics
             var activePotPos = obediencePots[obdPotIndex].transform.position;
             npcObedienceText.text = obdLevel.DisplayString();
             obedienceLeaf.transform.position = new Vector2(activePotPos.x, obedienceLeaf.transform.position.y);
-        }
-
-        private void OnSceneChanged(Scene prev, Scene next)
-        {
-            if (GameStateController.Instance.PrevScene == SceneNameConstant.THERAPY)
-            {
-                transitionScreen.TransitionOut();
-            }
-            GameStateController.Instance.PrevScene = SceneNameConstant.TOWN_PLAZA;
         }
 
         [Header("Debugging")]

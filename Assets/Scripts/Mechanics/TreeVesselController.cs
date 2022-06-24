@@ -10,8 +10,6 @@ namespace Horticultist.Scripts.Mechanics
     public class TreeVesselController : MonoBehaviour
     {
         [SerializeField] private List<TreeVesselStage> stageValueThreshold;
-        public int GrowthValue { get; private set; }
-        public int CurrentStage { get; private set; }
         private void OnEnable() {
             StartCoroutine(OnEnableCoroutine());
         }
@@ -30,7 +28,6 @@ namespace Horticultist.Scripts.Mechanics
         }
 
         private void Start() {
-            GrowthValue = 1;
             UpdateGrowth(0);
         }
 
@@ -42,15 +39,18 @@ namespace Horticultist.Scripts.Mechanics
 
         private void UpdateGrowth(int value)
         {
-            GrowthValue += value;
+            // Disable all tree sprites
             stageValueThreshold.ForEach(val => val.TreeGameObject.SetActive(false));
-            var treeStage = stageValueThreshold.Where(val => val.Threshold <= GrowthValue)
+
+            // Calculate tree growth
+            var height = GameStateController.Instance.TreeHeight + value;
+            var treeStage = stageValueThreshold.Where(val => val.Threshold <= height)
                 .OrderByDescending(val => val.Threshold)
                 .First();
 
             treeStage.TreeGameObject.SetActive(true);
-            CurrentStage = treeStage.Stage;
-            TownEventBus.Instance.DispatchOnTreeGrowthChange(GrowthValue, treeStage.Stage);
+            GameStateController.Instance.SetTreeStatus(treeStage.Stage, height);
+            TownEventBus.Instance.DispatchOnTreeGrowthChange(height, treeStage.Stage);
         }
     }
 

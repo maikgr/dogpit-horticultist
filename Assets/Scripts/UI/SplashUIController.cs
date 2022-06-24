@@ -21,7 +21,12 @@ namespace Horticultist.Scripts.UI
                 .AppendInterval(fadeDelay)
                 .Append(FadeOutScreen().OnComplete(() => logoScreen.gameObject.SetActive(false)))
                 .Append(FadeInScreen())
-                .OnComplete(() => fadeScreen.gameObject.SetActive(false));
+                .OnComplete(() => fadeScreen.gameObject.SetActive(false))
+                .SetId("splash");
+        }
+
+        private void OnDisable() {
+            DOTween.Kill("splash");
         }
 
         public void FadeOutScene(System.Action action)
@@ -30,7 +35,8 @@ namespace Horticultist.Scripts.UI
             DOTween.Sequence()
                 .Append(FadeOutScreen())
                 .Join(bgmSource.DOFade(0, fadeTime))
-                .OnComplete(() => action.Invoke());
+                .OnComplete(() => action.Invoke())
+                .SetId("splash");
         }
 
         private Tween FadeInScreen()
@@ -49,6 +55,7 @@ namespace Horticultist.Scripts.UI
 
         private Tween FadeOutScreen()
         {
+            fadeScreen.gameObject.SetActive(true);
             return DOVirtual.Float(0, 1, fadeTime, (val) =>
             {
                 fadeScreen.color = new Color(

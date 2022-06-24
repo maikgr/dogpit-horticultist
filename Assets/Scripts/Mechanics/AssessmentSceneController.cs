@@ -8,16 +8,15 @@ namespace Horticultist.Scripts.Mechanics
     using UnityEngine.SceneManagement;
     using TMPro;
     using Horticultist.Scripts.UI;
+    using Horticultist.Scripts.Core;
 
     public class AssessmentSceneController : MonoBehaviour
     {
+        [SerializeField] private Transform nameParent;
         [SerializeField] private TMP_Text nameText;
+        [SerializeField] private Transform dialogueParent;
         [SerializeField] private TMP_Text dialogueText;
         [SerializeField] private FadeUIController fadeUIController;
-        [SerializeField] private string townSceneName;
-        [SerializeField] private string failedLeaderSceneName;
-        [SerializeField] private string pacifistScene;
-        [SerializeField] private string ultimateCultScene;
         private HorticultistInputActions gameInputs;
         private GameStateController gameState;
         private bool isTyping;
@@ -36,6 +35,9 @@ namespace Horticultist.Scripts.Mechanics
         {
             gameInputs.UI.Click.performed += OnClickPerformed;
             gameInputs.UI.Click.Enable();
+
+            nameParent.gameObject.SetActive(false);
+            dialogueParent.gameObject.SetActive(false);
         }
 
         private void OnDisable()
@@ -106,9 +108,11 @@ namespace Horticultist.Scripts.Mechanics
         {
             isTyping = true;
 
+            nameParent.gameObject.SetActive(true);
             nameText.text = dialogues[index].name;
             var text = dialogues[index].text;
             var curLetterIdx = 0;
+            dialogueParent.gameObject.SetActive(true);
             dialogueText.text = string.Empty;
 
             var openTag = "";
@@ -233,7 +237,7 @@ namespace Horticultist.Scripts.Mechanics
                     },
                 };
             }
-            nextSceneName = townSceneName;
+            nextSceneName = SceneNameConstant.TOWN_PLAZA;
         }
 
         private void Week2Assesment(int day)
@@ -258,7 +262,7 @@ namespace Horticultist.Scripts.Mechanics
                         text = $"Now get back to work!"
                     },
                 };
-                nextSceneName = townSceneName;
+                nextSceneName = SceneNameConstant.TOWN_PLAZA;
             }
             else if (day >= 3 && (gameState.CultMembers.Count < 20 || rank3Count < 5))
             {
@@ -275,7 +279,7 @@ namespace Horticultist.Scripts.Mechanics
                         text = "Now you have to *face the consequnce!]."
                     }
                 };
-                nextSceneName = failedLeaderSceneName;
+                nextSceneName = SceneNameConstant.ENDING_FAILED;
             }
             else if (day < 3 && gameState.CultMembers.Count >= 20 && rank3Count >= 5)
             {
@@ -296,7 +300,7 @@ namespace Horticultist.Scripts.Mechanics
                         text = $"Now get back to work!"
                     },
                 };
-                nextSceneName = townSceneName;
+                nextSceneName = SceneNameConstant.TOWN_PLAZA;
             }
             else if (day >= 3 && gameState.CultMembers.Count >= 20 && rank3Count >= 5)
             {
@@ -317,7 +321,7 @@ namespace Horticultist.Scripts.Mechanics
                         text = $"Now get back to work!"
                     },
                 };
-                nextSceneName = townSceneName;
+                nextSceneName = SceneNameConstant.TOWN_PLAZA;
             }
         }
 
@@ -342,11 +346,11 @@ namespace Horticultist.Scripts.Mechanics
                         text = $"Now get back to work!"
                     },
                 };
-                nextSceneName = townSceneName;
+                nextSceneName = SceneNameConstant.TOWN_PLAZA;
             }
             else if (day >= 3 && gameState.TreeStage < 3)
             {
-                // Warn scene
+                // Failed leader ending
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
@@ -359,7 +363,7 @@ namespace Horticultist.Scripts.Mechanics
                         text = "Now you have to *face the consequnce!]."
                     }
                 };
-                nextSceneName = failedLeaderSceneName;
+                nextSceneName = SceneNameConstant.ENDING_FAILED;
             }
             else if (day < 3 && gameState.TreeStage >= 3)
             {
@@ -380,7 +384,7 @@ namespace Horticultist.Scripts.Mechanics
                         text = $"Now get back to work!"
                     },
                 };
-                nextSceneName = townSceneName;
+                nextSceneName = SceneNameConstant.TOWN_PLAZA;
             }
             else if (day >= 3 && gameState.TreeStage >= 3)
             {
@@ -400,7 +404,7 @@ namespace Horticultist.Scripts.Mechanics
                         text = $"Now get back to work!"
                     },
                 };
-                nextSceneName = townSceneName;
+                nextSceneName = SceneNameConstant.TOWN_PLAZA;
             }
         }
 
@@ -420,7 +424,7 @@ namespace Horticultist.Scripts.Mechanics
                         text = $"You have *{3 - day} days left] to achieve this, don't disappoint me."
                     }
                 };
-                nextSceneName = townSceneName;
+                nextSceneName = SceneNameConstant.TOWN_PLAZA;
             }
             else if (day >= 3 && gameState.TreeStage < 3)
             {
@@ -437,7 +441,7 @@ namespace Horticultist.Scripts.Mechanics
 
                     }
                 };
-                nextSceneName = pacifistScene;
+                nextSceneName = SceneNameConstant.ENDING_PACIFIST;
             }
             else if (day < 3 && gameState.TreeStage >= 3)
             {
@@ -470,7 +474,7 @@ namespace Horticultist.Scripts.Mechanics
 
                     }
                 };
-                nextSceneName = townSceneName;
+                nextSceneName = SceneNameConstant.TOWN_PLAZA;
             }
             else if (day >= 3 && gameState.TreeStage >= 3)
             {
@@ -486,7 +490,7 @@ namespace Horticultist.Scripts.Mechanics
                         text = $"You will earn your place in the world!"
                     }
                 };
-                nextSceneName = ultimateCultScene;
+                nextSceneName = SceneNameConstant.ENDING_ULTIMATE;
             }
         }
     }

@@ -89,6 +89,11 @@ namespace Horticultist.Scripts.Mechanics
         private void OnDisable() {
             TownEventBus.Instance.OnDayEnd -= OnDayEnd;
             TownEventBus.Instance.OnDayStart -= OnDayStart;
+            DOTween.Kill("highlight" + DisplayName);
+            if (transform != null)
+            {
+                DOTween.Kill(transform);
+            }
         }
 
         private void OnDestroy() {

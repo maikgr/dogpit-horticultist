@@ -9,6 +9,7 @@ namespace Horticultist.Scripts.Mechanics
     public class GameStateController : MonoBehaviour
     {
         [SerializeField] private int daysPerAssessment;
+        [SerializeField] private int maxActionPerDay;
         public static GameStateController Instance { get; private set; }
         public NpcController SelectedNpc { get; private set; }
         public List<NpcController> ActiveNpcs { get; private set; }
@@ -16,6 +17,8 @@ namespace Horticultist.Scripts.Mechanics
         public List<string> SacrificedMembers { get; set; }
         public int TreeStage { get; private set; }
         public float TreeHeight { get; private set; }
+        public int ActionTaken { get; set; }
+        public int MaxAction => maxActionPerDay;
         public int DayNumber { get; private set; }
         public int WeekNumber { get; private set; }
         public bool PlayerHasConverted => ConvertCount > 0;
@@ -43,6 +46,8 @@ namespace Horticultist.Scripts.Mechanics
             ConvertCount = 0;
             DayNumber = 1;
             WeekNumber = 0;
+            TreeStage = 1;
+            TreeHeight = 1;
         }
         private void OnEnable() {
             SceneManager.activeSceneChanged += OnActiveSceneChanged;
@@ -84,7 +89,7 @@ namespace Horticultist.Scripts.Mechanics
             }
         }
 
-        public void SetTreeStatus(int stage, int height)
+        public void SetTreeStatus(int stage, float height)
         {
             TreeStage = stage;
             TreeHeight = height;
