@@ -50,7 +50,6 @@ namespace Horticultist.Scripts.Mechanics
 
             treeStage.TreeGameObject.SetActive(true);
             GameStateController.Instance.SetTreeStatus(treeStage.Stage, height);
-            TownEventBus.Instance.DispatchOnTreeGrowthChange(height, treeStage.Stage);
         }
     }
 

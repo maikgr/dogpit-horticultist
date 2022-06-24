@@ -1,5 +1,6 @@
 namespace Horticultist.Scripts.Mechanics
 {
+    using System.Linq;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
@@ -13,7 +14,7 @@ namespace Horticultist.Scripts.Mechanics
         public static GameStateController Instance { get; private set; }
         public NpcController SelectedNpc { get; private set; }
         public List<NpcController> ActiveNpcs { get; private set; }
-        public List<NpcController> CultMembers { get; private set; }
+        public List<NpcController> CultMembers => ActiveNpcs.Where(npc => npc.NpcType.Equals(NpcTypeEnum.Cultist)).ToList();
         public List<string> SacrificedMembers { get; set; }
         public int TreeStage { get; private set; }
         public float TreeHeight { get; private set; }
@@ -38,7 +39,6 @@ namespace Horticultist.Scripts.Mechanics
             GameObject.DontDestroyOnLoad(this.gameObject);
 
             ActiveNpcs = new List<NpcController>();
-            CultMembers = new List<NpcController>();
             SacrificedMembers = new List<string>();
         }
 

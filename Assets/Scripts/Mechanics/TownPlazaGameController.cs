@@ -41,25 +41,6 @@ namespace Horticultist.Scripts.Mechanics
             Instance = this;
         }
 
-        private void OnEnable() {
-            StartCoroutine(OnEnableCoroutine());
-        }
-
-        private IEnumerator OnEnableCoroutine()
-        {
-            while(TownEventBus.Instance == null)
-            {
-                yield return new WaitForFixedUpdate();
-            }
-            TownEventBus.Instance.OnCultistJoin += OnCultistJoin;
-            TownEventBus.Instance.OnCultistLeave += OnCultistLeave;
-        }
-
-        private void OnDisable() {
-            TownEventBus.Instance.OnCultistJoin -= OnCultistJoin;
-            TownEventBus.Instance.OnCultistLeave -= OnCultistLeave;
-        }
-
         private void Start() {
             gameState = GameStateController.Instance;
             StartCoroutine(DelayedStart());
@@ -102,20 +83,9 @@ namespace Horticultist.Scripts.Mechanics
             TownEventBus.Instance.DispatchOnActionTaken(this.gameState.ActionTaken, this.gameState.MaxAction);
         }
 
-        private void OnCultistJoin(NpcController npc)
-        {
-            gameState.CultMembers.Add(npc);
-        }
-
-        private void OnCultistLeave(NpcController npc)
-        {
-            gameState.CultMembers.Remove(npc);
-        }
-
         private void GenerateVisitors()
         {
-            var randomLimit = Random.Range(1, visitorPerDayAmount + 1);
-            for (var i = 0; i < randomLimit; ++i)
+            for (var i = 0; i < visitorPerDayAmount; ++i)
             {
                 npcFactory.GenerateNpc();
             }

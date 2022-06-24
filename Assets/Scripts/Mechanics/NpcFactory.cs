@@ -30,8 +30,6 @@ namespace Horticultist.Scripts.Mechanics
         private void Awake() {
             firstNames = JsonUtility.FromJson<NpcNameData>(DialogueAsset.FIRST_NAMES);
             lastNames = JsonUtility.FromJson<NpcNameData>(DialogueAsset.LAST_NAMES);
-            Debug.Log("first " + firstNames.names.Count);
-            Debug.Log("last " + lastNames.names.Count);
             this.townDialogueParser = new TownDialogueParser(
                 DialogueAsset.GENERIC_DIALOGUES,
                 DialogueAsset.CULTIST_DIALOGUES

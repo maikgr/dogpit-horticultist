@@ -12,9 +12,6 @@ namespace Horticultist.Scripts.Mechanics
         public event Action<int, int> OnDayStart;
         public event Action<int, int> OnActionTaken;
         public event Action<CultistObedienceLevelEnum> OnObedienceLevelChange;
-        public event Action<NpcController> OnCultistJoin;
-        public event Action<NpcController> OnCultistLeave;
-        public event Action<float, int> OnTreeGrowthChange;
         public event Action<IEnumerable<string>> OnObjectiveUpdate;
 
         private void Awake() {
@@ -56,30 +53,6 @@ namespace Horticultist.Scripts.Mechanics
             if (OnObedienceLevelChange != null)
             {
                 OnObedienceLevelChange.Invoke(obedienceLevel);
-            }
-        }
-
-        public void DispatchOnCultistJoin(NpcController npc)
-        {
-            if (OnCultistJoin != null)
-            {
-                OnCultistJoin.Invoke(npc);
-            }
-        }
-
-        public void DispatchOnCultistLeave(NpcController npc)
-        {
-            if (OnCultistLeave != null)
-            {
-                OnCultistLeave.Invoke(npc);
-            }
-        }
-        
-        public void DispatchOnTreeGrowthChange(float value, int stage)
-        {
-            if (OnTreeGrowthChange != null)
-            {
-                OnTreeGrowthChange.Invoke(value, stage);
             }
         }
 

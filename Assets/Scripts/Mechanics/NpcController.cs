@@ -150,7 +150,6 @@ namespace Horticultist.Scripts.Mechanics
                 this.headgearSpriteRenderer.sprite = cultistHat;
                 ObedienceValue = 0;
                 ObedienceDialogue = DialogueSet.therapy.moodup.GetRandom();
-                TownEventBus.Instance.DispatchOnCultistJoin(this);
             }
         }
 
@@ -277,7 +276,6 @@ namespace Horticultist.Scripts.Mechanics
         {
             if (ObedienceLevel.Equals(CultistObedienceLevelEnum.VeryRebellious))
             {
-                TownEventBus.Instance.DispatchOnCultistLeave(this);
                 Destroy(gameObject);
             }
             else if (ObedienceLevel.Equals(CultistObedienceLevelEnum.VeryObedient))
