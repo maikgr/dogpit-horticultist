@@ -10,6 +10,7 @@ namespace Horticultist.Scripts.Mechanics
     public class GameStateController : MonoBehaviour
     {
         [SerializeField] private int daysPerAssessment;
+        public int DaysPerAssessment => daysPerAssessment;
         [SerializeField] private int maxActionPerDay;
         public static GameStateController Instance { get; private set; }
         public NpcController SelectedNpc { get; private set; }

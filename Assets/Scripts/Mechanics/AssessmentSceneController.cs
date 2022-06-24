@@ -160,7 +160,7 @@ namespace Horticultist.Scripts.Mechanics
 
         private void Week1Assesment(int day)
         {
-            if (day < 3 && gameState.CultMembers.Count < 10)
+            if (day < gameState.DaysPerAssessment && gameState.CultMembers.Count < 6)
             {
                 // Warn scene
                 dialogues = new List<DialogueSceneText>
@@ -172,7 +172,7 @@ namespace Horticultist.Scripts.Mechanics
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Remember, I need you to recruit [10 people] and you have *{3 - day} days left]."
+                        text = $"Remember, I need you to recruit [6 people] and you have *{gameState.DaysPerAssessment - day} days left]."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -180,7 +180,7 @@ namespace Horticultist.Scripts.Mechanics
                     },
                 };
             }
-            else if (day >= 3 && gameState.CultMembers.Count < 10)
+            else if (day >= gameState.DaysPerAssessment && gameState.CultMembers.Count < 6)
             {
                 // Warn scene
                 dialogues = new List<DialogueSceneText>
@@ -192,7 +192,7 @@ namespace Horticultist.Scripts.Mechanics
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "I will let it go this time, but make sure you recruit [20 people and have at least 5 high ranking cult members], or you will *face the consequnce]."
+                        text = "I will let it go this time, but make sure you recruit [13 people and have at least 3 high ranking cult members], or you will *face the consequnce]."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -200,7 +200,7 @@ namespace Horticultist.Scripts.Mechanics
                     },
                 };
             }
-            else if (day < 3 && gameState.CultMembers.Count >= 10)
+            else if (day < gameState.DaysPerAssessment && gameState.CultMembers.Count >= 6)
             {
                 // Praise scene
                 dialogues = new List<DialogueSceneText>
@@ -212,7 +212,7 @@ namespace Horticultist.Scripts.Mechanics
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Keep this up for *{3 - day} days left] and you will earn your place in the world!"
+                        text = $"Keep this up for *{gameState.DaysPerAssessment - day} days left] and you will earn your place in the world!"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -220,7 +220,7 @@ namespace Horticultist.Scripts.Mechanics
                     },
                 };
             }
-            else if (day >= 3 && gameState.CultMembers.Count >= 10)
+            else if (day >= gameState.DaysPerAssessment && gameState.CultMembers.Count >= 6)
             {
                 // Praise scene
                 dialogues = new List<DialogueSceneText>
@@ -232,7 +232,7 @@ namespace Horticultist.Scripts.Mechanics
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Now for your next task, recruit [20 people and have at least 5 high ranking cult members]!"
+                        text = $"Now for your next task, recruit [13 people and have at least 1 high ranking cult members]!"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -245,20 +245,24 @@ namespace Horticultist.Scripts.Mechanics
 
         private void Week2Assesment(int day)
         {
-            var rank3Count = gameState.CultMembers.Where(mem => mem.CultistRank == Core.CultistRankEnum.Rank3).Count();
-            if (day < 3 && (gameState.CultMembers.Count < 20 || rank3Count < 5))
+            var highRankCount = gameState.CultMembers.Where(mem =>
+                    mem.CultistRank == Core.CultistRankEnum.Rank3 ||
+                    mem.CultistRank == Core.CultistRankEnum.Rank2
+                )
+                .Count();
+            if (day < gameState.DaysPerAssessment && (gameState.CultMembers.Count < 13 || highRankCount < 1))
             {
                 // Warn scene
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"I see you've only recruited *{gameState.CultMembers.Count} people] and there are only *{rank3Count} high ranking members in the cult]."
+                        text = $"I see you've only recruited *{gameState.CultMembers.Count} people] and there are only *{highRankCount} high ranking members in the cult]."
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Remember, I need you to recruit [20 people and have at least 5 high ranking cult members] and you have *{3 - day} days left]."
+                        text = $"Remember, I need you to recruit [13 people and have at least 1 high ranking cult members] and you have *{gameState.DaysPerAssessment - day} days left]."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -267,14 +271,14 @@ namespace Horticultist.Scripts.Mechanics
                 };
                 nextSceneName = SceneNameConstant.TOWN_PLAZA;
             }
-            else if (day >= 3 && (gameState.CultMembers.Count < 20 || rank3Count < 5))
+            else if (day >= gameState.DaysPerAssessment && (gameState.CultMembers.Count < 13 || highRankCount < 1))
             {
                 // Failed leader ending
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"I'm disappointed in you, you've only recruited *{gameState.CultMembers.Count} people] and there are only *{rank3Count} high ranking members in the cult]."
+                        text = $"I'm disappointed in you, you've only recruited *{gameState.CultMembers.Count} people] and there are only *{highRankCount} high ranking members in the cult]."
 
                     },
                     new DialogueSceneText {
@@ -284,19 +288,19 @@ namespace Horticultist.Scripts.Mechanics
                 };
                 nextSceneName = SceneNameConstant.ENDING_FAILED;
             }
-            else if (day < 3 && gameState.CultMembers.Count >= 20 && rank3Count >= 5)
+            else if (day < gameState.DaysPerAssessment && gameState.CultMembers.Count >= 13 && highRankCount >= 1)
             {
                 // Praise scene
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job, you have recruited @{gameState.CultMembers.Count} people] and there are @{rank3Count} high ranking members in the cult] to serve me."
+                        text = $"Good job, you have recruited @{gameState.CultMembers.Count} people] and there are @{highRankCount} high ranking members in the cult] to serve me."
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Keep this up for *{3 - day} days left] and you will earn your place in the world!"
+                        text = $"Keep this up for *{gameState.DaysPerAssessment - day} days left] and you will earn your place in the world!"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -305,14 +309,14 @@ namespace Horticultist.Scripts.Mechanics
                 };
                 nextSceneName = SceneNameConstant.TOWN_PLAZA;
             }
-            else if (day >= 3 && gameState.CultMembers.Count >= 20 && rank3Count >= 5)
+            else if (day >= gameState.DaysPerAssessment && gameState.CultMembers.Count >= 13 && highRankCount >= 1)
             {
                 // Praise scene
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job, you have recruited @{gameState.CultMembers.Count} people] and there are @{rank3Count} high ranking members in the cult] to serve me."
+                        text = $"Good job, you have recruited @{gameState.CultMembers.Count} people] and there are @{highRankCount} high ranking members in the cult] to serve me."
 
                     },
                     new DialogueSceneText {
@@ -330,7 +334,7 @@ namespace Horticultist.Scripts.Mechanics
 
         private void Week3Assesment(int day)
         {
-            if (day < 3 && gameState.TreeStage < 3)
+            if (day < gameState.DaysPerAssessment && gameState.TreeStage < 3)
             {
                 // Warn scene
                 dialogues = new List<DialogueSceneText>
@@ -342,7 +346,7 @@ namespace Horticultist.Scripts.Mechanics
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"I need it to [grow bigger] to be a fitting vessel for me and you have *{3 - day} days left]."
+                        text = $"I need it to [grow bigger] to be a fitting vessel for me and you have *{gameState.DaysPerAssessment - day} days left]."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -351,7 +355,7 @@ namespace Horticultist.Scripts.Mechanics
                 };
                 nextSceneName = SceneNameConstant.TOWN_PLAZA;
             }
-            else if (day >= 3 && gameState.TreeStage < 3)
+            else if (day >= gameState.DaysPerAssessment && gameState.TreeStage < 3)
             {
                 // Failed leader ending
                 dialogues = new List<DialogueSceneText>
@@ -368,7 +372,7 @@ namespace Horticultist.Scripts.Mechanics
                 };
                 nextSceneName = SceneNameConstant.ENDING_FAILED;
             }
-            else if (day < 3 && gameState.TreeStage >= 3)
+            else if (day < gameState.DaysPerAssessment && gameState.TreeStage >= 3)
             {
                 // Praise scene
                 dialogues = new List<DialogueSceneText>
@@ -380,7 +384,7 @@ namespace Horticultist.Scripts.Mechanics
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"The more it grows, the stronger I will be! You have *{3 - day} days left]!"
+                        text = $"The more it grows, the stronger I will be! You have *{gameState.DaysPerAssessment - day} days left]!"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -389,7 +393,7 @@ namespace Horticultist.Scripts.Mechanics
                 };
                 nextSceneName = SceneNameConstant.TOWN_PLAZA;
             }
-            else if (day >= 3 && gameState.TreeStage >= 3)
+            else if (day >= gameState.DaysPerAssessment && gameState.TreeStage >= 3)
             {
                 // Praise scene
                 dialogues = new List<DialogueSceneText>
@@ -413,7 +417,7 @@ namespace Horticultist.Scripts.Mechanics
 
         private void Week4Assesment(int day)
         {
-            if (day < 3 && gameState.SacrificedMembers.Count < 5)
+            if (day < gameState.DaysPerAssessment && gameState.SacrificedMembers.Count < 5)
             {
                 // Warn scene
                 dialogues = new List<DialogueSceneText>
@@ -424,12 +428,12 @@ namespace Horticultist.Scripts.Mechanics
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"You have *{3 - day} days left] to achieve this, don't disappoint me."
+                        text = $"You have *{gameState.DaysPerAssessment - day} days left] to achieve this, don't disappoint me."
                     }
                 };
                 nextSceneName = SceneNameConstant.TOWN_PLAZA;
             }
-            else if (day >= 3 && gameState.TreeStage < 3)
+            else if (day >= gameState.DaysPerAssessment && gameState.SacrificedMembers.Count < 5)
             {
                 // Pacifist ending scene
                 dialogues = new List<DialogueSceneText>
@@ -446,7 +450,7 @@ namespace Horticultist.Scripts.Mechanics
                 };
                 nextSceneName = SceneNameConstant.ENDING_PACIFIST;
             }
-            else if (day < 3 && gameState.TreeStage >= 3)
+            else if (day < gameState.DaysPerAssessment && gameState.SacrificedMembers.Count >= 5)
             {
                 // Praise scene
                 dialogues = new List<DialogueSceneText>
@@ -458,7 +462,7 @@ namespace Horticultist.Scripts.Mechanics
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"The more it grows, the stronger I will be! You have *{3 - day} days left]!"
+                        text = $"The more it grows, the stronger I will be! You have *{gameState.DaysPerAssessment - day} days left]!"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -473,13 +477,13 @@ namespace Horticultist.Scripts.Mechanics
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Keep this up for *{3 - day} days left] and you will earn your place in the world!"
+                        text = $"Keep this up for *{gameState.DaysPerAssessment - day} days left] and you will earn your place in the world!"
 
                     }
                 };
                 nextSceneName = SceneNameConstant.TOWN_PLAZA;
             }
-            else if (day >= 3 && gameState.TreeStage >= 3)
+            else if (day >= gameState.DaysPerAssessment && gameState.SacrificedMembers.Count >= 5)
             {
                 // Ulltimate cult ending
                 dialogues = new List<DialogueSceneText>

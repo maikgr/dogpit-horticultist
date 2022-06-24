@@ -155,12 +155,12 @@ namespace Horticultist.Scripts.Mechanics
         public void SetMood(MoodEnum moodType)
         {
             this.moodType = moodType;
-            if (NpcType != NpcTypeEnum.Cultist && moodType == MoodEnum.Happy)
+            if (moodType == MoodEnum.Happy)
             {
                 this.eyesSpriteRenderer.sprite = this.eyesExpressionSet.happy;
                 this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.happy;
             }
-            else if (NpcType != NpcTypeEnum.Cultist && moodType == MoodEnum.Angry)
+            else if (moodType == MoodEnum.Angry)
             {
                 this.eyesSpriteRenderer.sprite = this.eyesExpressionSet.happy;
                 this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.happy;
@@ -188,13 +188,15 @@ namespace Horticultist.Scripts.Mechanics
             if (!HasObedienceAction) return;
             if (currentObedienceAction.action.Equals(action))
             {
-                IncreaseObedienceValue(2);
+                IncreaseObedienceValue(4);
                 ObedienceDialogue = DialogueSet.therapy.moodup.GetRandom();
+                SetMood(MoodEnum.Happy);
             }
             else
             {
-                DecreaseObedienceValue(2);
+                DecreaseObedienceValue(4);
                 ObedienceDialogue = DialogueSet.therapy.mooddown.GetRandom();
+                SetMood(MoodEnum.Angry);
             }
             
             HasObedienceAction = false;
@@ -283,7 +285,7 @@ namespace Horticultist.Scripts.Mechanics
             }
             else if (HasObedienceAction)
             {
-                DecreaseObedienceValue(1);
+                DecreaseObedienceValue(2);
             }
             
             if (NpcType.Equals(NpcTypeEnum.Cultist))
