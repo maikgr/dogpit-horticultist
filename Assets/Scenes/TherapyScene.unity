@@ -383,8 +383,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WealthRoomTemplate: {fileID: 6126600101320241504, guid: a3da6c4d2724141ceb361ea45c8ef192, type: 3}
-  HealthRoomTemplate: {fileID: 6126600101320241504, guid: a3da6c4d2724141ceb361ea45c8ef192, type: 3}
-  LoveRoomTemplate: {fileID: 6126600101320241504, guid: a3da6c4d2724141ceb361ea45c8ef192, type: 3}
+  HealthRoomTemplate: {fileID: 6126600101320241504, guid: 0a5b3afd2012fd148b274c87c889ba36, type: 3}
+  LoveRoomTemplate: {fileID: 6126600101320241504, guid: 2954852eb2d2737409c43529d60af412, type: 3}
   cursorIconContainer: {fileID: 579760356}
   therapyToolIcons:
   - toolType: 1
