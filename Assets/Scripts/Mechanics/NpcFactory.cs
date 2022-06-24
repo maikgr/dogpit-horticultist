@@ -2,8 +2,6 @@ namespace Horticultist.Scripts.Mechanics
 {
     using System.Collections.Generic;
     using UnityEngine;
-    using UnityEngine.InputSystem;
-    using Newtonsoft.Json;
     using Pathfinding;
     using Horticultist.Scripts.Extensions;
     using Horticultist.Scripts.Core;
@@ -25,32 +23,27 @@ namespace Horticultist.Scripts.Mechanics
             NpcPersonalityEnum.Love
         };
 
-        private string[] firstNames;
-        private string[] lastNames;
-        private void Awake() {
-            var firstNameJson = Resources.Load<TextAsset>("firstnames");
-            var lastNameJson = Resources.Load<TextAsset>("lastnames");
-            var cultistDialogueJson = Resources.Load<TextAsset>("town-cultist2");
-            var genericDialogueJson = Resources.Load<TextAsset>("town-generalnpc2");
-            firstNames = JsonConvert.DeserializeObject<string[]>(firstNameJson.text);
-            lastNames = JsonConvert.DeserializeObject<string[]>(lastNameJson.text);
-            this.townDialogueParser = new TownDialogueParser(
-                genericDialogueJson.text,
-                cultistDialogueJson.text
-            );
+        private NpcNameData firstNames;
+        private NpcNameData lastNames;
 
-            Resources.UnloadAsset(firstNameJson);
-            Resources.UnloadAsset(lastNameJson);
-            Resources.UnloadAsset(cultistDialogueJson);
-            Resources.UnloadAsset(genericDialogueJson);
+        // WebGL can't access StreamingAssets
+        private void Awake() {
+            firstNames = JsonUtility.FromJson<NpcNameData>(DialogueAsset.FIRST_NAMES);
+            lastNames = JsonUtility.FromJson<NpcNameData>(DialogueAsset.LAST_NAMES);
+            Debug.Log("first " + firstNames.names.Count);
+            Debug.Log("last " + lastNames.names.Count);
+            this.townDialogueParser = new TownDialogueParser(
+                DialogueAsset.GENERIC_DIALOGUES,
+                DialogueAsset.CULTIST_DIALOGUES
+            );
         }
 
         public NpcController GenerateNpc()
         {
             var npc = Instantiate(npcPrefab, GetSpawnPoint(), Quaternion.identity);
             var hasHeadgear = Random.Range(0f, 1f) < headgearChance;
-            var firstName = firstNames.GetRandom();
-            var lastName = lastNames.GetRandom();
+            var firstName = firstNames.names.GetRandom();
+            var lastName = lastNames.names.GetRandom();
             var personality = personalities.GetRandom();
             npc.GenerateNpc(
                 firstName, lastName, personality,
@@ -83,5 +76,11 @@ namespace Horticultist.Scripts.Mechanics
                 worldPos.y
             );
         }
+    }
+
+    [System.Serializable]
+    public class NpcNameData
+    {
+        public List<string> names;
     }
 }

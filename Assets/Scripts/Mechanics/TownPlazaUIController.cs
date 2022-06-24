@@ -230,7 +230,7 @@ namespace Horticultist.Scripts.Mechanics
             string dialogueText = string.Empty;
             if (npc.NpcType.Equals(NpcTypeEnum.Visitor))
             {
-                dialogueText = npc.DialogueSet.Visitor.GetRandom();
+                dialogueText = npc.DialogueSet.visitor.GetRandom();
             }
             else if (npc.NpcType.Equals(NpcTypeEnum.Cultist))
             {
@@ -238,11 +238,11 @@ namespace Horticultist.Scripts.Mechanics
             }
             else if (npc.NpcType.Equals(NpcTypeEnum.Townspeople) && npc.moodType.Equals(MoodEnum.Angry))
             {
-                dialogueText = npc.DialogueSet.Angry_person.GetRandom();
+                dialogueText = npc.DialogueSet.angry_person.GetRandom();
             }
             else
             {
-                dialogueText = npc.DialogueSet.Happy_person.GetRandom();
+                dialogueText = npc.DialogueSet.happy_person.GetRandom();
             }
             npcDialogueText.text = dialogueText;
 

@@ -4,24 +4,36 @@ namespace Horticultist.Scripts.Core
     using System.Text;
     using System.Linq;
     using System.Collections.Generic;
-    using Newtonsoft.Json;
     using Horticultist.Scripts.Extensions;
+    using UnityEngine;
 
     public class TownDialogueParser
     {
-        private CultistDialogue[] cultistDialogues;
-        private GeneralNpcDialogue[] generalnpcDialogues;
+        private CultistDialogueWrapper cultistDialogueWrapper;
+        private GeneralNpcWrapper generalNpcWrapper;
         private const string NPC_PLACEHOLDER = "[NPC]";
-        private static readonly string[] SPECIAL_NPCS = new string[] { "ash1" };
+        private List<string> SPECIAL_NPCS = new List<string> { "ash1", "persica1", "persica2", "uwu_demon", "radishgon", "alocasia1", "alocasia2" };
+        private bool isParsed;
 
         public TownDialogueParser(string generalNpcJson, string cultistJson)
         {
-            this.generalnpcDialogues = JsonConvert.DeserializeObject<GeneralNpcDialogue[]>(generalNpcJson);
-            this.cultistDialogues = JsonConvert.DeserializeObject<CultistDialogue[]>(cultistJson);
+            try
+            {
+                this.generalNpcWrapper = JsonUtility.FromJson<GeneralNpcWrapper>(generalNpcJson);
+                this.cultistDialogueWrapper = JsonUtility.FromJson<CultistDialogueWrapper>(cultistJson);
+                isParsed = true;
+            }
+            catch (Exception e)
+            {
+                isParsed = false;
+                UnityEngine.Debug.LogError("Cannot read dialogues json");
+                UnityEngine.Debug.LogError(e.Message);
+            }
         }
 
         public NpcDialogueSet GenerateDialogueSet(NpcPersonalityEnum personality)
         {
+            if (!isParsed) return new NpcDialogueSet();
             var personalityString = string.Empty;
             switch(personality)
             {
@@ -37,15 +49,16 @@ namespace Horticultist.Scripts.Core
                     break;
             }
 
-            var list = generalnpcDialogues.Single(g => g.Personality == personalityString)
-                .Subsets
-                .Where(p => !SPECIAL_NPCS.Contains(p.Subset))
+            var list = generalNpcWrapper.data.Single(g => g.personality == personalityString)
+                .subsets
+                .Where(p => !SPECIAL_NPCS.Contains(p.subset))
                 .ToList();
             return list.GetRandom();
         }
 
         public List<CultistObedienceAction> GenerateCultistActions(string npcName, NpcPersonalityEnum personality)
         {
+            if (!isParsed) return new List<CultistObedienceAction>();
             var miscDialogues = ParseCultistDialogue(npcName, "misc");
 
             switch(personality)
@@ -71,14 +84,14 @@ namespace Horticultist.Scripts.Core
 
         private IEnumerable<CultistObedienceAction> ParseCultistDialogue(string npcName, string personality)
         {
-            return cultistDialogues
-                .SingleOrDefault(v => v.Personality == personality)
-                .Texts
+            return cultistDialogueWrapper.data
+                .SingleOrDefault(v => v.personality == personality)
+                .texts
                 .Select(textType => {
-                    bool isEvent = textType.Type == "event";
-                    string text = textType.Text;
+                    bool isEvent = textType.type == "event";
+                    string text = textType.text;
                     var actionEnum = CultistObedienceActionEnum.Praise;
-                    if (textType.Answer == "scold") actionEnum = CultistObedienceActionEnum.Scold;
+                    if (textType.answer == "scold") actionEnum = CultistObedienceActionEnum.Scold;
                     if (isEvent) text = ParseEventText(npcName, text);
                     
                     return new CultistObedienceAction(
@@ -97,57 +110,77 @@ namespace Horticultist.Scripts.Core
         }
     }
 
+
+    [Serializable]
+    public class CultistDialogueWrapper
+    {
+        public List<CultistDialogue> data;
+    }
+
+    [Serializable]
+    public class GeneralNpcWrapper
+    {
+        public List<GeneralNpcDialogue> data;
+    }
+
+
+    [Serializable]
     public struct GeneralNpcDialogue
     {
-        public string Personality { get; set; }
-        public NpcDialogueSet[] Subsets { get; set; }
+        public string personality;
+        public List<NpcDialogueSet> subsets;
     }
 
+    [Serializable]
     public struct NpcDialogueSet
     {
-        public string Subset { get; set; }
-        public string[] Visitor { get; set; }
-        public PersonalityTherapyDialogue Therapy { get; set; }
-        public string[] Happy_person { get; set; }
-        public string[] Angry_person { get; set; }
+        public string subset;
+        public List<string> visitor;
+        public PersonalityTherapyDialogue therapy;
+        public List<string> happy_person;
+        public List<string> angry_person;
     }
 
+    [Serializable]
     public struct PersonalityTherapyDialogue
     {
-        public string[] Intro { get; set; }
-        public string[] Moodup { get; set; }
-        public string[] Moodup_misc { get; set; }
-        public string[] Mooddown { get; set; }
-        public string[] Mooddown_misc { get; set; }
-        public string[] Success { get; set; }
-        public string[] Unrecruited { get; set; }
-        public string[] Failure { get; set; }
+        public List<string> intro;
+        public List<string> moodup;
+        public List<string> moodup_misc;
+        public List<string> mooddown;
+        public List<string> mooddown_misc;
+        public List<string> success;
+        public List<string> unrecruited;
+        public List<string> failure;
     }
 
+    [Serializable]
     public struct CultistTextType
     {
-        public string Type { get; set; }
-        public string Text { get; set; }
-        public string Answer { get; set; }
+        public string type;
+        public string text;
+        public string answer;
     }
 
+    [Serializable]
     public struct CultistDialogue
     {
-        public string Personality { get; set; }
-        public CultistTextType[] Texts { get; set; }
+        public string personality;
+        public List<CultistTextType> texts;
     }
 
+    [Serializable]
     public struct CultistObedienceAction
     {
-        public bool IsEvent { get; }
-        public string Text { get; }
-        public CultistObedienceActionEnum Action { get; }
+        public bool isEvent;
+        public string text;
+        public CultistObedienceActionEnum action;
 
         public CultistObedienceAction(bool isEvent, string text, CultistObedienceActionEnum action)
         {
-            this.IsEvent = isEvent;
-            this.Text = text;
-            this.Action = action;
+            this.isEvent = isEvent;
+            this.text = text;
+            this.action = action;
         }
     }
 }

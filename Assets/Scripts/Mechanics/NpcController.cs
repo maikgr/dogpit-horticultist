@@ -149,7 +149,7 @@ namespace Horticultist.Scripts.Mechanics
                 this.CultistRank = CultistRankEnum.Rank1;
                 this.headgearSpriteRenderer.sprite = cultistHat;
                 ObedienceValue = 0;
-                ObedienceDialogue = DialogueSet.Therapy.Moodup.GetRandom();
+                ObedienceDialogue = DialogueSet.therapy.moodup.GetRandom();
                 TownEventBus.Instance.DispatchOnCultistJoin(this);
             }
         }
@@ -162,18 +162,18 @@ namespace Horticultist.Scripts.Mechanics
                 case MoodEnum.Happy:
                     this.eyesSpriteRenderer.sprite = this.eyesExpressionSet.happy;
                     this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.happy;
-                    this.ObedienceDialogue = this.DialogueSet.Therapy.Moodup.GetRandom();
+                    this.ObedienceDialogue = this.DialogueSet.therapy.moodup.GetRandom();
                     break;
                 case MoodEnum.Angry:
                     this.eyesSpriteRenderer.sprite = this.eyesExpressionSet.angry;
                     this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.angry;
-                    this.ObedienceDialogue = this.DialogueSet.Therapy.Mooddown.GetRandom();
+                    this.ObedienceDialogue = this.DialogueSet.therapy.mooddown.GetRandom();
                     break;
                 case MoodEnum.Neutral:
                 default:
                     this.eyesSpriteRenderer.sprite = this.eyesExpressionSet.happy;
                     this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.happy;
-                    this.ObedienceDialogue = this.DialogueSet.Therapy.Moodup.GetRandom();
+                    this.ObedienceDialogue = this.DialogueSet.therapy.moodup.GetRandom();
                     break;
             }
         }
@@ -197,15 +197,15 @@ namespace Horticultist.Scripts.Mechanics
         public void ObedienceAction(CultistObedienceActionEnum action)
         {
             if (!HasObedienceAction) return;
-            if (currentObedienceAction.Action.Equals(action))
+            if (currentObedienceAction.action.Equals(action))
             {
                 IncreaseObedienceValue(2);
-                ObedienceDialogue = DialogueSet.Therapy.Moodup.GetRandom();
+                ObedienceDialogue = DialogueSet.therapy.moodup.GetRandom();
             }
             else
             {
                 DecreaseObedienceValue(2);
-                ObedienceDialogue = DialogueSet.Therapy.Mooddown.GetRandom();
+                ObedienceDialogue = DialogueSet.therapy.mooddown.GetRandom();
             }
             
             HasObedienceAction = false;

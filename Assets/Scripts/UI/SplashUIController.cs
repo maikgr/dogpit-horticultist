@@ -18,9 +18,6 @@ namespace Horticultist.Scripts.UI
         {
             DOTween.Sequence()
                 .Append(FadeInScreen())
-                .AppendInterval(fadeDelay)
-                .Append(FadeOutScreen().OnComplete(() => logoScreen.gameObject.SetActive(false)))
-                .Append(FadeInScreen())
                 .OnComplete(() => fadeScreen.gameObject.SetActive(false))
                 .SetId("splash");
         }

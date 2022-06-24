@@ -39,7 +39,7 @@ namespace Horticultist.Scripts.Mechanics
             // Basic info
             npcTypeText.text = currentNpc.NpcType.ToString();
             npcNameText.text = currentNpc.DisplayName;
-            npcDialogueText.text = currentNpc.DialogueSet.Therapy.Intro.GetRandom();
+            npcDialogueText.text = currentNpc.DialogueSet.therapy.intro.GetRandom();
 
             // Visuals
             UpdateNpcVisual();
@@ -120,15 +120,15 @@ namespace Horticultist.Scripts.Mechanics
 
             if (npcType == NpcTypeEnum.Townspeople && mood == MoodEnum.Angry)
             {
-                npcDialogueText.text = currentNpc.DialogueSet.Therapy.Failure.GetRandom();
+                npcDialogueText.text = currentNpc.DialogueSet.therapy.failure.GetRandom();
             }
             else if (npcType == NpcTypeEnum.Cultist)
             {
-                npcDialogueText.text = currentNpc.DialogueSet.Therapy.Success.GetRandom();
+                npcDialogueText.text = currentNpc.DialogueSet.therapy.success.GetRandom();
             }
             else
             {
-                npcDialogueText.text = currentNpc.DialogueSet.Therapy.Unrecruited.GetRandom();
+                npcDialogueText.text = currentNpc.DialogueSet.therapy.unrecruited.GetRandom();
             }
             StartCoroutine(LoadTownPlaza(2f));
         }
