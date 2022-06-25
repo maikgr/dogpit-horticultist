@@ -1,10 +1,12 @@
 namespace Horticultist.Scripts.Mechanics
 {
+    using System.Linq;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.InputSystem;
     using UnityEngine.SceneManagement;
+    using UnityEngine.UI;
     using TMPro;
     using Horticultist.Scripts.Core;
 
@@ -12,6 +14,8 @@ namespace Horticultist.Scripts.Mechanics
     {
         [SerializeField] private TMP_Text nameText;
         [SerializeField] private TMP_Text dialogueText;
+        [SerializeField] private Image CgImage;
+        [SerializeField] private List<EndingSceneCG> endingSceneCGs;
         private HorticultistInputActions gameInputs;
         private bool isTyping;
         private int currentIndex;
@@ -32,6 +36,8 @@ namespace Horticultist.Scripts.Mechanics
         }
 
         private void Start() {
+            var ending = endingSceneCGs.First(e => e.endingType == GameStateController.Instance.EndingType);
+            CgImage.sprite = ending.endingCg;
             StartCoroutine(ShowDialogue(currentIndex));
         }
 
@@ -85,9 +91,10 @@ namespace Horticultist.Scripts.Mechanics
         }
     }
 
-    public struct DialogueSceneText
+    [System.Serializable]
+    public class EndingSceneCG
     {
-        public string name;
-        public string text;
+        public EndingTypeEnum endingType;
+        public Sprite endingCg;
     }
 }

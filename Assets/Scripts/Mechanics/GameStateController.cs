@@ -27,6 +27,7 @@ namespace Horticultist.Scripts.Mechanics
         public int ConvertCount { get; private set; }
         public string PlayerName { get; private set; }
         public string PrevScene { get; set; }
+        public EndingTypeEnum EndingType { get; set; }
 
         private void Awake() {
             var controllers = GameObject.FindObjectsOfType<GameStateController>();

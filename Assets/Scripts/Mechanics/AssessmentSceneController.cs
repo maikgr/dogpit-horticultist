@@ -286,7 +286,8 @@ namespace Horticultist.Scripts.Mechanics
                         text = "Now you have to *face the consequnce!]."
                     }
                 };
-                nextSceneName = SceneNameConstant.ENDING_FAILED;
+                gameState.EndingType = EndingTypeEnum.FailedLeaderEnding;
+                nextSceneName = SceneNameConstant.ENDING;
             }
             else if (day < gameState.DaysPerAssessment && gameState.CultMembers.Count >= 13 && highRankCount >= 1)
             {
@@ -370,7 +371,8 @@ namespace Horticultist.Scripts.Mechanics
                         text = "Now you have to *face the consequnce!]."
                     }
                 };
-                nextSceneName = SceneNameConstant.ENDING_FAILED;
+                gameState.EndingType = EndingTypeEnum.FailedLeaderEnding;
+                nextSceneName = SceneNameConstant.ENDING;
             }
             else if (day < gameState.DaysPerAssessment && gameState.TreeStage >= 3)
             {
@@ -448,7 +450,8 @@ namespace Horticultist.Scripts.Mechanics
 
                     }
                 };
-                nextSceneName = SceneNameConstant.ENDING_PACIFIST;
+                gameState.EndingType = EndingTypeEnum.PacifistEnding;
+                nextSceneName = SceneNameConstant.ENDING;
             }
             else if (day < gameState.DaysPerAssessment && gameState.SacrificedMembers.Count >= 5)
             {
@@ -497,7 +500,8 @@ namespace Horticultist.Scripts.Mechanics
                         text = $"You will earn your place in the world!"
                     }
                 };
-                nextSceneName = SceneNameConstant.ENDING_ULTIMATE;
+                gameState.EndingType = EndingTypeEnum.UltimateCultEnding;
+                nextSceneName = SceneNameConstant.ENDING;
             }
         }
     }
