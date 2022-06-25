@@ -1,9 +1,8 @@
 namespace Horticultist.Scripts.Mechanics
 {
-    using System.Collections;
-    using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.InputSystem;
+    using UnityEngine.UI;
     using DG.Tweening;
 
     [RequireComponent(typeof(Camera))]
@@ -14,6 +13,13 @@ namespace Horticultist.Scripts.Mechanics
         [SerializeField] private float MinZoomValue;
         [SerializeField] private float MaxZoomValue;
         [SerializeField] private float ZoomStepValue;
+
+        [Header("Visual")]
+        [SerializeField] private Image indicatorUp;
+        [SerializeField] private Image indicatorDown;
+        [SerializeField] private Image indicatorLeft;
+        [SerializeField] private Image indicatorRight;
+
         private NpcController trackingNpc;
         private Vector2 MinCameraPos
         {
@@ -51,7 +57,7 @@ namespace Horticultist.Scripts.Mechanics
         private void OnEnable()
         {
 
-            gameInput.Camera.Move.started += OnCameraMoveStarted;
+            gameInput.Camera.Move.performed += OnCameraMoveStarted;
             gameInput.Camera.Move.canceled += OnCameraMoveCanceled;
             gameInput.Camera.Move.Enable();
 
@@ -65,7 +71,7 @@ namespace Horticultist.Scripts.Mechanics
 
         private void OnDisable()
         {
-            gameInput.Camera.Move.started -= OnCameraMoveStarted;
+            gameInput.Camera.Move.performed -= OnCameraMoveStarted;
             gameInput.Camera.Move.canceled -= OnCameraMoveCanceled;
             gameInput.Camera.Move.Disable();
 
@@ -109,13 +115,11 @@ namespace Horticultist.Scripts.Mechanics
                 Mathf.Clamp(target.y, MinCameraPos.y, MaxCameraPos.y),
                 transform.position.z
             );
-        }
 
-        private void ZoomCamera(float zoomValue)
-        {
-            DOVirtual.Float(cameraControl.orthographicSize, zoomValue, 0.1f, (val) => {
-                cameraControl.orthographicSize = val;
-            });
+            indicatorUp.gameObject.SetActive(transform.position.y < MaxCameraPos.y);
+            indicatorDown.gameObject.SetActive(transform.position.y > MinCameraPos.y);
+            indicatorRight.gameObject.SetActive(transform.position.x < MaxCameraPos.x);
+            indicatorLeft.gameObject.SetActive(transform.position.x > MinCameraPos.x);
         }
 
         private void OnCameraMoveStarted(InputAction.CallbackContext context)
@@ -145,12 +149,10 @@ namespace Horticultist.Scripts.Mechanics
             if (wheelDelta > 0) wheelDelta = 1;
             else if (wheelDelta < 0) wheelDelta = -1;
 
-            ZoomCamera(
-                Mathf.Clamp(
-                    cameraControl.orthographicSize - (wheelDelta * ZoomStepValue),
-                    MinZoomValue,
-                    MaxZoomValue
-                )
+            cameraControl.orthographicSize = Mathf.Clamp(
+                cameraControl.orthographicSize - (wheelDelta * ZoomStepValue),
+                MinZoomValue,
+                MaxZoomValue
             );
 
             // Make sure zoom doesn't reveal out of boundary area
@@ -183,7 +185,10 @@ namespace Horticultist.Scripts.Mechanics
 
         public void ZoomToNpc(NpcController npc)
         {
-            ZoomCamera(MinZoomValue);
+            DOVirtual.Float(cameraControl.orthographicSize, MinZoomValue, 0.1f, (val) => {
+                cameraControl.orthographicSize = val;
+            });
+
             MoveCamera(npc.transform.position);
         }
     }

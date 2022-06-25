@@ -31,7 +31,7 @@ namespace Horticultist.Scripts.Mechanics
         private void OnEnable()
         {
 
-            gameInput.Camera.Move.started += OnCameraMoveStarted;
+            gameInput.Camera.Move.performed += OnCameraMoveStarted;
             gameInput.Camera.Move.canceled += OnCameraMoveCanceled;
             gameInput.Camera.Move.Enable();
 
@@ -42,7 +42,7 @@ namespace Horticultist.Scripts.Mechanics
 
         private void OnDisable()
         {
-            gameInput.Camera.Move.started -= OnCameraMoveStarted;
+            gameInput.Camera.Move.performed -= OnCameraMoveStarted;
             gameInput.Camera.Move.canceled -= OnCameraMoveCanceled;
             gameInput.Camera.Move.Disable();
 

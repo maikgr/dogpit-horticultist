@@ -4283,8 +4283,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c1c0058173f2824295bc600c3e94987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonSpeed: 3
-  mouseDragSpeed: 6
+  buttonSpeed: 10
+  mouseDragSpeed: 2.7
   MinCameraPos: {x: -4.7, y: -3.3}
   MaxCameraPos: {x: 1.66, y: 2.2}
   IndicatorUp: {fileID: 494869361}

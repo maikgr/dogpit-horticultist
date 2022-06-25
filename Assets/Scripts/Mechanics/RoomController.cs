@@ -42,20 +42,6 @@ namespace Horticultist.Scripts.Mechanics
                 .OrderBy(_ => System.Guid.NewGuid()) // randomize list sort
                 .Take(size)
                 .ToList();
-
-            // List<int> numbers = new List<int>();
-            // int number = 0;
-            // Random r = new Random();
-
-            // for (int i = 0; i < size; i++) {
-            //     number = r.Next(0, range);
-            //     while (numbers.Contains(number)) {
-            //         number = r.Next(0, range);
-            //     }
-            //     numbers.Add(number);
-            // }
-
-            // return numbers;
         }
 
         private void OnClutterStateUpdate()
