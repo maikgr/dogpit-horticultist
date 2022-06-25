@@ -3650,18 +3650,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 838067868}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c94ff060d5bee2f4da56575c6a807f43, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c5e1799b51b325458ea8f49ddb6674d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMaps:
-  - sfx: 0
-    audio: {fileID: 8300000, guid: b0a8ed1db94d72248bd05e15abdc467f, type: 3}
-  - sfx: 1
-    audio: {fileID: 8300000, guid: c5dcc1bb8d3b4c241ba772ae0676698a, type: 3}
-  - sfx: 2
-    audio: {fileID: 8300000, guid: f6e3ac6132d0cb948828c6a0d552c1bf, type: 3}
-  - sfx: 3
-    audio: {fileID: 8300000, guid: f6e3ac6132d0cb948828c6a0d552c1bf, type: 3}
+  bgmSource: {fileID: 838067875}
+  bgmMap:
+  - TreeStage: 1
+    bgm: {fileID: 8300000, guid: 924e1fc492c8f1343ba469e95b6e04ea, type: 3}
+  - TreeStage: 2
+    bgm: {fileID: 8300000, guid: 846cb8b2acd847f4b8987617bd46b02e, type: 3}
+  - TreeStage: 3
+    bgm: {fileID: 8300000, guid: 693dc92cc3151d547bf2be745c6dfff9, type: 3}
+  - TreeStage: 4
+    bgm: {fileID: 8300000, guid: 27803c4316ca4e4488bf721d490d1d3d, type: 3}
 --- !u!1 &841994954
 GameObject:
   m_ObjectHideFlags: 0

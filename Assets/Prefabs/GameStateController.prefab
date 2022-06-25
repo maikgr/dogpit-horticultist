@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67927d7a45ee6de40bc7c7c75438e05e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  daysPerAssessment: 3
+  maxActionPerDay: 8

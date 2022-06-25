@@ -323,6 +323,7 @@ namespace Horticultist.Scripts.Mechanics
             ClosePanel();
             if (GameStateController.Instance.SacrificedMembers.Count == 0)
             {
+                TownPlazaBgmController.Instance.PauseBgm();
                 isActionBlock = true;
                 cameraController.ZoomToNpc(npc);
                 cameraController.TrackNpc(npc);
@@ -330,6 +331,7 @@ namespace Horticultist.Scripts.Mechanics
                 npc.Sacrifice(() => {
                     isActionBlock = false;
                     cameraController.StopTrackNpc();
+                    TownPlazaBgmController.Instance.ResumeBgm();
                 });
             }
             else
