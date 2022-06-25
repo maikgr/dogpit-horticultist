@@ -6,8 +6,10 @@ namespace Horticultist.Scripts.Mechanics
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.SceneManagement;
+
     using Random = UnityEngine.Random;
     using TMPro;
+    using UnityEngine.UI;
     using DG.Tweening;
     using Horticultist.Scripts.Core;
     using Horticultist.Scripts.Extensions;
@@ -41,6 +43,11 @@ namespace Horticultist.Scripts.Mechanics
         [SerializeField] private int obedienceDecayValue;
         [SerializeField] private int sacrificeValue;
         public string NpcID { get; private set; }
+
+        [Header("UI")]
+        [SerializeField] private List<TypeColourMap> typeColourMaps;
+        [SerializeField] private Image npcTypeCanvas;
+
 
         // NPC Type Properties
         public string DisplayName { get; private set; }
@@ -153,8 +160,12 @@ namespace Horticultist.Scripts.Mechanics
 
         public void ChangeType(NpcTypeEnum npcTypeEnum)
         {
+            var colour = typeColourMaps.First(t => t.npcType == npcTypeEnum).colour;
+            npcTypeCanvas.color = colour;
+
             this.NpcType = npcTypeEnum;
             npcTypeText.text = npcTypeEnum.ToString();
+
             if (npcTypeEnum.Equals(NpcTypeEnum.Cultist))
             {
                 this.CultistRank = CultistRankEnum.Rank2;
@@ -364,5 +375,12 @@ namespace Horticultist.Scripts.Mechanics
     {
         public Sprite body;
         public RuntimeAnimatorController animatorController;
+    }
+
+    [Serializable]
+    public class TypeColourMap
+    {
+        public NpcTypeEnum npcType;
+        public Color colour;
     }
 }
