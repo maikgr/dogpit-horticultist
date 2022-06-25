@@ -324,6 +324,7 @@ namespace Horticultist.Scripts.Mechanics
             if (GameStateController.Instance.SacrificedMembers.Count == 0)
             {
                 TownPlazaBgmController.Instance.PauseBgm();
+                SfxController.Instance.PlaySfx(SfxEnum.SacrificeFirst);
                 isActionBlock = true;
                 cameraController.ZoomToNpc(npc);
                 cameraController.TrackNpc(npc);
@@ -331,12 +332,15 @@ namespace Horticultist.Scripts.Mechanics
                 npc.Sacrifice(() => {
                     isActionBlock = false;
                     cameraController.StopTrackNpc();
+                    cameraController.ResetZoomToDefault();
                     TownPlazaBgmController.Instance.ResumeBgm();
                 });
             }
             else
             {
                 npc.Sacrifice();
+                SfxController.Instance.PlaySfx(SfxEnum.Sacrifice);
+
             }
         }
 

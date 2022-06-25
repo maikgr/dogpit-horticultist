@@ -92,6 +92,17 @@ namespace Horticultist.Scripts.Mechanics
 
         private void OnMoodChanged(MoodEnum mood)
         {
+            if (currentNpc.moodType != mood) {
+                if (mood == MoodEnum.Angry)
+                {
+                    SfxController.Instance.PlaySfx(SfxEnum.TherapyMoodChangeBad);
+                }
+                else
+                {
+                    SfxController.Instance.PlaySfx(SfxEnum.TherapyMoodChangeGood);
+                }
+            }
+
             currentNpc.SetMood(mood);
             if (mood == MoodEnum.Angry)
             {

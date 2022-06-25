@@ -6,11 +6,14 @@ namespace Horticultist.Scripts.Mechanics
     using UnityEngine;
     using Random=System.Random;
     using Horticultist.Scripts.Core;
+    using Horticultist.Scripts.UI;
 
     public class RoomController : MonoBehaviour
     {
         [SerializeField] private List<MindClutter> clutters;
         [SerializeField] private int dirtyCluttersGenerateAmount;
+
+        private bool therapyEnded = false; 
 
         private void Awake()
         {
@@ -27,12 +30,17 @@ namespace Horticultist.Scripts.Mechanics
                 else {
                     clutters[i].SetStateClean();
                 }
-                clutters[i].onInteracted += OnClutterStateUpdate;
+                clutters[i].onInteracted += OnClutterInteract;
+                clutters[i].onStateChange += OnClutterStateUpdate;
             }
         }
 
         private void OnDisable() {
-            clutters.ForEach(c => c.onInteracted -= OnClutterStateUpdate);
+            clutters.ForEach(c => 
+            {
+                c.onInteracted -= OnClutterInteract;
+                c.onStateChange -= OnClutterStateUpdate;
+            });
         }
 
         // Utils
@@ -44,23 +52,41 @@ namespace Horticultist.Scripts.Mechanics
                 .ToList();
         }
 
+        private void OnClutterInteract()
+        {
+            var currentNpc = GameStateController.Instance.SelectedNpc;
+            if (therapyEnded) return;
+
+            if (currentNpc.IndoctrinationValue >= 100)
+            {
+                therapyEnded = true;
+                TherapyEventBus.Instance.DispatchOnTherapyEnds(NpcTypeEnum.Cultist, MoodEnum.Neutral);
+                SfxController.Instance.PlaySfx(SfxEnum.IndoctrinationSuccess);
+
+            } 
+            else if(!clutters.Any(c => c.CurrentState == ClutterStateEnum.Dirty))
+            {
+                therapyEnded = true;
+                TherapyEventBus.Instance.DispatchOnTherapyEnds(NpcTypeEnum.Townspeople, MoodEnum.Happy);
+                SfxController.Instance.PlaySfx(SfxEnum.TherapySuccess);
+            }
+            else if (currentNpc.PatienceValue <= 0)
+            {
+                therapyEnded = true;
+                TherapyEventBus.Instance.DispatchOnTherapyEnds(NpcTypeEnum.Townspeople, MoodEnum.Angry);
+                SfxController.Instance.PlaySfx(SfxEnum.TherapyFail);
+            }
+
+        }
+
         private void OnClutterStateUpdate()
         {
-            if(!clutters.Any(c => c.CurrentState == ClutterStateEnum.Dirty))
+            var currentNpc = GameStateController.Instance.SelectedNpc;
+            if(!clutters.Any(c => c.CurrentState == ClutterStateEnum.Dirty) && currentNpc.IndoctrinationValue < 100)
             {
+                therapyEnded = true;
                 TherapyEventBus.Instance.DispatchOnTherapyEnds(NpcTypeEnum.Townspeople, MoodEnum.Happy);
-            }
-            else
-            {
-                var currentNpc = GameStateController.Instance.SelectedNpc;
-                if (currentNpc.PatienceValue <= 0)
-                {
-                    TherapyEventBus.Instance.DispatchOnTherapyEnds(NpcTypeEnum.Townspeople, MoodEnum.Angry);
-                }
-                else if (currentNpc.IndoctrinationValue >= 100)
-                {
-                    TherapyEventBus.Instance.DispatchOnTherapyEnds(NpcTypeEnum.Cultist, MoodEnum.Neutral);
-                }
+                SfxController.Instance.PlaySfx(SfxEnum.TherapySuccess);
             }
         }
     }

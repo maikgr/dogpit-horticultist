@@ -11,6 +11,7 @@ namespace Horticultist.Scripts.Mechanics
     using DG.Tweening;
     using Horticultist.Scripts.Core;
     using Horticultist.Scripts.Extensions;
+    using Horticultist.Scripts.UI;
     using Pathfinding;
 
     public class NpcController : MonoBehaviour
@@ -203,12 +204,30 @@ namespace Horticultist.Scripts.Mechanics
                 IncreaseObedienceValue(4);
                 ObedienceDialogue = DialogueSet.therapy.moodup.GetRandom();
                 SetMood(MoodEnum.Happy);
+
+                if (action == CultistObedienceActionEnum.Praise)
+                {
+                    SfxController.Instance.PlaySfx(SfxEnum.PraiseRight);
+                }
+                else 
+                {
+                    SfxController.Instance.PlaySfx(SfxEnum.ScoldRight);
+                }
             }
             else
             {
                 DecreaseObedienceValue(4);
                 ObedienceDialogue = DialogueSet.therapy.mooddown.GetRandom();
                 SetMood(MoodEnum.Angry);
+
+                if (action == CultistObedienceActionEnum.Praise)
+                {
+                    SfxController.Instance.PlaySfx(SfxEnum.PraiseWrong);
+                }
+                else 
+                {
+                    SfxController.Instance.PlaySfx(SfxEnum.ScoldWrong);
+                }
             }
             
             HasObedienceAction = false;

@@ -7,6 +7,7 @@ namespace Horticultist.Scripts.Mechanics
     using UnityEngine.InputSystem;
     using System.Linq;
     using Horticultist.Scripts.Core;
+    using Horticultist.Scripts.UI;
 
 
     public class MindClutter : MonoBehaviour
@@ -28,18 +29,21 @@ namespace Horticultist.Scripts.Mechanics
         private bool isButtonPressed = false;
         private bool isIndoctrinatedToolSelected = false;
         public Action onInteracted;
+        public Action onStateChange;
 
         void Update() {
-            if (cleaningWorkTime <= 0) {
-                isButtonPressed = false;
-                StopCoroutine(UpdateValues(null));
-                SetStateClean();
-            }
-            else if (indoctrinationWorkTime <= 0) {
-                isButtonPressed = false;
-                StopCoroutine(UpdateValues(null));
-                SetStateIndoctrinated();
-            }
+            // if (cleaningWorkTime <= 0 && CurrentState == ClutterStateEnum.Dirty) {
+            //     isButtonPressed = false;
+            //     StopCoroutine(UpdateValues(null));
+            //     SetStateClean();
+            //     SfxController.Instance.PlaySfx(SfxEnum.CleanSuccess);
+            // }
+            // else if (indoctrinationWorkTime <= 0 && CurrentState == ClutterStateEnum.Dirty) {
+            //     isButtonPressed = false;
+            //     StopCoroutine(UpdateValues(null));
+            //     SfxController.Instance.PlaySfx(SfxEnum.VineSuccess);
+            //     SetStateIndoctrinated();
+            // }
         }
 
         public void OnClickDown()
@@ -86,6 +90,10 @@ namespace Horticultist.Scripts.Mechanics
                 UpdatePatience(values.PatienceValue);
                 UpdateIndoctrination(values.IndoctrinationValue);
                 UpdateCleaning();
+                if (onInteracted != null)
+                {
+                    onInteracted.Invoke();
+                }
                 yield return new WaitForSeconds(1f);
             }
         }
@@ -100,9 +108,8 @@ namespace Horticultist.Scripts.Mechanics
         {
             CurrentState = ClutterStateEnum.Clean;
             clutterSpriteRenderer.sprite = cleanSprite;
-            if (onInteracted != null)
-            {
-                onInteracted.Invoke();
+            if (onStateChange != null) {
+                onStateChange.Invoke();
             }
         }
 
@@ -110,10 +117,10 @@ namespace Horticultist.Scripts.Mechanics
         {
             CurrentState = ClutterStateEnum.Indoctrinated;
             clutterSpriteRenderer.sprite = indoctrinatedSprite;
-            if (onInteracted != null)
-            {
-                onInteracted.Invoke();
+            if (onStateChange != null) {
+                onStateChange.Invoke();
             }
+            
         }
 
         private void UpdatePatience(int value) 
@@ -128,6 +135,13 @@ namespace Horticultist.Scripts.Mechanics
 
         private void UpdateIndoctrination(int value) 
         {
+            if (indoctrinationWorkTime <= 0 && CurrentState == ClutterStateEnum.Dirty) {
+                isButtonPressed = false;
+                StopCoroutine(UpdateValues(null));
+                SfxController.Instance.PlaySfx(SfxEnum.VineSuccess);
+                SetStateIndoctrinated();
+            }
+
             if (isIndoctrinatedToolSelected) {
                 indoctrinationWorkTime -= 1;
                 TherapyEventBus.Instance.DispatchOnIndoctrinationChanged(value);
@@ -136,9 +150,16 @@ namespace Horticultist.Scripts.Mechanics
 
         private void UpdateCleaning() 
         {
+            if (cleaningWorkTime <= 0 && CurrentState == ClutterStateEnum.Dirty) {
+                isButtonPressed = false;
+                StopCoroutine(UpdateValues(null));
+                SetStateClean();
+                SfxController.Instance.PlaySfx(SfxEnum.CleanSuccess);
+            }
             if (!isIndoctrinatedToolSelected) {
                 cleaningWorkTime -= 1;
             }
+
         }
 
         // Utils

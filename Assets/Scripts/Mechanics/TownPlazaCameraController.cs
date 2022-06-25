@@ -191,5 +191,14 @@ namespace Horticultist.Scripts.Mechanics
 
             MoveCamera(npc.transform.position);
         }
+
+        public void ResetZoomToDefault()
+        {
+            cameraControl.orthographicSize = Mathf.Clamp(
+                5,
+                MinZoomValue,
+                MaxZoomValue
+            );        
+        }
     }
 }

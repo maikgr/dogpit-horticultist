@@ -5,6 +5,7 @@ namespace Horticultist.Scripts.Mechanics
     using UnityEngine;
     using UnityEngine.InputSystem;
     using Horticultist.Scripts.Core;
+    using Horticultist.Scripts.UI;
 
     public class MindToolController : MonoBehaviour
     {
@@ -49,10 +50,12 @@ namespace Horticultist.Scripts.Mechanics
             if (activeToolType == tool)
             {
                 UnsetTool();
+                SfxController.Instance.PlaySfx(SfxEnum.ToolUnselect);
             }
             else
             {
                 activeToolType = tool;
+                SfxController.Instance.PlaySfx(SfxEnum.ToolSelect);
             }
         }
 
