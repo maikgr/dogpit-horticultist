@@ -201,7 +201,7 @@ namespace Horticultist.Scripts.Mechanics
 
             if (npcTypeEnum.Equals(NpcTypeEnum.Cultist))
             {
-                this.CultistRank = CultistRankEnum.Rank2;
+                this.CultistRank = CultistRankEnum.Rank1;
                 this.headgearSpriteRenderer.sprite = cultistHat;
                 ObedienceValue = 0;
                 HasObedienceAction = false;
