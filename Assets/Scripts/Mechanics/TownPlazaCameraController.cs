@@ -1,5 +1,7 @@
 namespace Horticultist.Scripts.Mechanics
 {
+    using System.Linq;
+    using System.Collections;
     using UnityEngine;
     using UnityEngine.InputSystem;
     using UnityEngine.UI;
@@ -81,6 +83,11 @@ namespace Horticultist.Scripts.Mechanics
 
             gameInput.Camera.Zoom.performed -= OnCameraZoomPerformed;
             gameInput.Camera.Zoom.Disable();
+
+            if (zoomCoroutine != null)
+            {
+                StopCoroutine(zoomCoroutine);
+            }
         }
         
         private void LateUpdate()
@@ -192,13 +199,18 @@ namespace Horticultist.Scripts.Mechanics
             MoveCamera(npc.transform.position);
         }
 
-        public void ResetZoomToDefault()
+        private Coroutine zoomCoroutine;
+        public void ResetZoomToDefault(float delay = 0)
         {
-            cameraControl.orthographicSize = Mathf.Clamp(
-                5,
-                MinZoomValue,
-                MaxZoomValue
-            );        
+            zoomCoroutine = StartCoroutine(DelayedZoom(delay));
+        }
+
+        private IEnumerator DelayedZoom(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            DOVirtual.Float(cameraControl.orthographicSize, MaxZoomValue, 0.1f, (val) => {
+                cameraControl.orthographicSize = val;
+            });
         }
     }
 }

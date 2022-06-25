@@ -330,8 +330,8 @@ namespace Horticultist.Scripts.Mechanics
                 npc.Sacrifice(() => {
                     isActionBlock = false;
                     cameraController.StopTrackNpc();
-                    cameraController.ResetZoomToDefault();
-                    TownPlazaBgmController.Instance.ResumeBgm();
+                    cameraController.ResetZoomToDefault(6f);
+                    TownPlazaBgmController.Instance.ResumeBgm(6f);
                 });
             }
             else
