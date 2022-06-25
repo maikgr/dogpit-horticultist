@@ -9,25 +9,34 @@ namespace Horticultist.Scripts.Mechanics
     using Horticultist.Scripts.Core;
 
     [RequireComponent(typeof(Seeker))]
+    [RequireComponent(typeof(NpcController))]
     public class NpcAIPathfinding : MonoBehaviour
     {
         [SerializeField] private Animator bodyAnimator;
         [SerializeField] private Transform visualParent;
         private Seeker seeker;
+        private NpcController npcController;
+
+        private Coroutine walkCoroutine;
 
         private void Awake() {
             seeker = GetComponent<Seeker>();
+            npcController = GetComponent<NpcController>();
         }
         
         private void OnEnable() {
             seeker.pathCallback += OnPathComplete;
-            StartCoroutine(TryWalking());
+            walkCoroutine = StartCoroutine(TryWalking());
         }
 
         private void OnDisable() {
             seeker.pathCallback -= OnPathComplete;
-            StopCoroutine(TryWalking());
-            DOTween.Kill("pathfinding");
+            bodyAnimator.SetBool("isWalking", false);
+            if (walkCoroutine != null)
+            {
+                StopCoroutine(walkCoroutine);
+            }
+            DOTween.Kill(npcController.NpcID);
         }
         
         private IEnumerator TryWalking()
@@ -59,8 +68,8 @@ namespace Horticultist.Scripts.Mechanics
 
         private void OnPathComplete (Path p) {
             if (p.error) {
-                StopCoroutine(TryWalking());
-                StartCoroutine(TryWalking());
+                StopCoroutine(walkCoroutine);
+                walkCoroutine = StartCoroutine(TryWalking());
                 return;
             }
             var sequence = DOTween.Sequence();
@@ -83,16 +92,23 @@ namespace Horticultist.Scripts.Mechanics
                     );
                 }
             }
-            sequence.SetId("pathfinding");
+            sequence.SetId(npcController.NpcID);
             sequence.OnComplete(() => {
                 if (gameObject != null && gameObject.activeSelf)
                 {
-                    StopCoroutine(TryWalking());
-                    StartCoroutine(TryWalking());
+                    StopCoroutine(walkCoroutine);
+                    walkCoroutine = StartCoroutine(TryWalking());
                 }
             });
         }
 
+        public void StopPathfinding()
+        {
+            bodyAnimator.SetBool("isWalking", false);
+            DOTween.Kill(npcController.NpcID);
+            seeker.CancelCurrentPathRequest();
+            seeker.enabled = false;
+        }
     }
 
 }

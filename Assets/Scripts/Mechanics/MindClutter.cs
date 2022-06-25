@@ -118,20 +118,17 @@ namespace Horticultist.Scripts.Mechanics
 
         private void UpdatePatience(int value) 
         {
-            Debug.Log("Patience " + value);
             TherapyEventBus.Instance.DispatchOnPatienceChanged(value);
         }
 
         private void UpdateMood(MoodEnum moodImpact) 
         {
-            Debug.Log("Mood" + moodImpact);
             TherapyEventBus.Instance.DispatchOnMoodChanged(moodImpact);
         }
 
         private void UpdateIndoctrination(int value) 
         {
             if (isIndoctrinatedToolSelected) {
-                Debug.Log("Indoctrination" + value);
                 indoctrinationWorkTime -= 1;
                 TherapyEventBus.Instance.DispatchOnIndoctrinationChanged(value);
             }
@@ -140,7 +137,6 @@ namespace Horticultist.Scripts.Mechanics
         private void UpdateCleaning() 
         {
             if (!isIndoctrinatedToolSelected) {
-                Debug.Log("Cleaning");
                 cleaningWorkTime -= 1;
             }
         }

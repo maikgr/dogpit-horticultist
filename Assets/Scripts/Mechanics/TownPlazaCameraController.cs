@@ -79,30 +79,43 @@ namespace Horticultist.Scripts.Mechanics
         
         private void LateUpdate()
         {
-            if (trackingNpc != null)
+            if (trackingNpc != null && trackingNpc.transform != null)
             {
-                transform.position = new Vector3(
-                    Mathf.Clamp(trackingNpc.transform.position.x, MinCameraPos.x, MaxCameraPos.x),
-                    Mathf.Clamp(trackingNpc.transform.position.y, MinCameraPos.y, MaxCameraPos.y),
-                    transform.position.z
-                );
+                MoveCamera(new Vector2(
+                    trackingNpc.transform.position.x,
+                    trackingNpc.transform.position.y
+                ));
             }
             else if (buttonDirection != Vector2.zero)
             {
-                transform.position = new Vector3(
-                    Mathf.Clamp(transform.position.x + buttonDirection.x * Time.deltaTime * buttonSpeed, MinCameraPos.x, MaxCameraPos.x),
-                    Mathf.Clamp(transform.position.y + buttonDirection.y * Time.deltaTime * buttonSpeed, MinCameraPos.y, MaxCameraPos.y),
-                    transform.position.z
-                );
+                MoveCamera(new Vector2(
+                    transform.position.x + buttonDirection.x * Time.deltaTime * buttonSpeed,
+                    transform.position.y + buttonDirection.y * Time.deltaTime * buttonSpeed
+                ));
             }
             else if (isMouseDrag)
             {
-                transform.position = new Vector3(
-                    Mathf.Clamp(transform.position.x - dragOffset.x * mouseDragSpeed * Time.deltaTime, MinCameraPos.x, MaxCameraPos.x),
-                    Mathf.Clamp(transform.position.y - dragOffset.y * mouseDragSpeed * Time.deltaTime, MinCameraPos.y, MaxCameraPos.y),
-                    transform.position.z
-                );
+                MoveCamera(new Vector2(
+                    transform.position.x - dragOffset.x * mouseDragSpeed * Time.deltaTime,
+                    transform.position.y - dragOffset.y * mouseDragSpeed * Time.deltaTime
+                ));
             }
+        }
+
+        private void MoveCamera(Vector2 target)
+        {
+            transform.position = new Vector3(
+                Mathf.Clamp(target.x, MinCameraPos.x, MaxCameraPos.x),
+                Mathf.Clamp(target.y, MinCameraPos.y, MaxCameraPos.y),
+                transform.position.z
+            );
+        }
+
+        private void ZoomCamera(float zoomValue)
+        {
+            DOVirtual.Float(cameraControl.orthographicSize, zoomValue, 0.1f, (val) => {
+                cameraControl.orthographicSize = val;
+            });
         }
 
         private void OnCameraMoveStarted(InputAction.CallbackContext context)
@@ -132,15 +145,20 @@ namespace Horticultist.Scripts.Mechanics
             if (wheelDelta > 0) wheelDelta = 1;
             else if (wheelDelta < 0) wheelDelta = -1;
 
-            cameraControl.orthographicSize = Mathf.Clamp(
-                cameraControl.orthographicSize - (wheelDelta * ZoomStepValue),
-                MinZoomValue,
-                MaxZoomValue
+            ZoomCamera(
+                Mathf.Clamp(
+                    cameraControl.orthographicSize - (wheelDelta * ZoomStepValue),
+                    MinZoomValue,
+                    MaxZoomValue
+                )
             );
-            transform.position = new Vector3(
-                Mathf.Clamp(transform.position.x, MinCameraPos.x, MaxCameraPos.x),
-                Mathf.Clamp(transform.position.y, MinCameraPos.y, MaxCameraPos.y),
-                transform.position.z
+
+            // Make sure zoom doesn't reveal out of boundary area
+            MoveCamera(
+                new Vector2(
+                    transform.position.x,
+                    transform.position.y
+                )
             );
         }
 
@@ -161,6 +179,12 @@ namespace Horticultist.Scripts.Mechanics
         public void StopTrackNpc()
         {
             trackingNpc = null;
+        }
+
+        public void ZoomToNpc(NpcController npc)
+        {
+            ZoomCamera(MinZoomValue);
+            MoveCamera(npc.transform.position);
         }
     }
 }

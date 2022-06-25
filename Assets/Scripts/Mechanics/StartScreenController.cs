@@ -4,6 +4,7 @@ namespace Horticultist.Scripts.Mechanics
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.SceneManagement;
+    using DG.Tweening;
     using Horticultist.Scripts.Extensions;
     using Horticultist.Scripts.UI;
     using Horticultist.Scripts.Core;
@@ -19,6 +20,7 @@ namespace Horticultist.Scripts.Mechanics
 
         private void Awake() {
             mainCamera = Camera.main;
+            DOTween.SetTweensCapacity(1000, 50);
         }
 
         private void Start() {

@@ -132,6 +132,7 @@ namespace Horticultist.Scripts.Mechanics
 
         private void OnClickPerformed(InputAction.CallbackContext context)
         {
+            if (isActionBlock) return;
             var worldPos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             var hit = Physics2D.Raycast(worldPos, Vector2.zero);
             if (hit.collider != null)
@@ -148,6 +149,7 @@ namespace Horticultist.Scripts.Mechanics
 
         private void OnRightClickPerformed(InputAction.CallbackContext context)
         {
+            if (isActionBlock) return;
             // If button is pressed
             if (context.ReadValue<float>() > 0 && !panelIsOpen)
             {
@@ -159,6 +161,7 @@ namespace Horticultist.Scripts.Mechanics
         private NpcController pointedNpc;
         private void OnPointPerformed(InputAction.CallbackContext context)
         {
+            if (isActionBlock) return;
             var worldPos = mainCamera.ScreenToWorldPoint(context.ReadValue<Vector2>());
             var hit = Physics2D.Raycast(worldPos, Vector2.zero);
             if (hit.collider != null)
@@ -285,10 +288,12 @@ namespace Horticultist.Scripts.Mechanics
             // Cultist buttons
             else if (npc.NpcType == NpcTypeEnum.Cultist)
             {
-                if (npc.NpcType == NpcTypeEnum.Cultist && npc.ObedienceValue > 5)
+                if (npc.CultistRank == CultistRankEnum.Rank2 || npc.CultistRank == CultistRankEnum.Rank3)
                 {
                     npcSacrificeButton.gameObject.SetActive(true);
+                    npcSacrificeButton.onClick.AddListener(() => NpcSacrificeHandler(npc));
                 }
+
                 if (npc.HasObedienceAction)
                 {
                     npcCultistButtonSet.gameObject.SetActive(true);
@@ -309,6 +314,30 @@ namespace Horticultist.Scripts.Mechanics
             SetTestButton(npc);
         }
 
+        private bool isActionBlock;
+        private void NpcSacrificeHandler(NpcController npc)
+        {
+            npcSacrificeButton.gameObject.SetActive(false);
+            var npcPath = npc.GetComponent<NpcAIPathfinding>();
+            npcPath.StopPathfinding();
+            ClosePanel();
+            if (GameStateController.Instance.SacrificedMembers.Count == 0)
+            {
+                isActionBlock = true;
+                cameraController.ZoomToNpc(npc);
+                cameraController.TrackNpc(npc);
+                
+                npc.Sacrifice(() => {
+                    isActionBlock = false;
+                    cameraController.StopTrackNpc();
+                });
+            }
+            else
+            {
+                npc.Sacrifice();
+            }
+        }
+
         private void DeselectNpc()
         {
             if (GameStateController.Instance.SelectedNpc != null)
@@ -320,6 +349,7 @@ namespace Horticultist.Scripts.Mechanics
             npcConvertButton.onClick.RemoveAllListeners();
             praiseButton.onClick.RemoveAllListeners();
             scoldButton.onClick.RemoveAllListeners();
+            npcSacrificeButton.onClick.RemoveAllListeners();
 
             // Debugging
             happyButton.onClick.RemoveAllListeners();

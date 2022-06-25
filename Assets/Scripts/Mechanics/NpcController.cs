@@ -30,10 +30,17 @@ namespace Horticultist.Scripts.Mechanics
         [SerializeField] private Sprite cultistHat;
         private NpcExpressionSet eyesExpressionSet;
         private NpcExpressionSet mouthExpressionSet;
+        [SerializeField] private Animator sacrificeAnimator;
         [SerializeField] private Color highlightColor;
         public bool IsHighlighted { get; private set; }
         public bool IsHovered { get; private set; }
         
+        [Header("Mechanics")]
+        [SerializeField] private int obedienceChangeValue;
+        [SerializeField] private int obedienceDecayValue;
+        [SerializeField] private int sacrificeValue;
+        public string NpcID { get; private set; }
+
         // NPC Type Properties
         public string DisplayName { get; private set; }
         public NpcTypeEnum NpcType { get; private set; }
@@ -75,6 +82,7 @@ namespace Horticultist.Scripts.Mechanics
 
         private void Awake() {
             DontDestroyOnLoad(gameObject);
+            sacrificeAnimator.enabled = false;
         }
 
         private void Start() {
@@ -87,10 +95,14 @@ namespace Horticultist.Scripts.Mechanics
 
         private void OnDisable() {
             TownEventBus.Instance.OnDayEnd -= OnDayEnd;
-            DOTween.Kill("highlight" + DisplayName);
-            if (transform != null)
+            DOTween.Kill(NpcID);
+        }
+
+        private void FixedUpdate()
+        {
+            if (sacrificeAnimator.enabled && sacrificeAnimator.GetCurrentAnimatorStateInfo(0).IsName("sacrifice_end"))
             {
-                DOTween.Kill(transform);
+                OnSacrificeAnimationEnds();
             }
         }
 
@@ -121,6 +133,7 @@ namespace Horticultist.Scripts.Mechanics
             npcPersonality = personality;
             PatienceValue = 100;
             IndoctrinationValue = 0;
+            NpcID = Guid.NewGuid().ToString();
 
             // Dialogues
             DialogueSet = dialogueSet;
@@ -134,7 +147,6 @@ namespace Horticultist.Scripts.Mechanics
 
         public void SetIndoctrination(int value)
         {
-            Debug.Log("indoctrination set tto " + value);
             this.IndoctrinationValue = value;
         }
 
@@ -144,7 +156,7 @@ namespace Horticultist.Scripts.Mechanics
             npcTypeText.text = npcTypeEnum.ToString();
             if (npcTypeEnum.Equals(NpcTypeEnum.Cultist))
             {
-                this.CultistRank = CultistRankEnum.Rank1;
+                this.CultistRank = CultistRankEnum.Rank2;
                 this.headgearSpriteRenderer.sprite = cultistHat;
                 ObedienceValue = 0;
                 HasObedienceAction = false;
@@ -215,7 +227,7 @@ namespace Horticultist.Scripts.Mechanics
         public void UnsetHighlighted()
         {
             this.IsHighlighted = false;
-            DOTween.Kill("highlight" + DisplayName);
+            DOTween.Kill(NpcID);
             UnsetHighlighted(this.bodySpriteRenderer);
             UnsetHighlighted(this.headgearSpriteRenderer);
             UnsetHighlighted(this.eyesSpriteRenderer);
@@ -245,7 +257,7 @@ namespace Horticultist.Scripts.Mechanics
             renderer.color = Color.white;
             renderer.DOColor(highlightColor, 0.3f)
                 .SetEase(Ease.Linear)
-                .SetId("highlight" + DisplayName)
+                .SetId(NpcID)
                 .SetLoops(-1, LoopType.Yoyo);
         }
         
@@ -294,6 +306,29 @@ namespace Horticultist.Scripts.Mechanics
                 ObedienceDialogue = currentObedienceAction.text;
                 HasObedienceAction = true;
             }
+        }
+
+        private Action onSacrificeEnds;
+        public void Sacrifice(Action onSacrificeEnds = null)
+        {
+            this.onSacrificeEnds = onSacrificeEnds;
+            sacrificeAnimator.enabled = true;
+        }
+
+        private void OnSacrificeAnimationEnds()
+        {
+            sacrificeAnimator.enabled = false;
+            if (onSacrificeEnds != null)
+            {
+                onSacrificeEnds.Invoke();
+            }
+            var newHeight = GameStateController.Instance.TreeHeight + sacrificeValue;
+            GameStateController.Instance.SetTreeStatus(
+                GameStateController.Instance.TreeStage,
+                newHeight
+            );
+            GameStateController.Instance.SacrificedMembers.Add(DisplayName);
+            Destroy(gameObject);
         }
     }
 
