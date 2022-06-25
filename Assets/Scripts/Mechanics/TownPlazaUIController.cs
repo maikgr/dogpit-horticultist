@@ -250,18 +250,10 @@ namespace Horticultist.Scripts.Mechanics
             npcDialogueText.text = dialogueText;
 
             // Visual
-            npcBodyImage.sprite = npc.bodySprite;
-            npcEyesImage.sprite = npc.eyesSprite;
-            npcMouthImage.sprite = npc.mouthSprite;
-            if (npc.headgearSprite == null)
-            {
-                npcHeadgearImage.enabled = false;
-            }
-            else
-            {
-                npcHeadgearImage.enabled = true;
-                npcHeadgearImage.sprite = npc.headgearSprite;
-            }
+            SetVisual(npcBodyImage, npc.bodySprite);
+            SetVisual(npcEyesImage, npc.eyesSprite);
+            SetVisual(npcMouthImage, npc.mouthSprite);
+            SetVisual(npcHeadgearImage, npc.headgearSprite);
             npc.SetHighlighted();
 
             // Prepare conditional interaction by disabling all buttons
@@ -312,6 +304,12 @@ namespace Horticultist.Scripts.Mechanics
 
             // Debugging
             SetTestButton(npc);
+        }
+
+        private void SetVisual(Image imageSlot, Sprite sprite)
+        {
+            imageSlot.sprite = sprite;
+            imageSlot.enabled = sprite != null;
         }
 
         private bool isActionBlock;

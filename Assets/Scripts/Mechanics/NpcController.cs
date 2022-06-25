@@ -37,12 +37,13 @@ namespace Horticultist.Scripts.Mechanics
         [SerializeField] private Color highlightColor;
         public bool IsHighlighted { get; private set; }
         public bool IsHovered { get; private set; }
-        
+
         [Header("Mechanics")]
         [SerializeField] private int obedienceChangeValue;
         [SerializeField] private int obedienceDecayValue;
         [SerializeField] private int sacrificeValue;
         public string NpcID { get; private set; }
+        public SpecialNpcTypeEnum? SpecialNpcType { get; private set; }
 
         [Header("UI")]
         [SerializeField] private List<TypeColourMap> typeColourMaps;
@@ -88,20 +89,24 @@ namespace Horticultist.Scripts.Mechanics
             {6, CultistObedienceLevelEnum.VeryObedient},
         };
 
-        private void Awake() {
+        private void Awake()
+        {
             DontDestroyOnLoad(gameObject);
             sacrificeAnimator.enabled = false;
         }
 
-        private void Start() {
+        private void Start()
+        {
             GameStateController.Instance.AddNpc(this);
         }
 
-        private void OnEnable() {
+        private void OnEnable()
+        {
             TownEventBus.Instance.OnDayEnd += OnDayEnd;
         }
 
-        private void OnDisable() {
+        private void OnDisable()
+        {
             TownEventBus.Instance.OnDayEnd -= OnDayEnd;
             DOTween.Kill(NpcID);
         }
@@ -114,13 +119,14 @@ namespace Horticultist.Scripts.Mechanics
             }
         }
 
-        private void OnDestroy() {
+        private void OnDestroy()
+        {
             GameStateController.Instance.RemoveNpc(this);
         }
 
-        public void GenerateNpc(string firstName, string lastName, NpcPersonalityEnum personality,
+        public void ConfigureGeneric(string firstName, string lastName, NpcPersonalityEnum personality,
             NpcDialogueSet dialogueSet, List<CultistObedienceAction> obedienceActions,
-            NpcBodySet bodyAsset, Sprite headgearAsset, NpcExpressionSet eyesSet, NpcExpressionSet mouthSet)
+            NpcBodySet bodySet, Sprite headgearAsset, NpcExpressionSet eyesSet, NpcExpressionSet mouthSet)
         {
             // Basic Info
             DisplayName = firstName + " " + lastName;
@@ -128,13 +134,40 @@ namespace Horticultist.Scripts.Mechanics
             npcTypeText.text = NpcTypeEnum.Visitor.ToString();
 
             // Visual Assets
-            bodySpriteRenderer.sprite = bodyAsset.body;
+            bodySpriteRenderer.sprite = bodySet.body;
             headgearSpriteRenderer.sprite = headgearAsset;
             eyesExpressionSet = eyesSet;
             mouthExpressionSet = mouthSet;
             eyesSpriteRenderer.sprite = eyesSet.neutral;
             mouthSpriteRenderer.sprite = mouthSet.neutral;
-            bodyAnimator.runtimeAnimatorController = bodyAsset.animatorController;
+            bodyAnimator.runtimeAnimatorController = bodySet.animatorController;
+
+            // Mechanic props
+            NpcType = NpcTypeEnum.Visitor;
+            npcPersonality = personality;
+            PatienceValue = 100;
+            IndoctrinationValue = 0;
+            NpcID = Guid.NewGuid().ToString();
+
+            // Dialogues
+            DialogueSet = dialogueSet;
+            this.obedienceActions = obedienceActions;
+        }
+
+        public void ConfigureSpecial(SpecialNpcTypeEnum specialNpcType, NpcPersonalityEnum personality,
+            NpcBodySet bodySet, NpcDialogueSet dialogueSet, List<CultistObedienceAction> obedienceActions,
+            NpcExpressionSet expressionSet)
+        {
+            // Basic Info
+            SpecialNpcType = specialNpcType;
+            DisplayName = npcNameText.text;
+            npcTypeText.text = NpcTypeEnum.Visitor.ToString();
+
+            // Visual Assets
+            bodySpriteRenderer.sprite = bodySet.body;
+            eyesExpressionSet = expressionSet;
+            eyesSpriteRenderer.sprite = expressionSet.neutral;
+            bodyAnimator.runtimeAnimatorController = bodySet.animatorController;
 
             // Mechanic props
             NpcType = NpcTypeEnum.Visitor;
@@ -174,6 +207,10 @@ namespace Horticultist.Scripts.Mechanics
                 HasObedienceAction = false;
                 ObedienceDialogue = DialogueSet.therapy.success.GetRandom();
             }
+            if (SpecialNpcType.HasValue)
+            {
+                this.headgearSpriteRenderer.gameObject.SetActive(true);
+            }
         }
 
         public void SetMood(MoodEnum moodType)
@@ -182,17 +219,26 @@ namespace Horticultist.Scripts.Mechanics
             if (moodType == MoodEnum.Happy)
             {
                 this.eyesSpriteRenderer.sprite = this.eyesExpressionSet.happy;
-                this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.happy;
+                if (!SpecialNpcType.HasValue)
+                {
+                    this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.happy;
+                }
             }
             else if (moodType == MoodEnum.Angry)
             {
                 this.eyesSpriteRenderer.sprite = this.eyesExpressionSet.happy;
-                this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.happy;
+                if (!SpecialNpcType.HasValue)
+                {
+                    this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.happy;
+                }
             }
             else
             {
                 this.eyesSpriteRenderer.sprite = this.eyesExpressionSet.neutral;
-                this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.neutral;
+                if (!SpecialNpcType.HasValue)
+                {
+                    this.mouthSpriteRenderer.sprite = this.mouthExpressionSet.neutral;
+                }
             }
         }
 
@@ -240,7 +286,7 @@ namespace Horticultist.Scripts.Mechanics
                     SfxController.Instance.PlaySfx(SfxEnum.ScoldWrong);
                 }
             }
-            
+
             HasObedienceAction = false;
             TownPlazaGameController.Instance.AddAction();
         }
@@ -290,17 +336,17 @@ namespace Horticultist.Scripts.Mechanics
                 .SetId(NpcID)
                 .SetLoops(-1, LoopType.Yoyo);
         }
-        
+
         private void UnsetHighlighted(SpriteRenderer renderer)
         {
             renderer.color = Color.white;
         }
-        
+
         private void SetHovered(SpriteRenderer renderer)
         {
             renderer.color = highlightColor;
         }
-        
+
         private void UnsetHovered(SpriteRenderer renderer)
         {
             renderer.color = Color.white;
@@ -329,7 +375,7 @@ namespace Horticultist.Scripts.Mechanics
             {
                 DecreaseObedienceValue(2);
             }
-            
+
             if (NpcType.Equals(NpcTypeEnum.Cultist))
             {
                 currentObedienceAction = obedienceActions.GetRandom();

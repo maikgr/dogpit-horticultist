@@ -27,7 +27,7 @@ namespace Horticultist.Scripts.Mechanics
             generatedNpcs = new List<NpcController>();
             for (var i = 0; i < npcAmount; ++i)
             {
-                generatedNpcs.Add(npcFactory.GenerateNpc());
+                generatedNpcs.Add(npcFactory.SpawnGenericNpc());
             }
             trackedNpc = generatedNpcs.GetRandom();
 

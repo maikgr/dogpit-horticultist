@@ -1,5 +1,6 @@
 namespace Horticultist.Scripts.Mechanics
 {
+    using System.Linq;
     using System.Collections.Generic;
     using UnityEngine;
     using Pathfinding;
@@ -17,6 +18,10 @@ namespace Horticultist.Scripts.Mechanics
         [SerializeField] private float headgearChance;
         private TownDialogueParser townDialogueParser;
 
+        [Header("Special NPC")]
+        [SerializeField] private List<SpecialNpcMap> specialNpcMap;
+        [SerializeField] private NpcBodySet radishgonBodySet;
+
         private NpcPersonalityEnum[] personalities = new NpcPersonalityEnum[] {
             NpcPersonalityEnum.Health,
             NpcPersonalityEnum.Wealth,
@@ -27,7 +32,8 @@ namespace Horticultist.Scripts.Mechanics
         private NpcNameData lastNames;
 
         // WebGL can't access StreamingAssets
-        private void Awake() {
+        private void Awake()
+        {
             firstNames = JsonUtility.FromJson<NpcNameData>(DialogueAsset.FIRST_NAMES);
             lastNames = JsonUtility.FromJson<NpcNameData>(DialogueAsset.LAST_NAMES);
             this.townDialogueParser = new TownDialogueParser(
@@ -36,14 +42,25 @@ namespace Horticultist.Scripts.Mechanics
             );
         }
 
-        public NpcController GenerateNpc()
+        private void Start()
+        {
+            // Synchronize list of spawnable special NPCs
+            specialNpcMap = specialNpcMap.Where(map => 
+                    !GameStateController.Instance
+                        .SpecialSpawnedThisWeek
+                        .Any(spawned => spawned == map.SpecialNpcType)
+                )
+                .ToList();
+        }
+
+        public NpcController SpawnGenericNpc()
         {
             var npc = Instantiate(npcPrefab, GetSpawnPoint(), Quaternion.identity);
             var hasHeadgear = Random.Range(0f, 1f) < headgearChance;
             var firstName = firstNames.names.GetRandom();
             var lastName = lastNames.names.GetRandom();
             var personality = personalities.GetRandom();
-            npc.GenerateNpc(
+            npc.ConfigureGeneric(
                 firstName, lastName, personality,
                 townDialogueParser.GenerateDialogueSet(personality),
                 townDialogueParser.GenerateCultistActions($"{firstName} {lastName}", personality),
@@ -54,6 +71,23 @@ namespace Horticultist.Scripts.Mechanics
             );
 
             return npc;
+        }
+
+        public NpcController SpawnSpecialNpc(SpecialNpcTypeEnum specialNpcType)
+        {
+            var toSpawn = specialNpcMap.FirstOrDefault(map => map.SpecialNpcType == specialNpcType);
+            var specNpc = Instantiate(toSpawn.npcPrefab, GetSpawnPoint(), Quaternion.identity);
+            var specNpcController = specNpc.GetComponent<NpcController>();
+            specNpcController.ConfigureSpecial(
+                specialNpcType,
+                toSpawn.personality,
+                toSpawn.bodySet,
+                townDialogueParser.GenerateSpecialDialogue(specialNpcType),
+                townDialogueParser.GenerateCultistActions(specialNpcType.ToString(), toSpawn.personality),
+                toSpawn.expressionSet
+            );
+            GameStateController.Instance.SpecialSpawnedThisWeek.Add(specialNpcType);
+            return specNpcController;
         }
 
         private Vector2 GetSpawnPoint()
@@ -80,5 +114,15 @@ namespace Horticultist.Scripts.Mechanics
     public class NpcNameData
     {
         public List<string> names;
+    }
+
+    [System.Serializable]
+    public class SpecialNpcMap
+    {
+        public SpecialNpcTypeEnum SpecialNpcType;
+        public NpcPersonalityEnum personality;
+        public NpcBodySet bodySet;
+        public NpcExpressionSet expressionSet;
+        public NpcController npcPrefab;
     }
 }

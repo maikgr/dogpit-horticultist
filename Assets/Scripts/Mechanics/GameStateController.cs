@@ -28,6 +28,8 @@ namespace Horticultist.Scripts.Mechanics
         public string PlayerName { get; private set; }
         public string PrevScene { get; set; }
         public EndingTypeEnum EndingType { get; set; }
+        public List<SpecialNpcTypeEnum> SpawnableSpecialNpcs { get; set; }
+        public List<SpecialNpcTypeEnum> SpecialSpawnedThisWeek { get; set; }
 
         private void Awake() {
             var controllers = GameObject.FindObjectsOfType<GameStateController>();
@@ -42,6 +44,12 @@ namespace Horticultist.Scripts.Mechanics
 
             ActiveNpcs = new List<NpcController>();
             SacrificedMembers = new List<string>();
+            SpawnableSpecialNpcs = new List<SpecialNpcTypeEnum>()
+            {
+                SpecialNpcTypeEnum.UwuDemon,
+                SpecialNpcTypeEnum.Radishgon
+            };
+            SpecialSpawnedThisWeek = new List<SpecialNpcTypeEnum>();
         }
 
         private void Start() {
@@ -88,6 +96,7 @@ namespace Horticultist.Scripts.Mechanics
             {
                 DayNumber = 1;
                 WeekNumber += 1;
+                SpecialSpawnedThisWeek = new List<SpecialNpcTypeEnum>();
             }
         }
 

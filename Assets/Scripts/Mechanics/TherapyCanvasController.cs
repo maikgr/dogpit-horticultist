@@ -70,18 +70,16 @@ namespace Horticultist.Scripts.Mechanics
 
         private void UpdateNpcVisual()
         {
-            npcBodyImage.sprite = currentNpc.bodySprite;
-            npcEyesImage.sprite = currentNpc.eyesSprite;
-            npcMouthImage.sprite = currentNpc.mouthSprite;
-            if (currentNpc.headgearSprite == null)
-            {
-                npcHeadgearImage.enabled = false;
-            }
-            else
-            {
-                npcHeadgearImage.enabled = true;
-                npcHeadgearImage.sprite = currentNpc.headgearSprite;
-            }
+            SetVisual(npcBodyImage, currentNpc.bodySprite);
+            SetVisual(npcEyesImage, currentNpc.eyesSprite);
+            SetVisual(npcMouthImage, currentNpc.mouthSprite);
+            SetVisual(npcHeadgearImage, currentNpc.headgearSprite);
+        }
+        
+        private void SetVisual(Image imageSlot, Sprite sprite)
+        {
+            imageSlot.sprite = sprite;
+            imageSlot.enabled = sprite != null;
         }
 
         private void UpdateNpcParemeters()

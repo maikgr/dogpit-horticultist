@@ -4,7 +4,7 @@ namespace Horticultist.Scripts.Mechanics
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
-    using Horticultist.Scripts.UI;
+    using Horticultist.Scripts.Extensions;
     using Horticultist.Scripts.Core;
 
     public class TownPlazaGameController : MonoBehaviour
@@ -52,12 +52,34 @@ namespace Horticultist.Scripts.Mechanics
             yield return new WaitForSeconds(0.2f);
             if (this.gameState.PrevScene == SceneNameConstant.ASSESSMENT || this.gameState.ActionTaken == 0)
             {
-                GenerateVisitors();
+                var numberToGenerate = visitorPerDayAmount;
+                if (this.gameState.WeekNumber > -1)
+                {
+                    var isSpecial = Random.Range(0, 1f) < 0.5f ||
+                        (
+                            gameState.SpecialSpawnedThisWeek.Count == 0 &&
+                            gameState.SpawnableSpecialNpcs.Count > 0 &&
+                            gameState.DayNumber == gameState.DaysPerAssessment
+                        );
+
+                    if (isSpecial)
+                    {
+                        numberToGenerate -= 1;
+                        
+                        var specialToGenerate = gameState.SpawnableSpecialNpcs.GetRandom();
+                        Debug.Log("spawning special " + specialToGenerate.ToString());
+                        gameState.SpawnableSpecialNpcs.Remove(specialToGenerate);
+                        gameState.SpecialSpawnedThisWeek.Add(specialToGenerate);
+
+                        var specialNpc = npcFactory.SpawnSpecialNpc(specialToGenerate);
+                    }
+                }
+                GenerateVisitors(numberToGenerate);
             }
 
             TownEventBus.Instance.DispatchOnDayStart(gameState.WeekNumber, gameState.DayNumber);
             TownEventBus.Instance.DispatchOnObjectiveUpdate(weekObjectives[0]);
-            GameStateController.Instance.PrevScene = SceneNameConstant.TOWN_PLAZA;
+            gameState.PrevScene = SceneNameConstant.TOWN_PLAZA;
         }
 
         public void EndDay()
@@ -83,11 +105,11 @@ namespace Horticultist.Scripts.Mechanics
             TownEventBus.Instance.DispatchOnActionTaken(this.gameState.ActionTaken, this.gameState.MaxAction);
         }
 
-        private void GenerateVisitors()
+        private void GenerateVisitors(int amount)
         {
-            for (var i = 0; i < visitorPerDayAmount; ++i)
+            for (var i = 0; i < amount; ++i)
             {
-                npcFactory.GenerateNpc();
+                npcFactory.SpawnGenericNpc();
             }
         }
     }

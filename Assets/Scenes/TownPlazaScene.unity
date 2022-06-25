@@ -3602,6 +3602,30 @@ MonoBehaviour:
     happy: {fileID: 21300000, guid: dbf4c0c80aa943c48937309092c2c0c4, type: 3}
     angry: {fileID: 21300000, guid: 3955cdf2c09d01e459fdcd92c9134c54, type: 3}
   headgearChance: 0.5
+  specialNpcMap:
+  - SpecialNpcType: 4
+    personality: 2
+    bodySet:
+      body: {fileID: 21300000, guid: 1be4c3ae7289e5148a6bbad6ee82c659, type: 3}
+      animatorController: {fileID: 9100000, guid: 885c756e067c90e41b9e3bdf5276397e, type: 2}
+    expressionSet:
+      neutral: {fileID: 21300000, guid: 37481ed9c95f76e4e89d7dc0c1e85841, type: 3}
+      happy: {fileID: 21300000, guid: 37481ed9c95f76e4e89d7dc0c1e85841, type: 3}
+      angry: {fileID: 21300000, guid: 3a4df9cf6fe88ac40b1eb582bfe62b2d, type: 3}
+    npcPrefab: {fileID: 3627709152221109446, guid: ceecf1118248a6548938b09fa8d412d9, type: 3}
+  - SpecialNpcType: 1
+    personality: 2
+    bodySet:
+      body: {fileID: 21300000, guid: d461219180fdc724192e5a7d722d0027, type: 3}
+      animatorController: {fileID: 9100000, guid: a4b44a34c31024549bfcafa13f03195c, type: 2}
+    expressionSet:
+      neutral: {fileID: 21300000, guid: 1cf257d9793169d4eb13dc23d593a5f6, type: 3}
+      happy: {fileID: 21300000, guid: 1cf257d9793169d4eb13dc23d593a5f6, type: 3}
+      angry: {fileID: 21300000, guid: 0efbdbbdff59f054b89a2b956ce0d384, type: 3}
+    npcPrefab: {fileID: 3627709152221109446, guid: 5d7f5412dcf5f0c46a3202ac98d32e77, type: 3}
+  radishgonBodySet:
+    body: {fileID: 0}
+    animatorController: {fileID: 0}
 --- !u!114 &838067871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3615,7 +3639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcFactory: {fileID: 838067870}
-  visitorPerDayAmount: 10
+  visitorPerDayAmount: 3
 --- !u!114 &838067872
 MonoBehaviour:
   m_ObjectHideFlags: 0

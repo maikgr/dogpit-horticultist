@@ -56,6 +56,30 @@ namespace Horticultist.Scripts.Core
             return list.GetRandom();
         }
 
+        public NpcDialogueSet GenerateSpecialDialogue(SpecialNpcTypeEnum npcType)
+        {
+            if (!isParsed) return new NpcDialogueSet();
+            var npcString = string.Empty;
+            switch(npcType)
+            {
+                case SpecialNpcTypeEnum.Radishgon:
+                    npcString = "radishgon";
+                    break;
+                case SpecialNpcTypeEnum.UwuDemon:
+                    npcString = "uwu_demon";
+                    break;
+                default:
+                    return GenerateDialogueSet(NpcPersonalityEnum.Love);
+            }
+            
+            var dialogueSet = generalNpcWrapper.data
+                .First(d => d.subsets.Any(subset => subset.subset == npcString))
+                .subsets
+                .First(set => set.subset == npcString);
+
+            return dialogueSet;
+        }
+
         public List<CultistObedienceAction> GenerateCultistActions(string npcName, NpcPersonalityEnum personality)
         {
             if (!isParsed) return new List<CultistObedienceAction>();
