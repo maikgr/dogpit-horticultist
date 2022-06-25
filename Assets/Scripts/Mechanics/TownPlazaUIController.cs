@@ -24,6 +24,7 @@ namespace Horticultist.Scripts.Mechanics
             gameInput = new HorticultistInputActions();
             mainCamera = Camera.main;
             cameraController = mainCamera.GetComponent<TownPlazaCameraController>();
+            FirstTimePlazaTutorial.gameObject.SetActive(false);
         }
 
         private void Start()
@@ -36,6 +37,17 @@ namespace Horticultist.Scripts.Mechanics
             else
             {
                 fadeUIController.FadeInScreen();
+            }
+
+            var tutorial = TutorialStateVariables.Instance;
+            Debug.Log("Tutorial check");
+            if (!tutorial.IsFirstTimePlaza)
+            {
+                Debug.Log("First time plaza starts");
+                FirstTimePlazaTutorial.gameObject.SetActive(true);
+                FirstTimePlazaTutorial.OnTutorialComplete(() => {
+                    TutorialStateVariables.Instance.IsFirstTimePlaza = false;
+                });
             }
         }
 
@@ -424,5 +436,8 @@ namespace Horticultist.Scripts.Mechanics
             obedienceAddButton.onClick.AddListener(() => testTherapy.IncreaseObedience(npc));
             obedienceSubButton.onClick.AddListener(() => testTherapy.DecreaseObedience(npc));
         }
+
+        [Header("Tutorials")]
+        [SerializeField] private TutorialDialogueController FirstTimePlazaTutorial; 
     }
 }

@@ -1,5 +1,6 @@
 namespace Horticultist.Scripts.Core
 {
+    [System.Serializable]
     public struct DialogueSceneText
     {
         public string name;
