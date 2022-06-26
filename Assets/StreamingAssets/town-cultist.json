@@ -4,13 +4,58 @@
         "texts": [
             {
                 "type": "dialogue",
-                "text": "I donated everything in the name of Tomathotep!",
+                "text": "I donated all my life savings to Tomathotep!",
+                "answer": "praise"
+            },
+            {
+                "type": "dialogue",
+                "text": "I robbed a nonbeliever and donated all his money to Tomathotep!",
+                "answer": "praise"
+            },
+            {
+                "type": "dialogue",
+                "text": "I started minting pictures of Tomathotep and scamming nonbelievers into paying exorbitant amounts of cash for the license to own them. All that money goes straight to the cult!",
+                "answer": "praise"
+            },
+            {
+                "type": "dialogue",
+                "text": "I started using my trading business to spread the word of Tomathotep outside town.",
+                "answer": "praise"
+            },
+            {
+                "type": "dialogue",
+                "text": "I started a fund to financially support less-well-to-do believers in Tomathotep.",
+                "answer": "praise"
+            },
+            {
+                "type": "dialogue",
+                "text": "I visited the gambling den today, and did quite well!",
                 "answer": "scold"
             },
             {
                 "type": "dialogue",
-                "text": "I killed a non believer lol lmao",
-                "answer": "praise"
+                "text": "I visited the gambling den today, and didn't do very well.",
+                "answer": "scold"
+            },
+            {
+                "type": "dialogue",
+                "text": "I donated money to the town's charity for the elderly.",
+                "answer": "scold"
+            },
+            {
+                "type": "event",
+                "text": "[NPC] paid a carpenter to fix their leaky roof, but the carpenter was a nonbeliever.",
+                "answer": "scold"
+            },
+            {
+                "type": "event",
+                "text": "[NPC] was spotted trying to sneak money out of town, intending to pay law enforcement to stop you.",
+                "answer": "scold"
+            },
+            {
+                "type": "dialogue",
+                "text": "I forgot to pay my tithes to Tomathotep.",
+                "answer": "scold"
             }
         ]
     },
@@ -18,14 +63,39 @@
         "personality": "health",
         "texts": [
             {
-                "type": "event",
-                "text": "[NPC] shreds enemy into a canned tomato",
+                "type": "dialogue",
+                "text": "I poisoned my neighbor's well with Tomathotep's brain-eating parasites.",
+                "answer": "praise"
+            },
+            {
+                "type": "dialogue",
+                "text": "I set fire to a nonbeliever family's house.",
+                "answer": "praise"
+            },
+            {
+                "type": "dialogue",
+                "text": "I ate nothing but tomatoes when I felt ill, and felt better after a few days!",
+                "answer": "praise"
+            },
+            {
+                "type": "dialogue",
+                "text": "I made tomato soup today, using plenty of tomatoes.",
+                "answer": "praise"
+            },
+            {
+                "type": "dialogue",
+                "text": "I visited the local doctor to get medicine for a cold.",
                 "answer": "scold"
             },
             {
                 "type": "dialogue",
-                "text": "sample text 2",
-                "answer": "praise"
+                "text": "I made tomato soup today, using a bit of tomato and a mixture of rejuvenating herbs.",
+                "answer": "scold"
+            },
+            {
+                "type": "event",
+                "text": "[NPC] recommended a blend of essential oils to their parents in order to treat aches.",
+                "answer": "scold"
             }
         ]
     },
@@ -34,13 +104,58 @@
         "texts": [
             {
                 "type": "event",
-                "text": "[NPC] kissed a non-believer",
-                "answer": "scold"
+                "text": "[NPC] used their charms to seduce some nonbelievers into converting to join your cult.",
+                "answer": "praise"
             },
             {
                 "type": "dialogue",
-                "text": "sample text 2",
+                "text": "I wrote and performed a hymn of exultation about Tomathotep.",
                 "answer": "praise"
+            },
+            {
+                "type": "dialogue",
+                "text": "I made a stuffed toy of Tomathotep.",
+                "answer": "praise"
+            },
+            {
+                "type": "dialogue",
+                "text": "I made a stuffed toy of the town tree.",
+                "answer": "praise"
+            },
+            {
+                "type": "event",
+                "text": "[NPC] killed a postman trying to get mail out of the village.",
+                "answer": "praise"
+            },
+            {
+                "type": "event",
+                "text": "[NPC] wrote a very cringey manifesto about Tomathotep. They had good intentions but the speech was unbearable to listen to.",
+                "answer": "scold"
+            },
+            {
+                "type": "event",
+                "text": "[NPC] was seen smooching a nonbeliever.",
+                "answer": "scold"
+            },
+            {
+                "type": "event",
+                "text": "[NPC] snuck out of town to try and confess to their ex.",
+                "answer": "scold"
+            },
+            {
+                "type": "event",
+                "text": "[NPC] wrote a love letter to someone in the village over.",
+                "answer": "scold"
+            },
+            {
+                "type": "event",
+                "text": "[NPC] broke down crying after being separated from their nonbelieving family for a long time.",
+                "answer": "scold"
+            },
+            {
+                "type": "event",
+                "text": "[NPC] expressed fear about sacrificing themselves to Tomathotep.",
+                "answer": "scold"
             }
         ]
     },
@@ -48,14 +163,74 @@
         "personality": "misc",
         "texts": [
             {
+                "type": "event",
+                "text": "[NPC] preached about Tomathotep in the town square today.",
+                "answer": "praise"
+            },
+            {
+                "type": "event",
+                "text": "[NPC] recommends Tomathotep's previous game, Legaseed, from PPJJGG May 2022!",
+                "answer": "praise"
+            },
+            {
                 "type": "dialogue",
-                "text": "sample text",
+                "text": "I recruited another villager into the cult.",
+                "answer": "praise"
+            },
+            {
+                "type": "dialogue",
+                "text": "I fed the child of a nonbelieving family to Tomathotep.",
+                "answer": "praise"
+            },
+            {
+                "type": "dialogue",
+                "text": "I destroyed a shop owned by a nonbeliever.",
+                "answer": "praise"
+            },
+            {
+                "type": "event",
+                "text": "[NPC] praised Tomathotep after a hard day of work.",
+                "answer": "praise"
+            },
+            {
+                "type": "dialogue",
+                "text": "I turned my house into an indoctrination facility to hold and reeducate nonbelievers.",
+                "answer": "praise"
+            },
+            {
+                "type": "event",
+                "text": "[NPC] forgot to pray today.",
                 "answer": "scold"
             },
             {
                 "type": "dialogue",
-                "text": "sample text 2",
-                "answer": "praise"
+                "text": "I rescued a stray cat today. But I can't bring myself to sacrifice it to Tomathotep! It's so cute!",
+                "answer": "scold"
+            },
+            {
+                "type": "event",
+                "text": "[NPC] bought a pretty figurine of a female humanoid using cult funds.",
+                "answer": "scold"
+            },
+            {
+                "type": "event",
+                "text": "[NPC] tried to escape the village.",
+                "answer": "scold"
+            },
+            {
+                "type": "event",
+                "text": "[NPC] cursed using Tomathotep's name.",
+                "answer": "scold"
+            },
+            {
+                "type": "event",
+                "text": "[NPC] tried to sneak their family members out of town to escape you.",
+                "answer": "scold"
+            },
+            {
+                "type": "event",
+                "text": "[NPC] begged you to stop this madness, and is starting to regret joining up.",
+                "answer": "scold"
             }
         ]
     }
