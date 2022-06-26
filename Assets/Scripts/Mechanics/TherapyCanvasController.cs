@@ -21,6 +21,7 @@ namespace Horticultist.Scripts.Mechanics
         [SerializeField] private TherapyMoodEmoteController angryMoodBubble;
         [SerializeField] private TherapyMoodEmoteController sparkleMoodBubble;
         [SerializeField] private TherapyMoodEmoteController tomatoMoodBubble;
+        [SerializeField] private TMP_Text postTherapyText;
 
         [Header("NPC Basic Info UI")]
         [SerializeField] private TMP_Text npcTypeText;
@@ -43,6 +44,7 @@ namespace Horticultist.Scripts.Mechanics
 
         private void Awake() {
             progressVisual.progressBar.gameObject.SetActive(false);
+            postTherapyText.gameObject.SetActive(false);
             gameInput = new HorticultistInputActions();
         }
         
@@ -144,10 +146,17 @@ namespace Horticultist.Scripts.Mechanics
         {
             if (context.ReadValue<float>() > 0)
             {
-                isShowProgressBar = true;
+                if (isConcluding)
+                {
+                    SceneManager.LoadScene(SceneNameConstant.TOWN_PLAZA);
+                }
+                else
+                {
+                    isShowProgressBar = true;
 
-                // Update progress bar visual
-                progressVisual.progressBar.rectTransform.position = Mouse.current.position.ReadValue() + progressVisual.offset;
+                    // Update progress bar visual
+                    progressVisual.progressBar.rectTransform.position = Mouse.current.position.ReadValue() + progressVisual.offset;
+                }
             }
             else
             {
@@ -221,8 +230,6 @@ namespace Horticultist.Scripts.Mechanics
         {
             if (isEnding) return;
             isEnding = true;
-            currentNpc.SetMood(mood);
-            currentNpc.ChangeType(npcType);
 
             if (npcType == NpcTypeEnum.Townspeople && mood == MoodEnum.Angry)
             {
@@ -236,13 +243,41 @@ namespace Horticultist.Scripts.Mechanics
             {
                 npcDialogueText.text = currentNpc.DialogueSet.therapy.unrecruited.GetRandom();
             }
-            StartCoroutine(LoadTownPlaza(2f));
+            StartCoroutine(TransitionScreen(1f, npcType, mood));
         }
 
-        private IEnumerator LoadTownPlaza(float delay)
+        private IEnumerator TransitionScreen(float delay, NpcTypeEnum npcType, MoodEnum mood)
         {
             yield return new WaitForSeconds(delay);
-            transitionScreen.TransitionIn(() => SceneManager.LoadScene(SceneNameConstant.TOWN_PLAZA));
+            transitionScreen.TransitionIn(() => {
+                currentNpc.SetMood(mood);
+                currentNpc.ChangeType(npcType);
+                ConcludeTherapy();
+            });
+        }
+        
+        private bool isConcluding = false;
+        private void ConcludeTherapy()
+        {
+            isConcluding = true;
+            postTherapyText.gameObject.SetActive(true);
+            var redHex = "#ef476f";
+            var blueHex = "#118ab2";
+            var yellowHex = "#ffd166";
+            var greenHex = "#06d6a0";
+
+            if (currentNpc.NpcType == NpcTypeEnum.Cultist)
+            {
+                postTherapyText.text = $"<color={blueHex}>{currentNpc.DisplayName}</color>, inspired by your wise words, <color={redHex}>has agreed to join your family</color> and aid you in furthering Tomathotep's cause! All hail Tomathotep!";
+            }
+            else if (currentNpc.NpcType == NpcTypeEnum.Townspeople && currentNpc.moodType == MoodEnum.Happy)
+            {
+                postTherapyText.text = $"Hmm… although you were able to give counsel to <color={blueHex}>{currentNpc.DisplayName}</color>, <color={greenHex}>you weren't able to convince them</color> to join your family. Better luck next time!";
+            }
+            else
+            {
+                postTherapyText.text = $"<color={yellowHex}>You've upset</color> <color={blueHex}>{currentNpc.DisplayName}</color>! Perhaps you chose your actions poorly. They openly despise both you and your family now… how troublesome.";
+            }
         }
 
         [Header("Tutorials")]
