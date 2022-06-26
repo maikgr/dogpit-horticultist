@@ -41,7 +41,7 @@ namespace Horticultist.Scripts.Mechanics
 
             var tutorial = TutorialStateVariables.Instance;
             Debug.Log("Tutorial check");
-            if (!tutorial.IsFirstTimePlaza)
+            if (tutorial.IsFirstTimePlaza)
             {
                 Debug.Log("First time plaza starts");
                 FirstTimePlazaTutorial.gameObject.SetActive(true);
@@ -106,7 +106,7 @@ namespace Horticultist.Scripts.Mechanics
             isEnding = true;
             
             fadeUIController.FadeOutScreen(() => {
-                SceneManager.LoadScene(SceneNameConstant.ASSESSMENT);
+                SceneManager.LoadScene(SceneNameConstant.TREE_GROWTH);
             });
         }
 

@@ -22,7 +22,7 @@ namespace Horticultist.Scripts.Mechanics
             _instance = this;
             GameObject.DontDestroyOnLoad(this.gameObject);
 
-            IsFirstTimePlaza = false;
+            IsFirstTimePlaza = true;
         }
 
     }

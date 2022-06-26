@@ -48,6 +48,7 @@ namespace Horticultist.Scripts.Mechanics
         [Header("UI")]
         [SerializeField] private List<TypeColourMap> typeColourMaps;
         [SerializeField] private Image npcTypeCanvas;
+        public Color canvasColor => npcTypeCanvas.color;
 
 
         // NPC Type Properties
@@ -116,6 +117,15 @@ namespace Horticultist.Scripts.Mechanics
             if (sacrificeAnimator.enabled && sacrificeAnimator.GetCurrentAnimatorStateInfo(0).IsName("sacrifice_end"))
             {
                 OnSacrificeAnimationEnds();
+            }
+
+            if (AbsorbAnimator.gameObject.activeSelf && AbsorbAnimator.GetCurrentAnimatorStateInfo(0).IsName("vine_absorbs_end"))
+            {
+                if (onAbsorbEnds != null)
+                {
+                    onAbsorbEnds.Invoke();
+                }
+                AbsorbAnimator.gameObject.SetActive(false);
             }
         }
 
@@ -405,6 +415,14 @@ namespace Horticultist.Scripts.Mechanics
             );
             GameStateController.Instance.SacrificedMembers.Add(DisplayName);
             Destroy(gameObject);
+        }
+
+        private Action onAbsorbEnds;
+        [SerializeField] private Animator AbsorbAnimator;
+        public void AbsorbPointsAnimation(Action onAbsorbEnds = null)
+        {
+            this.onAbsorbEnds = onAbsorbEnds;
+            AbsorbAnimator.gameObject.SetActive(true);
         }
     }
 

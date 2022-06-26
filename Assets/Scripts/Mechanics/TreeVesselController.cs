@@ -56,7 +56,7 @@ namespace Horticultist.Scripts.Mechanics
     [Serializable]
     public struct TreeVesselStage
     {
-        public int Threshold;
+        public float Threshold;
         public int Stage;
         public GameObject TreeGameObject;
     }

@@ -8,5 +8,6 @@ namespace Horticultist.Scripts.Core
         public const string THERAPY = "TherapyScene";
         public const string ASSESSMENT = "AssessmentScene";
         public const string ENDING = "FailedLeaderScene";
+        public const string TREE_GROWTH = "TreeGrowthScene";
     }
 }

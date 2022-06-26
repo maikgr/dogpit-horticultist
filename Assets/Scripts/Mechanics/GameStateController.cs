@@ -15,7 +15,9 @@ namespace Horticultist.Scripts.Mechanics
         public static GameStateController Instance { get; private set; }
         public NpcController SelectedNpc { get; private set; }
         public List<NpcController> ActiveNpcs { get; private set; }
-        public List<NpcController> CultMembers => ActiveNpcs.Where(npc => npc.NpcType.Equals(NpcTypeEnum.Cultist)).ToList();
+        public List<NpcController> CultMembers => ActiveNpcs
+            .Where(npc => npc.NpcType.Equals(NpcTypeEnum.Cultist))
+            .ToList();
         public List<string> SacrificedMembers { get; set; }
         public int TreeStage { get; private set; }
         public float TreeHeight { get; private set; }

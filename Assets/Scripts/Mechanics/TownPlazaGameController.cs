@@ -17,17 +17,17 @@ namespace Horticultist.Scripts.Mechanics
         private IDictionary<int, IEnumerable<string>> weekObjectives = new Dictionary<int, IEnumerable<string>>
         {
             { 0, new List<string> {
-                "Have 10 cult members or more by the end of the week"
+                "Have 6 cult members or more by the end of the week"
             }},
             { 1, new List<string> {
-                "Have 20 cult members or more by the end of the week",
-                "Have at least 5 cultist members with cult rank 'High Tomatholyte'"
+                "Have 13 cult members or more by the end of the week",
+                "Have at least 1 cultist members with cult rank 'Horticultist'"
             }},
             { 2, new List<string> {
                 "Grow Tomathotep's vessel"
             }},
             { 3, new List<string> {
-                "Offer 5 sacrifices to Tomathotep's vessel"
+                "Offer a sacrifice to Tomathotep's vessel"
             }},
         };
 
@@ -50,10 +50,12 @@ namespace Horticultist.Scripts.Mechanics
         private IEnumerator DelayedStart()
         {
             yield return new WaitForSeconds(0.2f);
-            if (this.gameState.PrevScene == SceneNameConstant.ASSESSMENT || this.gameState.ActionTaken == 0)
+            if (this.gameState.PrevScene == SceneNameConstant.ASSESSMENT ||
+                this.gameState.PrevScene == SceneNameConstant.TREE_GROWTH ||
+                this.gameState.ActionTaken == 0)
             {
                 var numberToGenerate = visitorPerDayAmount;
-                if (this.gameState.WeekNumber > -1)
+                if (this.gameState.WeekNumber > 1)
                 {
                     var isSpecial = Random.Range(0, 1f) < 0.5f ||
                         (
@@ -78,7 +80,7 @@ namespace Horticultist.Scripts.Mechanics
             }
 
             TownEventBus.Instance.DispatchOnDayStart(gameState.WeekNumber, gameState.DayNumber);
-            TownEventBus.Instance.DispatchOnObjectiveUpdate(weekObjectives[0]);
+            TownEventBus.Instance.DispatchOnObjectiveUpdate(weekObjectives[gameState.WeekNumber]);
             gameState.PrevScene = SceneNameConstant.TOWN_PLAZA;
         }
 

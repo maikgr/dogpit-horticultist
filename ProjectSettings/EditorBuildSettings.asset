@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FailedLeaderScene.unity
     guid: 8fc39a7390d439a40b562e4883d32325
+  - enabled: 1
+    path: Assets/Scenes/TreeGrowthScene.unity
+    guid: 237d2e764f5f935459b97f1fde21fc1f
   m_configObjects: {}
