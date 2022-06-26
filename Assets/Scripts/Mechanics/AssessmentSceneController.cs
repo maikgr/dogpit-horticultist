@@ -192,7 +192,6 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        // text = $"I'm disappointed, [PLAYER]. You've only recruited *{gameState.CultMembers.Count} people] into our family..."
                         text = $"I'm disappointed. You've only recruited *{gameState.CultMembers.Count} people] into our family..."
                     },
                     new DialogueSceneText {
@@ -345,15 +344,16 @@ namespace Horticultist.Scripts.Mechanics
             }
             else
             {
-                sacrificeRequirementCount = gameState.SacrificedMembers.Count + SACRIFICE_INCREMENT_COUNT_WEEK_4;
                 // Praise scene
+                sacrificeRequirementCount = gameState.SacrificedMembers.Count + SACRIFICE_INCREMENT_COUNT_WEEK_4;
+                
+                if (gameState.SacrificedMembers.Count == 0) {
+
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        // [PLAYER]
                         text = $"Good job. You have grown our vessel to @{gameState.TreeHeight.ToString("F2")}m]. Yes, it is good enough, and the time is almost right!"
-
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -362,14 +362,54 @@ namespace Horticultist.Scripts.Mechanics
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"So far, you've sacrified {gameState.SacrificedMembers.Count} people... To sate its appetite you'll have to sacrifice at least[{sacrificeRequirementCount} people]."
+                        text = $"So far, you've sacrified {gameState.SacrificedMembers.Count} people..."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        // [PLAYER]
+                        text = "Impressive that you have come this far with no sacrifices. However, it is time to truly commit to Me."
+                    },
+                    new DialogueSceneText {
+                        name = "Tomathotep",
+                        text = $"To sate the vessel's appetite you'll have to sacrifice at least[{sacrificeRequirementCount} people]."
+                    },
+                    new DialogueSceneText {
+                        name = "Tomathotep",
                         text = $"I will be checking in on Day {gameState.DaysPerAssessment * 4 + 1}"
                     },
                 };
+                } else {
+
+                    dialogues = new List<DialogueSceneText>
+                    {
+                        new DialogueSceneText {
+                            name = "Tomathotep",
+                            text = $"Good job. You have grown our vessel to @{gameState.TreeHeight.ToString("F2")}m]. Yes, it is good enough, and the time is almost right!"
+                        },
+                        new DialogueSceneText {
+                            name = "Tomathotep",
+                            // [PLAYER]
+                            text = $"Now for one final step. I can feel the vessel’s thirst. It desires the blood of the faithful."
+                        },
+                        new DialogueSceneText {
+                            name = "Tomathotep",
+                            text = $"So far, you've sacrified {gameState.SacrificedMembers.Count} people..."
+                        },
+                        new DialogueSceneText {
+                            name = "Tomathotep",
+                            text = $"To sate its appetite you'll have to sacrifice at least[{sacrificeRequirementCount} people]."
+                        },
+                        new DialogueSceneText {
+                            name = "Tomathotep",
+                            text = "Since you've already done this before, this should be fairly easy to accomplish."
+                        },
+                        new DialogueSceneText {
+                            name = "Tomathotep",
+                            text = $"I will be checking in on Day {gameState.DaysPerAssessment * 4 + 1}"
+                        },
+                    };
+                }
+                // Praise scene
+
                 nextSceneName = SceneNameConstant.TOWN_PLAZA;
             }
         }
