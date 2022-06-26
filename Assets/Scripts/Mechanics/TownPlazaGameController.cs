@@ -17,10 +17,10 @@ namespace Horticultist.Scripts.Mechanics
         private IDictionary<int, IEnumerable<string>> weekObjectives = new Dictionary<int, IEnumerable<string>>
         {
             { 0, new List<string> {
-                "Have 6 cult members or more by the end of the week"
+                "Have 6 cult members or more"
             }},
             { 1, new List<string> {
-                "Have 13 cult members or more by the end of the week",
+                "Have 13 cult members or more",
                 "Have at least 1 cultist members with cult rank 'Horticultist'"
             }},
             { 2, new List<string> {

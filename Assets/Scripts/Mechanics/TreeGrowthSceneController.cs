@@ -87,7 +87,8 @@ namespace Horticultist.Scripts.Mechanics
 
         private void UpdateGrowth(float height)
         {
-            GrowthText.text = $"{height.ToString("F2")} m";
+            var textVal = (height / 10).ToString("F2");
+            GrowthText.text = $"{textVal} m";
             
             // Disable all tree sprites
             stageValueThreshold.ForEach(val => val.TreeGameObject.SetActive(false));

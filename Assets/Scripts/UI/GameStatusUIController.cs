@@ -51,7 +51,7 @@ namespace Horticultist.Scripts.UI
             {
                 currTreeHeight = GameStateController.Instance.TreeHeight;
                 var textVal = (currTreeHeight / 10).ToString("F2");
-                vesselGrowthText.text = $"Tree Height: {textVal}m";
+                vesselGrowthText.text = $"Tree Height: {textVal} m";
             }
         }
 

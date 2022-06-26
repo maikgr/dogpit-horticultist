@@ -9873,13 +9873,13 @@ MonoBehaviour:
   - Threshold: 0
     Stage: 1
     TreeGameObject: {fileID: 441945491}
-  - Threshold: 50
-    Stage: 2
+  - Threshold: 500
+    Stage: 1
     TreeGameObject: {fileID: 1127760454}
-  - Threshold: 200
+  - Threshold: 1500
     Stage: 3
     TreeGameObject: {fileID: 2045190165}
-  - Threshold: 400
+  - Threshold: 4200
     Stage: 4
     TreeGameObject: {fileID: 956758831}
 --- !u!82 &838067875
@@ -11092,7 +11092,7 @@ Transform:
   m_GameObject: {fileID: 956758831}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.37, y: 0.55, z: 0}
-  m_LocalScale: {x: 2.05, y: 2.05, z: 2.05}
+  m_LocalScale: {x: 2.11, y: 2.11, z: 2.11}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1993229705}
@@ -24584,7 +24584,7 @@ Transform:
   m_GameObject: {fileID: 2045190165}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.48, y: 0.49, z: 0}
-  m_LocalScale: {x: 2.05, y: 2.05, z: 2.05}
+  m_LocalScale: {x: 2.11, y: 2.11, z: 2.11}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1993229705}

@@ -216,6 +216,7 @@ namespace Horticultist.Scripts.Mechanics
                 ObedienceValue = 0;
                 HasObedienceAction = false;
                 ObedienceDialogue = DialogueSet.therapy.success.GetRandom();
+                npcTypeText.text = this.CultistRank.DisplayString();
             }
             if (SpecialNpcType.HasValue)
             {
@@ -380,6 +381,7 @@ namespace Horticultist.Scripts.Mechanics
                     CultistRank = CultistRankEnum.Rank3;
                     ObedienceValue = 0;
                 }
+                npcTypeText.text = this.CultistRank.DisplayString();
             }
             else if (HasObedienceAction)
             {

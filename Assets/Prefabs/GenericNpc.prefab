@@ -1015,7 +1015,7 @@ MonoBehaviour:
   highlightColor: {r: 0.3726415, g: 0.7119085, b: 1, a: 1}
   obedienceChangeValue: 4
   obedienceDecayValue: 2
-  sacrificeValue: 50
+  sacrificeValue: 100
   typeColourMaps:
   - npcType: 1
     colour: {r: 0.030502912, g: 0.010012442, b: 0.7075472, a: 0.41960785}

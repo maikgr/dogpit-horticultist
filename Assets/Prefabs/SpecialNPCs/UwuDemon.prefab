@@ -910,7 +910,7 @@ MonoBehaviour:
   highlightColor: {r: 0.3726415, g: 0.7119085, b: 1, a: 1}
   obedienceChangeValue: 4
   obedienceDecayValue: 2
-  sacrificeValue: 50
+  sacrificeValue: 200
   typeColourMaps:
   - npcType: 1
     colour: {r: 0.030502912, g: 0.010012442, b: 0.7075472, a: 0.41960785}
@@ -919,6 +919,7 @@ MonoBehaviour:
   - npcType: 0
     colour: {r: 0.24705882, g: 0.5294118, b: 0.25490198, a: 0.5254902}
   npcTypeCanvas: {fileID: 999918817}
+  AbsorbAnimator: {fileID: 0}
 --- !u!61 &1454859250456928247
 BoxCollider2D:
   m_ObjectHideFlags: 0
