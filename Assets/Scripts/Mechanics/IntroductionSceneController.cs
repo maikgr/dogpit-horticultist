@@ -16,29 +16,11 @@ namespace Horticultist.Scripts.Mechanics
         [SerializeField] private Transform dialogueParent;
         [SerializeField] private TMP_Text dialogueText;
         [SerializeField] private FadeUIController fadeUIController;
-        private HorticultistInputActions gameInputs;
         private bool isTyping;
         private int currentIndex;
 
         Coroutine c;
         bool coroutineHasStartedAtLeastOnce = false;
-
-        private void Awake()
-        {
-            gameInputs = new HorticultistInputActions();
-        }
-
-        private void OnEnable()
-        {
-            gameInputs.UI.Click.performed += OnClickPerformed;
-            gameInputs.UI.Click.Enable();
-        }
-
-        private void OnDisable()
-        {
-            gameInputs.UI.Click.performed -= OnClickPerformed;
-            gameInputs.UI.Click.Disable();
-        }
 
         private void Start()
         {
@@ -104,11 +86,10 @@ namespace Horticultist.Scripts.Mechanics
         };
 
         private bool isBlockAction;
-        private void OnClickPerformed(InputAction.CallbackContext context)
+        public void NextDialogue()
         {
             if (isBlockAction) return;
             if (!coroutineHasStartedAtLeastOnce) return;
-            if (context.ReadValue<float>() == 0) return;
             if (!isTyping)
             {
                 var nextIndex = currentIndex + 1;
@@ -119,10 +100,7 @@ namespace Horticultist.Scripts.Mechanics
                 }
                 else
                 {
-                    isBlockAction = true;
-                    fadeUIController.FadeOutScreen(
-                        () => SceneManager.LoadScene(SceneNameConstant.TOWN_PLAZA)
-                    );
+                    NextScene();
                 }
             }
             else 
@@ -131,6 +109,36 @@ namespace Horticultist.Scripts.Mechanics
                 StopCoroutine(c);
                 dialogueText.text = dialogues[currentIndex].text;
             }
+        }
+
+        public void PrevDialogue()
+        {
+            
+            if (isBlockAction) return;
+            if (!coroutineHasStartedAtLeastOnce) return;
+            if (!isTyping)
+            {
+                var prevIndex = currentIndex - 1;
+                if (prevIndex >= 0)
+                {
+                    c = StartCoroutine(ShowDialogue(prevIndex));
+                    currentIndex = prevIndex;
+                }
+            }
+            else 
+            {
+                isTyping = false;
+                StopCoroutine(c);
+                dialogueText.text = dialogues[currentIndex].text;
+            }
+        }
+
+        public void NextScene()
+        {
+            isBlockAction = true;
+            fadeUIController.FadeOutScreen(
+                () => SceneManager.LoadScene(SceneNameConstant.TOWN_PLAZA)
+            );
         }
 
         private IEnumerator ShowDialogue(int index)
@@ -144,7 +152,6 @@ namespace Horticultist.Scripts.Mechanics
             dialogueText.text = string.Empty;
             while (curLetterIdx < text.Length)
             {
-
                 dialogueText.text += text[curLetterIdx++];
                 yield return new WaitForFixedUpdate();
             }
