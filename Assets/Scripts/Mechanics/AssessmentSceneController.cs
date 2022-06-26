@@ -23,6 +23,15 @@ namespace Horticultist.Scripts.Mechanics
         private int currentIndex;
         private string nextSceneName;
 
+        private int CULT_SIZE_WEEK_1 = 6;
+        private int CULT_SIZE_WEEK_2 = 13;
+        private int HIGH_RANK_SIZE_WEEK_2 = 1;
+        private int TREE_HEIGHT_WEEK_3 = 1000;
+        private int SACRIFICE_INCREMENT_COUNT_WEEK_4 = 2;
+
+        private int sacrificeRequirementCount = 2;
+
+
         Coroutine c;
         bool coroutineHasStartedAtLeastOnce = false;
 
@@ -160,39 +169,19 @@ namespace Horticultist.Scripts.Mechanics
 
         private void Week1Assesment(int day)
         {
-            if (day < gameState.DaysPerAssessment && gameState.CultMembers.Count < 6)
+            if (gameState.CultMembers.Count < CULT_SIZE_WEEK_1)
             {
                 // Warn scene
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"I see you've only recruited *{gameState.CultMembers.Count} people] to serve me."
-
+                        // text = $"I'm disappointed, [PLAYER]. You've only recruited *{gameState.CultMembers.Count} people] into our family..."
+                        text = $"I'm disappointed. You've only recruited *{gameState.CultMembers.Count} people] into our family..."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Remember, I need you to recruit [6 people] and you have *{gameState.DaysPerAssessment - day} days left]."
-                    },
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = $"Now get back to work!"
-                    },
-                };
-            }
-            else if (day >= gameState.DaysPerAssessment && gameState.CultMembers.Count < 6)
-            {
-                // Warn scene
-                dialogues = new List<DialogueSceneText>
-                {
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = $"I'm disappointed in you, you've only recruited *{gameState.CultMembers.Count} people] to serve me."
-
-                    },
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = "I will let it go this time, but make sure you recruit [13 people and have at least 3 high ranking cult members], or you will *face the consequnce]."
+                        text = $"I will let you off for now, but make sure you recruit [{CULT_SIZE_WEEK_2} people and have at least {CULT_SIZE_WEEK_2} high ranking cult members] by Day {gameState.DaysPerAssessment * 2 + 1}, or you will *face the consequences]. Do not test My patience."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -200,39 +189,19 @@ namespace Horticultist.Scripts.Mechanics
                     },
                 };
             }
-            else if (day < gameState.DaysPerAssessment && gameState.CultMembers.Count >= 6)
+            else
             {
                 // Praise scene
                 dialogues = new List<DialogueSceneText>
                 {
-                    new DialogueSceneText {
+                     new DialogueSceneText {
+                        // [PLAYER]
                         name = "Tomathotep",
-                        text = $"Good job, you have recruited @{gameState.CultMembers.Count} people] to serve me."
-
+                        text = $"Good job. Our family is now @{gameState.CultMembers.Count}] members strong. It seems I have chosen a good leader."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Keep this up for *{gameState.DaysPerAssessment - day} days left] and you will earn your place in the world!"
-                    },
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = $"Now get back to work!"
-                    },
-                };
-            }
-            else if (day >= gameState.DaysPerAssessment && gameState.CultMembers.Count >= 6)
-            {
-                // Praise scene
-                dialogues = new List<DialogueSceneText>
-                {
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = $"Good job, you have recruited @{gameState.CultMembers.Count} people] to serve me."
-
-                    },
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = $"Now for your next task, recruit [13 people and have at least 1 high ranking cult members]!"
+                        text = $"But our task is not yet complete… you must have a total of at least [{CULT_SIZE_WEEK_2} people recruited and have at least {HIGH_RANK_SIZE_WEEK_2} high ranking cult members] by Day {gameState.DaysPerAssessment * 2 + 1} to further fuel My vessel’s growth."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -250,79 +219,84 @@ namespace Horticultist.Scripts.Mechanics
                     mem.CultistRank == Core.CultistRankEnum.Rank2
                 )
                 .Count();
-            if (day < gameState.DaysPerAssessment && (gameState.CultMembers.Count < 13 || highRankCount < 1))
-            {
-                // Warn scene
-                dialogues = new List<DialogueSceneText>
-                {
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = $"I see you've only recruited *{gameState.CultMembers.Count} people] and there are only *{highRankCount} high ranking members in the cult]."
 
-                    },
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = $"Remember, I need you to recruit [13 people and have at least 1 high ranking cult members] and you have *{gameState.DaysPerAssessment - day} days left]."
-                    },
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = $"Now get back to work!"
-                    },
-                };
-                nextSceneName = SceneNameConstant.TOWN_PLAZA;
-            }
-            else if (day >= gameState.DaysPerAssessment && (gameState.CultMembers.Count < 13 || highRankCount < 1))
+            if (gameState.CultMembers.Count < CULT_SIZE_WEEK_2 && highRankCount < HIGH_RANK_SIZE_WEEK_2)
             {
                 // Failed leader ending
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"I'm disappointed in you, you've only recruited *{gameState.CultMembers.Count} people] and there are only *{highRankCount} high ranking members in the cult]."
+                        // [PLAYER]
+                        text = $"Only *{gameState.CultMembers.Count} people] and *{highRankCount} high ranking members]? I’m sorely disappointed. I thought I told you not to test My patience."
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "Now you have to *face the consequnce!]."
-                    }
+                        text = $"Now… you will have to *suffer the consequences!]"
+
+                    },
                 };
                 gameState.EndingType = EndingTypeEnum.FailedLeaderEnding;
                 nextSceneName = SceneNameConstant.ENDING;
             }
-            else if (day < gameState.DaysPerAssessment && gameState.CultMembers.Count >= 13 && highRankCount >= 1)
+            else if (highRankCount < HIGH_RANK_SIZE_WEEK_2)
             {
-                // Praise scene
+                // Failed leader ending
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job, you have recruited @{gameState.CultMembers.Count} people] and there are @{highRankCount} high ranking members in the cult] to serve me."
+                        // [PLAYER]
+                        text = $"Only @{gameState.CultMembers.Count} people] and *{highRankCount} high ranking members]? I’m sorely disappointed. I thought I told you not to test My patience."
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Keep this up for *{gameState.DaysPerAssessment - day} days left] and you will earn your place in the world!"
-                    },
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = $"Now get back to work!"
+                        text = $"Now… you will have to *suffer the consequences!]"
+
                     },
                 };
-                nextSceneName = SceneNameConstant.TOWN_PLAZA;
+                gameState.EndingType = EndingTypeEnum.FailedLeaderEnding;
+                nextSceneName = SceneNameConstant.ENDING;
             }
-            else if (day >= gameState.DaysPerAssessment && gameState.CultMembers.Count >= 13 && highRankCount >= 1)
+            else if (gameState.CultMembers.Count < CULT_SIZE_WEEK_2)
+            {
+                // Failed leader ending
+                dialogues = new List<DialogueSceneText>
+                {
+                    new DialogueSceneText {
+                        name = "Tomathotep",
+                        // [PLAYER]
+                        text = $"Only *{gameState.CultMembers.Count} people] and @{highRankCount} high ranking members]? I’m sorely disappointed. I thought I told you not to test My patience."
+
+                    },
+                    new DialogueSceneText {
+                        name = "Tomathotep",
+                        text = $"Now… you will have to *suffer the consequences!]"
+
+                    },
+                };
+                gameState.EndingType = EndingTypeEnum.FailedLeaderEnding;
+                nextSceneName = SceneNameConstant.ENDING;
+            }
+            else
             {
                 // Praise scene
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job, you have recruited @{gameState.CultMembers.Count} people] and there are @{highRankCount} high ranking members in the cult] to serve me."
-
+                        // [PLAYER]
+                        text = $"Good job. You have recruited @{gameState.CultMembers.Count} people] and there are @{highRankCount} high ranking members in our family]."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Now for your next task, I want [the tree to be grown] as a fitting vessel for me!"
+                        text = $"But do not forget our true goal. I want you to grow our dear vessel further!"
+                    },
+                    new DialogueSceneText {
+                        name = "Tomathotep",
+                        text = $"I expect the vessel to have [reached at least {TREE_HEIGHT_WEEK_3 }m when I check in again on Day {gameState.DaysPerAssessment * 3 + 1}"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
@@ -335,82 +309,49 @@ namespace Horticultist.Scripts.Mechanics
 
         private void Week3Assesment(int day)
         {
-            if (day < gameState.DaysPerAssessment && gameState.TreeStage < 3)
-            {
-                // Warn scene
-                dialogues = new List<DialogueSceneText>
-                {
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = $"The tree has only reached *{gameState.TreeHeight.ToString("F2")}m], it is not enough!"
-
-                    },
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = $"I need it to [grow bigger] to be a fitting vessel for me and you have *{gameState.DaysPerAssessment - day} days left]."
-                    },
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = $"Now get back to work!"
-                    },
-                };
-                nextSceneName = SceneNameConstant.TOWN_PLAZA;
-            }
-            else if (day >= gameState.DaysPerAssessment && gameState.TreeStage < 3)
+            if (gameState.TreeHeight < TREE_HEIGHT_WEEK_3)
             {
                 // Failed leader ending
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"You failed to grow tree, only reached *{gameState.TreeHeight.ToString("F2")}m]."
-
+                        // [PLAYER]
+                        text = $"Oh... You have failed Me. Our poor vessel has only grown to *{gameState.TreeHeight.ToString("F2")}m]."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "Now you have to *face the consequnce!]."
-                    }
+                        text = $"Well… I suppose I can do it Myself. You, on the other hand… will have to *face the consequences of your negligence!]."
+                    },
                 };
                 gameState.EndingType = EndingTypeEnum.FailedLeaderEnding;
-                nextSceneName = SceneNameConstant.ENDING;
+                nextSceneName = SceneNameConstant.ENDING;            
             }
-            else if (day < gameState.DaysPerAssessment && gameState.TreeStage >= 3)
+            else
             {
+                sacrificeRequirementCount = gameState.SacrificedMembers.Count + SACRIFICE_INCREMENT_COUNT_WEEK_4;
                 // Praise scene
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job, you have grown the tree to @{gameState.TreeHeight.ToString("F2")}m] which is big enough to be my vessel."
+                        // [PLAYER]
+                        text = $"Good job. You have grown our vessel to @{gameState.TreeHeight.ToString("F2")}m]. Yes, it is good enough, and the time is almost right!"
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"The more it grows, the stronger I will be! You have *{gameState.DaysPerAssessment - day} days left]!"
+                        // [PLAYER]
+                        text = $"Now for one final step. I can feel the vessel’s thirst. It desires the blood of the faithful."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Now get back to work!"
-                    },
-                };
-                nextSceneName = SceneNameConstant.TOWN_PLAZA;
-            }
-            else if (day >= gameState.DaysPerAssessment && gameState.TreeStage >= 3)
-            {
-                // Praise scene
-                dialogues = new List<DialogueSceneText>
-                {
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = $"Good job, you have grown the tree to @{gameState.TreeHeight.ToString("F2")}m] which is big enough to be my vessel."
+                        text = $"So far, you've sacrified {gameState.SacrificedMembers.Count} people... To sate its appetite you'll have to sacrifice at least[{sacrificeRequirementCount} people]."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Now sacrifice [5 people] and you will rule the world together with me!"
-                    },
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = $"Now get back to work!"
+                        // [PLAYER]
+                        text = $"I will be checking in on Day {gameState.DaysPerAssessment * 4 + 1}"
                     },
                 };
                 nextSceneName = SceneNameConstant.TOWN_PLAZA;
@@ -419,85 +360,78 @@ namespace Horticultist.Scripts.Mechanics
 
         private void Week4Assesment(int day)
         {
-            if (day < gameState.DaysPerAssessment && gameState.SacrificedMembers.Count < 5)
+            if (gameState.SacrificedMembers.Count < 1)
             {
-                // Warn scene
+                // Pacifist ending
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"The tree needs [5 sacrifices] and you've only sacrificed *{gameState.SacrificedMembers.Count} people, it is not enough!]"
+                        text = $"Our vessel is starving. It needs [{sacrificeRequirementCount} sacrifices], and you've only fed it…"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"You have *{gameState.DaysPerAssessment - day} days left] to achieve this, don't disappoint me."
-                    }
+                        text = "W-What is this? You haven't fed it at all?"
+                    },
+                    new DialogueSceneText {
+                        name = "Tomathotep",
+                        text = "You… You didn't sacrifice anybody…?"
+                    },
+                    new DialogueSceneText {
+                        name = "Tomathotep",
+                        text = "How…? And more importantly, why? You are not betraying Me, but yet you refuse to kill your brethren in My name…"
+                    },
+                    new DialogueSceneText {
+                        name = "Tomathotep",
+                        text = "..."
+                    },
+                    new DialogueSceneText {
+                        name = "Tomathotep",
+                        text = "… I suppose this is not completely unacceptable."
+                    },
                 };
-                nextSceneName = SceneNameConstant.TOWN_PLAZA;
+                gameState.EndingType = EndingTypeEnum.PacifistEnding;
+                nextSceneName = SceneNameConstant.ENDING;
             }
-            else if (day >= gameState.DaysPerAssessment && gameState.SacrificedMembers.Count < 5)
+            else if (gameState.SacrificedMembers.Count < sacrificeRequirementCount)
             {
-                // Pacifist ending scene
+                // Failed leader
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"The tree needs [5 sacrifices] and you've only sacrificed <{gameState.SacrificedMembers.Count} people, it is not enough!]"
+                        // [PLAYER]
+                        text = $"Our vessel is starving. It needs [{sacrificeRequirementCount} sacrifices], and you've only fed it *{gameState.SacrificedMembers.Count} people]."
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "Now you have to *face the consequnce!]."
-
+                        text = "Did you really think you could stop me at the last second? Or are you simply that incompetent?"
+                    },
+                    new DialogueSceneText {
+                        name = "Tomathotep",
+                        text = "Whatever your intent, I’m fresh out of patience."
+                    },
+                    new DialogueSceneText {
+                        name = "Tomathotep",
+                        text = "*Allow me to show you the hell you’ve brought upon yourself!]"
                     }
                 };
                 gameState.EndingType = EndingTypeEnum.PacifistEnding;
                 nextSceneName = SceneNameConstant.ENDING;
             }
-            else if (day < gameState.DaysPerAssessment && gameState.SacrificedMembers.Count >= 5)
-            {
-                // Praise scene
-                dialogues = new List<DialogueSceneText>
-                {
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = $"Good job, you have grown the tree to @{gameState.TreeHeight.ToString("F2")}m] which is big enough to be my vessel."
-
-                    },
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = $"The more it grows, the stronger I will be! You have *{gameState.DaysPerAssessment - day} days left]!"
-                    },
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = $"Now get back to work!"
-                    },
-                };
-                dialogues = new List<DialogueSceneText>
-                {
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = $"Good job, you've sacrificed @{gameState.SacrificedMembers.Count} people], you are worthy to be my servant."
-                    },
-                    new DialogueSceneText {
-                        name = "Tomathotep",
-                        text = $"Keep this up for *{gameState.DaysPerAssessment - day} days left] and you will earn your place in the world!"
-
-                    }
-                };
-                nextSceneName = SceneNameConstant.TOWN_PLAZA;
-            }
-            else if (day >= gameState.DaysPerAssessment && gameState.SacrificedMembers.Count >= 5)
+            else
             {
                 // Ulltimate cult ending
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job, you've sacrificed @{gameState.SacrificedMembers.Count} people], you are worthy to be my servant."
+                        // [PLAYER]
+                        text = $"Well done. You've sacrificed @{gameState.SacrificedMembers.Count} people] to sate our vessel’s appetite. Our efforts will soon bear fruit!"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"You will earn your place in the world!"
+                        text = $"Let us usher in our era of paradise, the age of Tomathotep!"
                     }
                 };
                 gameState.EndingType = EndingTypeEnum.UltimateCultEnding;

@@ -86,7 +86,8 @@ namespace Horticultist.Scripts.Mechanics
 
         private void UpdateWeekDayUI(int weekNumber, int dayNumber)
         {
-            weekDayText.text = $"Phase {weekNumber} Day {dayNumber}";
+            var day = weekNumber * GameStateController.Instance.DaysPerAssessment + dayNumber;
+            weekDayText.text = $"Day {day}";
         }
 
         private bool isEnding = false;
