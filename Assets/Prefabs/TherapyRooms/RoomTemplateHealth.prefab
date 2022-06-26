@@ -217,27 +217,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolInteractions:
   - MindToolType: 1
-    PatienceValue: 10
+    PatienceValue: 5
     IndoctrinationValue: 0
     MoodInpact: 1
   - MindToolType: 2
-    PatienceValue: 40
+    PatienceValue: 10
     IndoctrinationValue: 0
     MoodInpact: 2
   - MindToolType: 3
-    PatienceValue: 20
+    PatienceValue: 3
     IndoctrinationValue: 0
     MoodInpact: 1
   - MindToolType: 4
-    PatienceValue: 10
-    IndoctrinationValue: 15
-    MoodInpact: 2
+    PatienceValue: 5
+    IndoctrinationValue: 12
+    MoodInpact: 1
   - MindToolType: 5
-    PatienceValue: 15
-    IndoctrinationValue: 25
+    PatienceValue: 10
+    IndoctrinationValue: 7
     MoodInpact: 2
-  cleaningWorkTime: 3
-  indoctrinationWorkTime: 1
+  cleaningWorkTime: 4
+  indoctrinationWorkTime: 3
   clutterSpriteRenderer: {fileID: 2120949279364425306}
   dirtySprite: {fileID: 21300000, guid: 4cb89dfc44fbf7f4199d8197a0c29d2a, type: 3}
   cleanSprite: {fileID: 21300000, guid: 9aca81b9edcc73a4caa70f210faa4204, type: 3}
@@ -344,6 +344,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 7b3fe5c6-2be8-4446-a89d-8d8b4965edc8
     m_ActionName: Camera/Zoom[/Mouse/scroll/y]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: edcaa543-ece1-4434-b7cc-8f32b457fd65
+    m_ActionName: Camera/Move1[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -516,24 +520,24 @@ MonoBehaviour:
   - MindToolType: 1
     PatienceValue: 10
     IndoctrinationValue: 0
-    MoodInpact: 1
-  - MindToolType: 2
-    PatienceValue: 40
-    IndoctrinationValue: 0
     MoodInpact: 2
+  - MindToolType: 2
+    PatienceValue: 6
+    IndoctrinationValue: 0
+    MoodInpact: 1
   - MindToolType: 3
-    PatienceValue: 20
+    PatienceValue: 3
     IndoctrinationValue: 0
     MoodInpact: 1
   - MindToolType: 4
     PatienceValue: 10
-    IndoctrinationValue: 15
+    IndoctrinationValue: 8
     MoodInpact: 2
   - MindToolType: 5
-    PatienceValue: 15
-    IndoctrinationValue: 25
-    MoodInpact: 2
-  cleaningWorkTime: 3
+    PatienceValue: 4
+    IndoctrinationValue: 10
+    MoodInpact: 1
+  cleaningWorkTime: 4
   indoctrinationWorkTime: 3
   clutterSpriteRenderer: {fileID: 9001679563768159705}
   dirtySprite: {fileID: 21300000, guid: 13a449789ed04294286879b5cb932a7d, type: 3}
@@ -641,6 +645,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 7b3fe5c6-2be8-4446-a89d-8d8b4965edc8
     m_ActionName: Camera/Zoom[/Mouse/scroll/y]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: edcaa543-ece1-4434-b7cc-8f32b457fd65
+    m_ActionName: Camera/Move1[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -810,27 +818,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolInteractions:
   - MindToolType: 1
-    PatienceValue: 10
+    PatienceValue: 5
     IndoctrinationValue: 0
     MoodInpact: 1
   - MindToolType: 2
-    PatienceValue: 40
-    IndoctrinationValue: 0
-    MoodInpact: 2
-  - MindToolType: 3
-    PatienceValue: 20
+    PatienceValue: 2
     IndoctrinationValue: 0
     MoodInpact: 1
+  - MindToolType: 3
+    PatienceValue: 11
+    IndoctrinationValue: 0
+    MoodInpact: 2
   - MindToolType: 4
-    PatienceValue: 10
-    IndoctrinationValue: 15
-    MoodInpact: 2
+    PatienceValue: 5
+    IndoctrinationValue: 13
+    MoodInpact: 1
   - MindToolType: 5
-    PatienceValue: 15
-    IndoctrinationValue: 25
+    PatienceValue: 9
+    IndoctrinationValue: 6
     MoodInpact: 2
-  cleaningWorkTime: 3
-  indoctrinationWorkTime: 3
+  cleaningWorkTime: 2
+  indoctrinationWorkTime: 2
   clutterSpriteRenderer: {fileID: 8619301765433302855}
   dirtySprite: {fileID: 21300000, guid: b16f675c0c077e44aa14182bad3879ac, type: 3}
   cleanSprite: {fileID: 21300000, guid: d42aec91ce3261044891c87028561673, type: 3}
@@ -937,6 +945,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 7b3fe5c6-2be8-4446-a89d-8d8b4965edc8
     m_ActionName: Camera/Zoom[/Mouse/scroll/y]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: edcaa543-ece1-4434-b7cc-8f32b457fd65
+    m_ActionName: Camera/Move1[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1025,26 +1037,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolInteractions:
   - MindToolType: 1
-    PatienceValue: 10
+    PatienceValue: 9
     IndoctrinationValue: 0
-    MoodInpact: 1
+    MoodInpact: 2
   - MindToolType: 2
-    PatienceValue: 40
-    IndoctrinationValue: 0
-    MoodInpact: 2
-  - MindToolType: 3
-    PatienceValue: 20
+    PatienceValue: 5
     IndoctrinationValue: 0
     MoodInpact: 1
+  - MindToolType: 3
+    PatienceValue: 12
+    IndoctrinationValue: 0
+    MoodInpact: 2
   - MindToolType: 4
-    PatienceValue: 10
-    IndoctrinationValue: 15
-    MoodInpact: 2
+    PatienceValue: 3
+    IndoctrinationValue: 9
+    MoodInpact: 1
   - MindToolType: 5
-    PatienceValue: 15
-    IndoctrinationValue: 25
-    MoodInpact: 2
-  cleaningWorkTime: 3
+    PatienceValue: 2
+    IndoctrinationValue: 9
+    MoodInpact: 1
+  cleaningWorkTime: 2
   indoctrinationWorkTime: 3
   clutterSpriteRenderer: {fileID: 143882252985609515}
   dirtySprite: {fileID: 21300000, guid: e66a80a3185d29747afe43b4f55ae8bc, type: 3}
@@ -1152,6 +1164,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 7b3fe5c6-2be8-4446-a89d-8d8b4965edc8
     m_ActionName: Camera/Zoom[/Mouse/scroll/y]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: edcaa543-ece1-4434-b7cc-8f32b457fd65
+    m_ActionName: Camera/Move1[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1239,24 +1255,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolInteractions:
   - MindToolType: 1
-    PatienceValue: 10
+    PatienceValue: 5
     IndoctrinationValue: 0
     MoodInpact: 1
   - MindToolType: 2
-    PatienceValue: 40
-    IndoctrinationValue: 0
-    MoodInpact: 2
-  - MindToolType: 3
-    PatienceValue: 20
+    PatienceValue: 3
     IndoctrinationValue: 0
     MoodInpact: 1
-  - MindToolType: 4
+  - MindToolType: 3
     PatienceValue: 10
-    IndoctrinationValue: 15
+    IndoctrinationValue: 0
+    MoodInpact: 2
+  - MindToolType: 4
+    PatienceValue: 12
+    IndoctrinationValue: 5
     MoodInpact: 2
   - MindToolType: 5
-    PatienceValue: 15
-    IndoctrinationValue: 25
+    PatienceValue: 10
+    IndoctrinationValue: 5
     MoodInpact: 2
   cleaningWorkTime: 3
   indoctrinationWorkTime: 3
@@ -1366,6 +1382,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 7b3fe5c6-2be8-4446-a89d-8d8b4965edc8
     m_ActionName: Camera/Zoom[/Mouse/scroll/y]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: edcaa543-ece1-4434-b7cc-8f32b457fd65
+    m_ActionName: Camera/Move1[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1723,27 +1743,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolInteractions:
   - MindToolType: 1
-    PatienceValue: 10
+    PatienceValue: 4
     IndoctrinationValue: 0
     MoodInpact: 1
   - MindToolType: 2
-    PatienceValue: 40
+    PatienceValue: 10
     IndoctrinationValue: 0
     MoodInpact: 2
   - MindToolType: 3
-    PatienceValue: 20
+    PatienceValue: 9
     IndoctrinationValue: 0
-    MoodInpact: 1
+    MoodInpact: 2
   - MindToolType: 4
-    PatienceValue: 10
-    IndoctrinationValue: 15
+    PatienceValue: 9
+    IndoctrinationValue: 8
     MoodInpact: 2
   - MindToolType: 5
-    PatienceValue: 15
-    IndoctrinationValue: 25
-    MoodInpact: 2
-  cleaningWorkTime: 5
-  indoctrinationWorkTime: 5
+    PatienceValue: 3
+    IndoctrinationValue: 14
+    MoodInpact: 1
+  cleaningWorkTime: 3
+  indoctrinationWorkTime: 3
   clutterSpriteRenderer: {fileID: 7240051211320128153}
   dirtySprite: {fileID: 21300000, guid: dae487895de565f4887d38de9470c7ed, type: 3}
   cleanSprite: {fileID: 21300000, guid: 94212d1a0db15b246b37b2d0961a6dcd, type: 3}
@@ -1998,27 +2018,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolInteractions:
   - MindToolType: 1
-    PatienceValue: 10
+    PatienceValue: 5
     IndoctrinationValue: 0
     MoodInpact: 1
   - MindToolType: 2
-    PatienceValue: 40
+    PatienceValue: 9
     IndoctrinationValue: 0
     MoodInpact: 2
   - MindToolType: 3
-    PatienceValue: 20
+    PatienceValue: 3
     IndoctrinationValue: 0
     MoodInpact: 1
   - MindToolType: 4
     PatienceValue: 10
-    IndoctrinationValue: 15
+    IndoctrinationValue: 10
     MoodInpact: 2
   - MindToolType: 5
-    PatienceValue: 15
-    IndoctrinationValue: 25
-    MoodInpact: 2
+    PatienceValue: 5
+    IndoctrinationValue: 12
+    MoodInpact: 1
   cleaningWorkTime: 3
-  indoctrinationWorkTime: 3
+  indoctrinationWorkTime: 4
   clutterSpriteRenderer: {fileID: 2201283779746495520}
   dirtySprite: {fileID: 21300000, guid: fe08279e96765b04aac94c994837e191, type: 3}
   cleanSprite: {fileID: 21300000, guid: 7115692720e3b8b4dafca8056cd95db9, type: 3}
@@ -2125,6 +2145,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 7b3fe5c6-2be8-4446-a89d-8d8b4965edc8
     m_ActionName: Camera/Zoom[/Mouse/scroll/y]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: edcaa543-ece1-4434-b7cc-8f32b457fd65
+    m_ActionName: Camera/Move1[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
