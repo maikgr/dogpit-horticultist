@@ -32,7 +32,6 @@ namespace Horticultist.Scripts.Mechanics
 
         public void Configure(NpcController source)
         {
-            Debug.Log("Configuring NPC " + source.DisplayName);
             // Basic Info
             npcNameText.text = source.DisplayName;
             npcTypeText.text = source.NpcType.ToString();
@@ -43,8 +42,6 @@ namespace Horticultist.Scripts.Mechanics
             SetSprite(eyesSpriteRenderer, source.eyesSprite);
             SetSprite(mouthSpriteRenderer, source.mouthSprite);
             npcTypeCanvas.color = source.canvasColor;
-            
-            Debug.Log("Done configure NPC");
         }
 
         private void SetSprite(SpriteRenderer renderer, Sprite sourceSprite)

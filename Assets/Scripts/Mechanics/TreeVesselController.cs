@@ -10,29 +10,8 @@ namespace Horticultist.Scripts.Mechanics
     public class TreeVesselController : MonoBehaviour
     {
         [SerializeField] private List<TreeVesselStage> stageValueThreshold;
-        private void OnEnable() {
-            StartCoroutine(OnEnableCoroutine());
-        }
-
-        private IEnumerator OnEnableCoroutine()
-        {
-            while(TownEventBus.Instance == null)
-            {
-                yield return new WaitForFixedUpdate();
-            }
-            TownEventBus.Instance.OnDayEnd += OnDayEnd;
-        }
-
-        private void OnDisable() {
-            TownEventBus.Instance.OnDayEnd -= OnDayEnd;
-        }
-
+        
         private void Start() {
-            UpdateGrowth(0);
-        }
-
-        private void OnDayEnd(int week, int day)
-        {
             var totalEf = GameStateController.Instance.CultMembers.Sum(m => m.EfficiencyValue);
             UpdateGrowth(totalEf);
         }
