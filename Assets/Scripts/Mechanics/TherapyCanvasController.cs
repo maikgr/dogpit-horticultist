@@ -153,5 +153,18 @@ namespace Horticultist.Scripts.Mechanics
             yield return new WaitForSeconds(delay);
             transitionScreen.TransitionIn(() => SceneManager.LoadScene(SceneNameConstant.TOWN_PLAZA));
         }
+
+        [Header("Tutorials")]
+        [SerializeField] private TutorialDialogueController FirstTimePlazaTutorial; 
+        [SerializeField] private TutorialDialogueController FirstTimeTherapyTutorial; 
+        [SerializeField] private TutorialDialogueController FirstTimeWealthTutorial; 
+        [SerializeField] private TutorialDialogueController FirstTimeHealthTutorial; 
+        [SerializeField] private TutorialDialogueController FirstTimeLoveTutorial; 
+        [SerializeField] private TutorialDialogueController FirstTimeSuccessfulRecruitTutorial; 
+        [SerializeField] private TutorialDialogueController FirstTimeSuccessfulTherapyTutorial; 
+        [SerializeField] private TutorialDialogueController FirstTimeFailedTherapyTutorial; 
+        [SerializeField] private TutorialDialogueController StartDayTwoTutorial;
+        [SerializeField] private TutorialDialogueController FirstTimeScoldPraiseTutorial; 
+        [SerializeField] private TutorialDialogueController FirstTimeSacrificeTutorial; 
     }
 }
