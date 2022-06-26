@@ -731,6 +731,7 @@ GameObject:
   - component: {fileID: 123599617}
   - component: {fileID: 123599618}
   - component: {fileID: 123599619}
+  - component: {fileID: 123599620}
   m_Layer: 0
   m_Name: TherapySceneController
   m_TagString: Untagged
@@ -815,8 +816,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 3914d18af3c9a5f49824315a21aef9d2, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -901,6 +902,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &123599620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123599614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebd92b5810cef0844858176bf8325a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmSource: {fileID: 123599619}
+  bgmMaps:
+  - personality: 0
+    audioBgm: {fileID: 8300000, guid: 9d0468f389e861349a30f2d6a479b394, type: 3}
+  - personality: 1
+    audioBgm: {fileID: 8300000, guid: 40fb15fae2821724aa70a0ae0a6f6ba9, type: 3}
+  - personality: 2
+    audioBgm: {fileID: 8300000, guid: 7097a0474d4d67d44833de81823618de, type: 3}
 --- !u!1 &125104680
 GameObject:
   m_ObjectHideFlags: 0
