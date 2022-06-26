@@ -17,6 +17,8 @@ namespace Horticultist.Scripts.Mechanics
         [Header("Effects and Transition")]
         [SerializeField] private TransitionScreenUIController transitionScreen;
         [SerializeField] private ProgressBarVisual progressVisual;
+        [SerializeField] private Transform happyMoodBubble;
+        [SerializeField] private Transform angryMoodBubble;
 
         [Header("NPC Basic Info UI")]
         [SerializeField] private TMP_Text npcTypeText;
@@ -159,7 +161,6 @@ namespace Horticultist.Scripts.Mechanics
                 var totalTime = workEvent.totalWorkTime + 1;
                 var fromVal = Mathf.Min(workEvent.remainingWorkTime + 2, totalTime);
                 var toVal = Mathf.Min(workEvent.remainingWorkTime + 1, totalTime);
-                Debug.Log("Moving from " + fromVal + " to " + toVal);
                 DOVirtual.Float(fromVal, toVal, 0.75f, (value) => {
                     progressVisual.progressBar.fillAmount = value/totalTime;
                 });
