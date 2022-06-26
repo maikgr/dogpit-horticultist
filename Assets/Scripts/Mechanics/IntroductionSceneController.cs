@@ -54,12 +54,53 @@ namespace Horticultist.Scripts.Mechanics
         {
             new DialogueSceneText {
                 name = "Tomathotep",
-                text = "I am Tomathotep, god of death and destruction! And you shall build a vessel for me!"
+                text = "Hello, mortal."
             },
             new DialogueSceneText {
                 name = "Tomathotep",
-                text = "There is no mercy for those who cross me. Now get to work!"
+                text = "Does your world not have talking vegetables? You should not be surprised to see me."
             },
+            new DialogueSceneText {
+                name = "Tomathotep",
+                text = "I am Tomathotep. The inconceivably great pleasure of meeting you, is all mine."
+            },
+            new DialogueSceneText {
+                name = "Tomathotep",
+                text = "Now, I am in need of some earthly assistance. And you, My special friend, are perfect for the job. Shall we agree to a contract of… mutual benefit?"
+            },
+            new DialogueSceneText {
+                name = "Tomathotep",
+                text = "Fear not, it is a very simple task. Allow me to explain."
+            },
+            new DialogueSceneText {
+                name = "Tomathotep",
+                text = "You must help me grow My vessel. Think of it as… ah, building a house for your friend."
+            },  
+            new DialogueSceneText {
+                name = "Tomathotep",
+                text = "However, where your houses are built with sticks and stone, mine is formed from the prayers of the faithful, and the blood of the worthy."
+            },   
+            new DialogueSceneText {
+                name = "Tomathotep",
+                text = "You must gather more like-minded folk, who will, together with you, grow enlightened in our ways. The ways of Tomathotep."
+            },   
+            new DialogueSceneText {
+                name = "Tomathotep",
+                text = "We are making a family, where everyone can find love, acceptance and peace."
+            },
+            new DialogueSceneText {
+                name = "Tomathotep",
+                text = "Go out into the village, seek out others, and find out what it is they desire. I will guide you along the way."
+            },
+            new DialogueSceneText {
+                name = "Tomathotep",
+                text = "I expect you to recruit at least 6 family members in the next 3 days."
+            },
+            new DialogueSceneText {
+                name = "Tomathotep",
+                text = "That will be all. I entrust this task to you, My dear friend. May your faith be resolute."
+            },
+
         };
 
         private bool isBlockAction;

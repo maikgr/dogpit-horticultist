@@ -167,7 +167,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7b372c4d626c07044bb6aee452190294, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 0bd5416ef161e48549d0cb6ec6083a3d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -270,7 +270,6 @@ MonoBehaviour:
   dialogueParent: {fileID: 671590005}
   dialogueText: {fileID: 856213325}
   fadeUIController: {fileID: 43249751}
-  nextSceneName: TownPlazaScene
 --- !u!114 &43249751
 MonoBehaviour:
   m_ObjectHideFlags: 0

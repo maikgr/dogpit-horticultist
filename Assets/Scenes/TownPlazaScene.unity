@@ -20804,8 +20804,7 @@ MonoBehaviour:
   nextButtonText: {fileID: 538185725}
   dialogues:
   - name: Tomathotep
-    text: How utterly tactless. A pathetic showing. That person will now no longer
-      be open to the teachings of Tomathotep.
+    text: How utterly tactless. A pathetic showing.
   - name: Tomathotep
     text: "You fool! Crudely shoving platitudes into peoples\u2019 faces makes us
       no better than the false priests of this earth! You must observe their reactions
@@ -20813,6 +20812,8 @@ MonoBehaviour:
   - name: Tomathotep
     text: 'If they respond poorly, abandon your current approach and try another.
       This is a delicate balancing act and prudence is essential for success. '
+  - name: Tomathotep
+    text: That person will now no longer be open to the teachings of Tomathotep.
   - name: Tomathotep
     text: 'Let us talk to another and, this time, be careful. Do not disappoint me
       again. '
