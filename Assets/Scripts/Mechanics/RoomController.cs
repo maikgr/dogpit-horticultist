@@ -63,18 +63,34 @@ namespace Horticultist.Scripts.Mechanics
                 TherapyEventBus.Instance.DispatchOnTherapyEnds(NpcTypeEnum.Cultist, MoodEnum.Neutral);
                 SfxController.Instance.PlaySfx(SfxEnum.IndoctrinationSuccess);
 
+
+                // Tutorial variables
+                TutorialStateVariables.Instance.CanShowFirstSuccessfulRecruit = true;
+                TutorialStateVariables.Instance.CanShowFirstTimeSuccessfulTherapy = false;
+                TutorialStateVariables.Instance.CanShowFirstTimeFailedTherapy = false;
+                
             } 
             else if(!clutters.Any(c => c.CurrentState == ClutterStateEnum.Dirty))
             {
                 therapyEnded = true;
                 TherapyEventBus.Instance.DispatchOnTherapyEnds(NpcTypeEnum.Townspeople, MoodEnum.Happy);
                 SfxController.Instance.PlaySfx(SfxEnum.TherapySuccess);
+
+                // Tutorial variables
+                TutorialStateVariables.Instance.CanShowFirstSuccessfulRecruit = false;
+                TutorialStateVariables.Instance.CanShowFirstTimeSuccessfulTherapy = true;
+                TutorialStateVariables.Instance.CanShowFirstTimeFailedTherapy = false;
             }
             else if (currentNpc.PatienceValue <= 0)
             {
                 therapyEnded = true;
                 TherapyEventBus.Instance.DispatchOnTherapyEnds(NpcTypeEnum.Townspeople, MoodEnum.Angry);
                 SfxController.Instance.PlaySfx(SfxEnum.TherapyFail);
+
+                // Tutorial variables
+                TutorialStateVariables.Instance.CanShowFirstSuccessfulRecruit = false;
+                TutorialStateVariables.Instance.CanShowFirstTimeSuccessfulTherapy = false;
+                TutorialStateVariables.Instance.CanShowFirstTimeFailedTherapy = true;
             }
 
         }
@@ -87,6 +103,11 @@ namespace Horticultist.Scripts.Mechanics
                 therapyEnded = true;
                 TherapyEventBus.Instance.DispatchOnTherapyEnds(NpcTypeEnum.Townspeople, MoodEnum.Happy);
                 SfxController.Instance.PlaySfx(SfxEnum.TherapySuccess);
+
+                // Tutorial variables
+                TutorialStateVariables.Instance.CanShowFirstSuccessfulRecruit = false;
+                TutorialStateVariables.Instance.CanShowFirstTimeSuccessfulTherapy = true;
+                TutorialStateVariables.Instance.CanShowFirstTimeFailedTherapy = false;
             }
         }
     }

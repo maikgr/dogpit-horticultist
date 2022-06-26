@@ -24,31 +24,21 @@ namespace Horticultist.Scripts.Mechanics
             gameInput = new HorticultistInputActions();
             mainCamera = Camera.main;
             cameraController = mainCamera.GetComponent<TownPlazaCameraController>();
-            FirstTimePlazaTutorial.gameObject.SetActive(false);
         }
 
         private void Start()
         {
             if (GameStateController.Instance.PrevScene == SceneNameConstant.THERAPY)
             {
-                transitionScreen.TransitionOut();
+                transitionScreen.TransitionOut(() => ShowTutorial());
                 TownPlazaGameController.Instance.AddAction();
             }
             else
             {
-                fadeUIController.FadeInScreen();
+                fadeUIController.FadeInScreen(() => ShowTutorial());
             }
 
-            var tutorial = TutorialStateVariables.Instance;
-            Debug.Log("Tutorial check");
-            if (tutorial.IsFirstTimePlaza)
-            {
-                Debug.Log("First time plaza starts");
-                FirstTimePlazaTutorial.gameObject.SetActive(true);
-                FirstTimePlazaTutorial.OnTutorialComplete(() => {
-                    TutorialStateVariables.Instance.IsFirstTimePlaza = false;
-                });
-            }
+
         }
 
         private void OnEnable()
@@ -67,6 +57,7 @@ namespace Horticultist.Scripts.Mechanics
 
             gameInput.UI.Point.performed += OnPointPerformed;
             gameInput.UI.Point.Enable();
+
         }
 
         private void OnDisable()
@@ -201,7 +192,11 @@ namespace Horticultist.Scripts.Mechanics
                 npcInfoPanel.anchoredPosition = new Vector2(val, npcInfoPanel.anchoredPosition.y);
             })
             .SetEase(Ease.Linear)
-            .OnComplete(() => panelIsOpen = true);
+            .OnComplete(() => 
+                {
+                    panelIsOpen = true;
+                    ShowPanelTutorial();
+                });
         }
 
         public void ClosePanel()
@@ -449,5 +444,70 @@ namespace Horticultist.Scripts.Mechanics
         [SerializeField] private TutorialDialogueController StartDayTwoTutorial;
         [SerializeField] private TutorialDialogueController FirstTimeScoldPraiseTutorial; 
         [SerializeField] private TutorialDialogueController FirstTimeSacrificeTutorial; 
+        
+        public void ShowTutorial()
+        {
+
+            var npc = GameStateController.Instance.SelectedNpc;
+            var tutorial = TutorialStateVariables.Instance;
+            Debug.Log(tutorial);
+            if (!tutorial.HaveShownFirstTimePlaza)
+            {
+                FirstTimePlazaTutorial.gameObject.SetActive(true);
+                FirstTimePlazaTutorial.OnTutorialComplete(() => {
+                    TutorialStateVariables.Instance.HaveShownFirstTimePlaza = true;
+                });
+            }
+            if (!tutorial.HaveShownFirstSuccessfulRecruit && tutorial.CanShowFirstSuccessfulRecruit)
+            {
+                FirstTimeSuccessfulRecruitTutorial.gameObject.SetActive(true);
+                FirstTimeSuccessfulRecruitTutorial.OnTutorialComplete(() => {
+                    TutorialStateVariables.Instance.HaveShownFirstSuccessfulRecruit = true;
+                });
+            }
+            if (!tutorial.HaveShownFirstTimeSuccessfulTherapy && tutorial.CanShowFirstTimeSuccessfulTherapy)
+            {
+                FirstTimeSuccessfulTherapyTutorial.gameObject.SetActive(true);
+                FirstTimeSuccessfulTherapyTutorial.OnTutorialComplete(() => {
+                    TutorialStateVariables.Instance.HaveShownFirstTimeSuccessfulTherapy = true;
+                });
+            }
+            if (!tutorial.HaveShownFirstTimeFailedTherapy && tutorial.CanShowFirstTimeFailedTherapy)
+            {
+                FirstTimeFailedTherapyTutorial.gameObject.SetActive(true);
+                FirstTimeFailedTherapyTutorial.OnTutorialComplete(() => {
+                    TutorialStateVariables.Instance.HaveShownFirstTimeFailedTherapy = true;
+                });
+            }
+            if (!tutorial.HaveShownStartDayTwo && GameStateController.Instance.CultMembers.Count > 0 && GameStateController.Instance.DayNumber >= 2)
+            {
+                StartDayTwoTutorial.gameObject.SetActive(true);
+                StartDayTwoTutorial.OnTutorialComplete(() => {
+                    TutorialStateVariables.Instance.HaveShownStartDayTwo = true;
+                });
+            }
+        }
+
+        public void ShowPanelTutorial()
+        {
+            var npc = GameStateController.Instance.SelectedNpc;
+            var tutorial = TutorialStateVariables.Instance;
+            if (!tutorial.HaveShownFirstTimeScoldPraise && npc.HasObedienceAction)
+            {
+                FirstTimeScoldPraiseTutorial.gameObject.SetActive(true);
+                FirstTimeScoldPraiseTutorial.OnTutorialComplete(() => {
+                    TutorialStateVariables.Instance.HaveShownFirstTimeScoldPraise = true;
+                });
+            }
+            if (!tutorial.HaveShownFirstTimeSacrifice && (npc.CultistRank == CultistRankEnum.Rank2 || npc.CultistRank == CultistRankEnum.Rank3))
+            {
+                FirstTimeSacrificeTutorial.gameObject.SetActive(true);
+                FirstTimeSacrificeTutorial.OnTutorialComplete(() => {
+                    TutorialStateVariables.Instance.HaveShownFirstTimeSacrifice = true;
+                });
+            }
+        }
+
+
     }
 }

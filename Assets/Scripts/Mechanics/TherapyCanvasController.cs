@@ -50,7 +50,7 @@ namespace Horticultist.Scripts.Mechanics
             // Force material reimport before transitioning
             transitionScreen.enabled = false;
             transitionScreen.enabled = true;
-            transitionScreen.TransitionOut();
+            transitionScreen.TransitionOut(() => ShowTutorial());
             GameStateController.Instance.PrevScene = SceneNameConstant.THERAPY;
         }
 
@@ -166,5 +166,43 @@ namespace Horticultist.Scripts.Mechanics
         [SerializeField] private TutorialDialogueController StartDayTwoTutorial;
         [SerializeField] private TutorialDialogueController FirstTimeScoldPraiseTutorial; 
         [SerializeField] private TutorialDialogueController FirstTimeSacrificeTutorial; 
+
+        private void ShowTutorial()
+        {
+
+            var tutorial = TutorialStateVariables.Instance;
+            var personality = currentNpc.npcPersonality;
+
+            if (!tutorial.HaveShownFirstTimeTherapy)
+            {
+                FirstTimeTherapyTutorial.gameObject.SetActive(true);
+                FirstTimeTherapyTutorial.OnTutorialComplete(() => {
+                    TutorialStateVariables.Instance.HaveShownFirstTimeTherapy = true;
+                });
+            }
+
+            if (!tutorial.HaveShownFirstTimeWealth && personality == NpcPersonalityEnum.Wealth)
+            {
+                FirstTimeWealthTutorial.gameObject.SetActive(true);
+                FirstTimeWealthTutorial.OnTutorialComplete(() => {
+                    TutorialStateVariables.Instance.HaveShownFirstTimeWealth = true;
+                });
+            }
+            else if (!tutorial.HaveShownFirstTimeHealth && personality == NpcPersonalityEnum.Health)
+            {
+                FirstTimeHealthTutorial.gameObject.SetActive(true);
+                FirstTimeHealthTutorial.OnTutorialComplete(() => {
+                    TutorialStateVariables.Instance.HaveShownFirstTimeHealth = true;
+                });
+            }
+            else if (!tutorial.HaveShownFirstTimeLove && personality == NpcPersonalityEnum.Love)
+            {
+                FirstTimeLoveTutorial.gameObject.SetActive(true);
+                FirstTimeLoveTutorial.OnTutorialComplete(() => {
+                    TutorialStateVariables.Instance.HaveShownFirstTimeLove = true;
+                });
+            }
+        }
+
     }
 }

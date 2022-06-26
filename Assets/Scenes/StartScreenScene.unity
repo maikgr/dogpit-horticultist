@@ -2291,9 +2291,9 @@ MonoBehaviour:
   - sfx: 25
     audio: {fileID: 8300000, guid: f6e3ac6132d0cb948828c6a0d552c1bf, type: 3}
   - sfx: 26
-    audio: {fileID: 8300000, guid: f6e3ac6132d0cb948828c6a0d552c1bf, type: 3}
+    audio: {fileID: 8300000, guid: b671202c846814ab1a5922df10d879ba, type: 3}
   - sfx: 27
-    audio: {fileID: 8300000, guid: f6e3ac6132d0cb948828c6a0d552c1bf, type: 3}
+    audio: {fileID: 8300000, guid: 05d54f1d2dc5c41afa002df89d42e1f0, type: 3}
   - sfx: 28
     audio: {fileID: 8300000, guid: f6e3ac6132d0cb948828c6a0d552c1bf, type: 3}
   - sfx: 29

@@ -4409,17 +4409,17 @@ MonoBehaviour:
   npcMouthImage: {fileID: 1028566080}
   patienceBar: {fileID: 1092897610}
   indoctrinationbar: {fileID: 4509515}
-  FirstTimePlazaTutorial: {fileID: 0}
-  FirstTimeTherapyTutorial: {fileID: 0}
-  FirstTimeWealthTutorial: {fileID: 0}
-  FirstTimeHealthTutorial: {fileID: 0}
-  FirstTimeLoveTutorial: {fileID: 0}
-  FirstTimeSuccessfulRecruitTutorial: {fileID: 0}
-  FirstTimeSuccessfulTherapyTutorial: {fileID: 0}
-  FirstTimeFailedTherapyTutorial: {fileID: 0}
-  StartDayTwoTutorial: {fileID: 0}
-  FirstTimeScoldPraiseTutorial: {fileID: 0}
-  FirstTimeSacrificeTutorial: {fileID: 0}
+  FirstTimePlazaTutorial: {fileID: 969444708}
+  FirstTimeTherapyTutorial: {fileID: 917481361}
+  FirstTimeWealthTutorial: {fileID: 1524504291}
+  FirstTimeHealthTutorial: {fileID: 850830663}
+  FirstTimeLoveTutorial: {fileID: 1959957094}
+  FirstTimeSuccessfulRecruitTutorial: {fileID: 464559501}
+  FirstTimeSuccessfulTherapyTutorial: {fileID: 1717886074}
+  FirstTimeFailedTherapyTutorial: {fileID: 1916425280}
+  StartDayTwoTutorial: {fileID: 1254008500}
+  FirstTimeScoldPraiseTutorial: {fileID: 536815252}
+  FirstTimeSacrificeTutorial: {fileID: 158761804}
 --- !u!114 &546507653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5829,10 +5829,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 969444707}
-  - {fileID: 917481360}
   - {fileID: 1524504290}
   - {fileID: 850830662}
   - {fileID: 1959957093}
+  - {fileID: 917481360}
   - {fileID: 464559500}
   - {fileID: 1717886073}
   - {fileID: 1916425279}
@@ -7088,7 +7088,7 @@ RectTransform:
   - {fileID: 1736576063}
   - {fileID: 934904656}
   m_Father: {fileID: 727825298}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7952,7 +7952,7 @@ RectTransform:
   - {fileID: 758167892}
   - {fileID: 1861676418}
   m_Father: {fileID: 727825298}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -14200,7 +14200,7 @@ RectTransform:
   - {fileID: 130296445}
   - {fileID: 517574781}
   m_Father: {fileID: 727825298}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -18448,7 +18448,7 @@ RectTransform:
   - {fileID: 1205134567}
   - {fileID: 1612309318}
   m_Father: {fileID: 727825298}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
