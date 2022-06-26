@@ -17,8 +17,10 @@ namespace Horticultist.Scripts.Mechanics
         [Header("Effects and Transition")]
         [SerializeField] private TransitionScreenUIController transitionScreen;
         [SerializeField] private ProgressBarVisual progressVisual;
-        [SerializeField] private Transform happyMoodBubble;
-        [SerializeField] private Transform angryMoodBubble;
+        [SerializeField] private TherapyMoodEmoteController happyMoodBubble;
+        [SerializeField] private TherapyMoodEmoteController angryMoodBubble;
+        [SerializeField] private TherapyMoodEmoteController sparkleMoodBubble;
+        [SerializeField] private TherapyMoodEmoteController tomatoMoodBubble;
 
         [Header("NPC Basic Info UI")]
         [SerializeField] private TMP_Text npcTypeText;
@@ -105,6 +107,8 @@ namespace Horticultist.Scripts.Mechanics
             patienceBar.fillAmount = currentNpc.PatienceValue / 100f;
         }
 
+        private TherapyMoodEmoteController curMood;
+        private bool isFinalMood;
         private void OnMoodChanged(MoodEnum mood)
         {
             if (currentNpc.moodType != mood) {
@@ -118,15 +122,18 @@ namespace Horticultist.Scripts.Mechanics
                 }
             }
 
-            currentNpc.SetMood(mood);
             if (mood == MoodEnum.Angry)
             {
                 npcDialogueText.text = currentNpc.DialogueSet.therapy.mooddown.GetRandom();
+                if (!isFinalMood) curMood = angryMoodBubble;
             }
             else
             {
                 npcDialogueText.text = currentNpc.DialogueSet.therapy.moodup.GetRandom();
+                if (!isFinalMood) curMood = happyMoodBubble;
             }
+
+            currentNpc.SetMood(mood);
             UpdateNpcVisual();
         }
 
@@ -164,6 +171,26 @@ namespace Horticultist.Scripts.Mechanics
                 DOVirtual.Float(fromVal, toVal, 0.75f, (value) => {
                     progressVisual.progressBar.fillAmount = value/totalTime;
                 });
+
+                if (toVal == 0 && workEvent.isIndoctrinationTool)
+                {
+                    isFinalMood = true;
+                    curMood = tomatoMoodBubble;
+                }
+                else if (toVal == 0 && !workEvent.isIndoctrinationTool)
+                {
+                    isFinalMood = true;
+                    curMood = sparkleMoodBubble;
+                }
+            }
+
+            // Show completion emote bubble
+            if (curMood != null)
+            {
+                curMood.gameObject.SetActive(true);
+                curMood.ShowEmote(Mouse.current.position.ReadValue());
+                curMood = null;
+                isFinalMood = false;
             }
         }
 

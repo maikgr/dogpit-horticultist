@@ -137,7 +137,8 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     amountChanged = value,
                     remainingWorkTime = cleaningWorkTime,
-                    totalWorkTime = totalCleaningTime
+                    totalWorkTime = totalCleaningTime,
+                    isIndoctrinationTool = isIndoctrinatedToolSelected
                 }
             );
         }
@@ -163,7 +164,8 @@ namespace Horticultist.Scripts.Mechanics
                     {
                         amountChanged = value,
                         remainingWorkTime = indoctrinationWorkTime,
-                        totalWorkTime = totalIndoctrinationTime
+                        totalWorkTime = totalIndoctrinationTime,
+                        isIndoctrinationTool = isIndoctrinatedToolSelected
                     }
                 );
             }

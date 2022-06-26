@@ -62,5 +62,6 @@ namespace Horticultist.Scripts.Core
         public int amountChanged;
         public int remainingWorkTime;
         public int totalWorkTime;
+        public bool isIndoctrinationTool;
     }
 }
