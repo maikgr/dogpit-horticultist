@@ -45,12 +45,12 @@
                 },
                 {
                     "type": "event",
-                    "text": "[NPC] paid a carpenter to fix their leaky roof, but the carpenter was a nonbeliever.",
+                    "text": "I paid a nonbeliever carpenter to fix my leaky roof today!",
                     "answer": "scold"
                 },
                 {
                     "type": "event",
-                    "text": "[NPC] was spotted trying to sneak money out of town, intending to pay law enforcement to stop you.",
+                    "text": "This is getting out of hand. If I bribe law enforcement, will they stop you?",
                     "answer": "scold"
                 },
                 {
@@ -95,7 +95,7 @@
                 },
                 {
                     "type": "event",
-                    "text": "[NPC] recommended a blend of essential oils to their parents in order to treat aches.",
+                    "text": "I recommended a blend of essential oils to my parents in order to treat aches.",
                     "answer": "scold"
                 }
             ]
@@ -105,7 +105,7 @@
             "texts": [
                 {
                     "type": "event",
-                    "text": "[NPC] used their charms to seduce some nonbelievers into converting to join your cult.",
+                    "text": "I used my charms to seduce some nonbelievers into converting to join our family!",
                     "answer": "praise"
                 },
                 {
@@ -125,37 +125,37 @@
                 },
                 {
                     "type": "event",
-                    "text": "[NPC] killed a postman trying to get mail out of the village.",
+                    "text": "I killed a postman trying to get mail out of the village.",
                     "answer": "praise"
                 },
                 {
                     "type": "event",
-                    "text": "[NPC] wrote a very cringey manifesto about Tomathotep. They had good intentions but the speech was unbearable to listen to.",
+                    "text": "I wrote a manifesto about Tomathotep! But everyone says it was very cringey and unbearable to listen to.",
                     "answer": "scold"
                 },
                 {
                     "type": "event",
-                    "text": "[NPC] was seen smooching a nonbeliever.",
+                    "text": "Hehe I made out with a hot piece today! Not sure if they were a believer though...",
                     "answer": "scold"
                 },
                 {
                     "type": "event",
-                    "text": "[NPC] snuck out of town to try and confess to their ex.",
+                    "text": "I need to leave town to find my ex! I can't stop thinking about them.",
                     "answer": "scold"
                 },
                 {
                     "type": "event",
-                    "text": "[NPC] wrote a love letter to someone in the village over.",
+                    "text": "I wrote a love letter to my crush in the village over!",
                     "answer": "scold"
                 },
                 {
                     "type": "event",
-                    "text": "[NPC] broke down crying after being separated from their nonbelieving family for a long time.",
+                    "text": "Please let me go! I miss my parents even though they're nonbelievers.",
                     "answer": "scold"
                 },
                 {
                     "type": "event",
-                    "text": "[NPC] expressed fear about sacrificing themselves to Tomathotep.",
+                    "text": "I'm scared of fully committing myself to Tomathotep...",
                     "answer": "scold"
                 }
             ]
@@ -165,12 +165,12 @@
             "texts": [
                 {
                     "type": "event",
-                    "text": "[NPC] preached about Tomathotep in the town square today.",
+                    "text": "I preached about Tomathotep in the town square today!",
                     "answer": "praise"
                 },
                 {
                     "type": "event",
-                    "text": "[NPC] recommends Tomathotep's previous game, Legaseed, from PPJJGG May 2022!",
+                    "text": "I recommend Tomathotep's previous game, Legaseed, from PPJJGG May 2022!",
                     "answer": "praise"
                 },
                 {
@@ -190,7 +190,7 @@
                 },
                 {
                     "type": "event",
-                    "text": "[NPC] praised Tomathotep after a hard day of work.",
+                    "text": "Praise Tomathotep!",
                     "answer": "praise"
                 },
                 {
@@ -200,7 +200,7 @@
                 },
                 {
                     "type": "event",
-                    "text": "[NPC] forgot to pray today.",
+                    "text": "I haven't prayed today...",
                     "answer": "scold"
                 },
                 {
@@ -210,27 +210,27 @@
                 },
                 {
                     "type": "event",
-                    "text": "[NPC] bought a pretty figurine of a female humanoid using cult funds.",
+                    "text": "I bought a pretty figurine of a female humanoid using funds meant for Tomathotep.",
                     "answer": "scold"
                 },
                 {
                     "type": "event",
-                    "text": "[NPC] tried to escape the village.",
+                    "text": "Sometimes I feel like I wanna runaway.",
                     "answer": "scold"
                 },
                 {
                     "type": "event",
-                    "text": "[NPC] cursed using Tomathotep's name.",
+                    "text": "I accidentally cursed using Tomathotep's name.",
                     "answer": "scold"
                 },
                 {
                     "type": "event",
-                    "text": "[NPC] tried to sneak their family members out of town to escape you.",
+                    "text": "I want to help my friends escape this terrifying place.",
                     "answer": "scold"
                 },
                 {
                     "type": "event",
-                    "text": "[NPC] begged you to stop this madness, and is starting to regret joining up.",
+                    "text": "Please stop this madness! I'm starting to regret all of this.",
                     "answer": "scold"
                 }
             ]

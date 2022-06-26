@@ -80,7 +80,7 @@
                         ]
                     },
                     "happy_person": [
-                        "Hear, hear! Our great Lord [Player] passes through! May Tomathotep bless the ground he treads!"
+                        "Hear, hear! My lord passes through! May Tomathotep bless the ground he treads!"
                     ],
                     "angry_person": [
                         "What are you sorry lot still doing here? Get out of my sight!"
@@ -104,7 +104,7 @@
                             "That don't seem like somethin' I can put up with..."
                         ],
                         "moodup_misc": [
-                            "Whew! That's mighty kind of ya, [Player]. You the sort that's  always looked out for me."
+                            "Whew! That's mighty kind of ya. You the sort that's  always looked out for me."
                         ],
                         "mooddown_misc": [
                             "I thought we were friends..."
@@ -116,14 +116,14 @@
                             "I'm not really sure what you're on about, but thanks for the chat! You always brighten my day!"
                         ],
                         "failure": [
-                            "Yer scarin' me, [Player]. You wasn't like this last week. What's got into ya? I'm leavin'!"
+                            "Yer scarin' me. You wasn't like this last week. What's got into ya? I'm leavin'!"
                         ]
                     },
                     "happy_person": [
                         "Hail Lord Toe-May-Toady! Eh? Aw, right, it's To-ma-tho-tep, whoops!"
                     ],
                     "angry_person": [
-                        "Don't talk to me, you! What've ya done to [Player]?!"
+                        "Don't talk to me, you! What've ya done to my friend?!"
                     ]
                 }
             ]
@@ -166,7 +166,7 @@
                         ]
                     },
                     "happy_person": [
-                        "Thanks to Tomathotep and Lord [Player], my family is happy and well! Hail, hail!"
+                        "Thanks to Tomathotep and my Lord, my family is happy and well! Hail, hail!"
                     ],
                     "angry_person": [
                         "I'm gonna get my family out of here as soon as my letter reaches the capital... and don't you try and stop me!"
@@ -416,11 +416,11 @@
                 {
                     "subset": "alocasia1",
                     "visitor": [
-                        "Greetings, [PLAYER]. I have heard rumours of a “cult”, and have been directed to this establishment to investigate."
+                        "Greetings. I have heard rumours of a “cult”, and have been directed to this establishment to investigate."
                     ],
                     "therapy": {
                         "intro": [
-                            "Greetings, [PLAYER]. I have heard rumours of a “cult”, and have been directed to this establishment to investigate."
+                            "Greetings. I have heard rumours of a “cult”, and have been directed to this establishment to investigate."
                         ],
                         "moodup": [
                             "I... suppose you are right. It has been a bit lonely of late.",
@@ -457,11 +457,11 @@
                 {
                     "subset": "alocasia2",
                     "visitor": [
-                        "Ah, Lord [PLAYER]. Just the person I was looking for. Might you have time to share with me more about Tomathotep and His teachings?"
+                        "Ah, my Lord. Just the person I was looking for. Might you have time to share with me more about Tomathotep and His teachings?"
                     ],
                     "therapy": {
                         "intro": [
-                            "Ah, Lord [PLAYER]. Just the person I was looking for. Might you have time to share with me more about Tomathotep and His teachings?"
+                            "Ah, my lord. Just the person I was looking for. Might you have time to share with me more about Tomathotep and His teachings?"
                         ],
                         "moodup": [
                             "Indeed. Tomathotep is benevolent and loves all His faithful devotees...",
@@ -478,7 +478,7 @@
                             "I do not mean to question your authority as Tomathotep's champion, but... are you sure?"
                         ],
                         "success": [
-                            "Thank you, Lord [PLAYER]. I would never have discovered the grace of Tomathotep if I hadn't been sent on this assignment... perhaps it was meant to be, hm? Hail Tomathotep."
+                            "Thank you, my lord. I would never have discovered the grace of Tomathotep if I hadn't been sent on this assignment... perhaps it was meant to be, hm? Hail Tomathotep."
                         ],
                         "unrecruited": [],
                         "failure": [
