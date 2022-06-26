@@ -5,7 +5,9 @@ namespace Horticultist.Scripts.Mechanics
     using UnityEngine;
     using UnityEngine.UI;
     using UnityEngine.SceneManagement;
+    using UnityEngine.InputSystem;
     using TMPro;
+    using DG.Tweening;
     using Horticultist.Scripts.Extensions;
     using Horticultist.Scripts.Core;
     using Horticultist.Scripts.UI;
@@ -14,6 +16,7 @@ namespace Horticultist.Scripts.Mechanics
     {
         [Header("Effects and Transition")]
         [SerializeField] private TransitionScreenUIController transitionScreen;
+        [SerializeField] private ProgressBarVisual progressVisual;
 
         [Header("NPC Basic Info UI")]
         [SerializeField] private TMP_Text npcTypeText;
@@ -32,6 +35,12 @@ namespace Horticultist.Scripts.Mechanics
 
         // Gameplay mechanic props
         private NpcController currentNpc;
+        private HorticultistInputActions gameInput;
+
+        private void Awake() {
+            progressVisual.progressBar.gameObject.SetActive(false);
+            gameInput = new HorticultistInputActions();
+        }
         
         private void Start() {
             currentNpc = GameStateController.Instance.SelectedNpc;
@@ -59,6 +68,9 @@ namespace Horticultist.Scripts.Mechanics
             TherapyEventBus.Instance.OnPatienceChanged += OnPatienceChanged;
             TherapyEventBus.Instance.OnIndoctrinationChanged += OnIndoctrinationChanged;
             TherapyEventBus.Instance.OnTherapyEnds += OnTherapyEnds;
+
+            gameInput.UI.Click.performed += OnClickPerformed;
+            gameInput.UI.Click.Enable();
         }
 
         private void OnDisable() {
@@ -66,6 +78,9 @@ namespace Horticultist.Scripts.Mechanics
             TherapyEventBus.Instance.OnPatienceChanged -= OnPatienceChanged;
             TherapyEventBus.Instance.OnIndoctrinationChanged -= OnIndoctrinationChanged;
             TherapyEventBus.Instance.OnTherapyEnds -= OnTherapyEnds;
+
+            gameInput.UI.Click.performed -= OnClickPerformed;
+            gameInput.UI.Click.Disable();
         }
 
         private void UpdateNpcVisual()
@@ -113,16 +128,64 @@ namespace Horticultist.Scripts.Mechanics
             UpdateNpcVisual();
         }
 
-        private void OnPatienceChanged(int value)
+         // [prev, current]
+        private ClutterWorkEvent[] clutterWorkEvents = new ClutterWorkEvent[2];
+        private bool isShowProgressBar;
+        private void OnClickPerformed(InputAction.CallbackContext context)
         {
-            currentNpc.SetPatience(Mathf.Max(currentNpc.PatienceValue - value, 0));
-            UpdateNpcParemeters();
+            if (context.ReadValue<float>() > 0)
+            {
+                isShowProgressBar = true;
+
+                // Update progress bar visual
+                progressVisual.progressBar.rectTransform.position = Mouse.current.position.ReadValue() + progressVisual.offset;
+            }
+            else
+            {
+                isShowProgressBar = false;
+                progressVisual.progressBar.gameObject.SetActive(false);
+            }
         }
 
-        private void OnIndoctrinationChanged(int value)
+        private void LateUpdate()
         {
-            currentNpc.SetIndoctrination(Mathf.Min(currentNpc.IndoctrinationValue + value, 100));
+            if (isShowProgressBar && clutterWorkEvents[1] != null && clutterWorkEvents[0] != clutterWorkEvents[1])
+            {
+                clutterWorkEvents[0] = clutterWorkEvents[1];
+                var workEvent = clutterWorkEvents[0];
+                progressVisual.progressBar.gameObject.SetActive(true);
+
+                // Move progress bar fill
+                var totalTime = workEvent.totalWorkTime + 1;
+                var fromVal = Mathf.Min(workEvent.remainingWorkTime + 2, totalTime);
+                var toVal = Mathf.Min(workEvent.remainingWorkTime + 1, totalTime);
+                Debug.Log("Moving from " + fromVal + " to " + toVal);
+                DOVirtual.Float(fromVal, toVal, 0.75f, (value) => {
+                    progressVisual.progressBar.fillAmount = value/totalTime;
+                });
+            }
+        }
+
+        private void OnPatienceChanged(ClutterWorkEvent workEvent)
+        {
+            // Update patience parameter
+            currentNpc.SetPatience(Mathf.Max(currentNpc.PatienceValue - workEvent.amountChanged, 0));
             UpdateNpcParemeters();
+            
+            // Update progress bar visual
+            clutterWorkEvents[1] = workEvent;
+            progressVisual.progressBar.color = progressVisual.cleaningProgressColor;
+        }
+
+        private void OnIndoctrinationChanged(ClutterWorkEvent workEvent)
+        {
+            currentNpc.SetIndoctrination(Mathf.Min(currentNpc.IndoctrinationValue + workEvent.amountChanged, 100));
+            UpdateNpcParemeters();
+            clutterWorkEvents[1] = workEvent;
+
+            // Update progress bar visual
+            clutterWorkEvents[1] = workEvent;
+            progressVisual.progressBar.color = progressVisual.indoctrinationProgressColor;
         }
 
         private bool isEnding;
@@ -204,5 +267,14 @@ namespace Horticultist.Scripts.Mechanics
             }
         }
 
+    }
+
+    [System.Serializable]
+    public class ProgressBarVisual
+    {
+        public Image progressBar;
+        public Vector2 offset;
+        public Color indoctrinationProgressColor;
+        public Color cleaningProgressColor;
     }
 }

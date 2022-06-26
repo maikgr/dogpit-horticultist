@@ -15,7 +15,9 @@ namespace Horticultist.Scripts.Mechanics
 
         [SerializeField] private List<ToolClutterInteraction> toolInteractions;
         [SerializeField] private int cleaningWorkTime;
+        private int totalCleaningTime;
         [SerializeField] private int indoctrinationWorkTime;
+        private int totalIndoctrinationTime;
         [SerializeField] private SpriteRenderer clutterSpriteRenderer;
         [SerializeField] private Sprite dirtySprite;
         [SerializeField] private Sprite cleanSprite;
@@ -30,6 +32,11 @@ namespace Horticultist.Scripts.Mechanics
         private bool isIndoctrinatedToolSelected = false;
         public Action onInteracted;
         public Action onStateChange;
+
+        private void Awake() {
+            totalCleaningTime = cleaningWorkTime;
+            totalIndoctrinationTime = indoctrinationWorkTime;
+        }
 
         void Update() {
             // if (cleaningWorkTime <= 0 && CurrentState == ClutterStateEnum.Dirty) {
@@ -125,7 +132,14 @@ namespace Horticultist.Scripts.Mechanics
 
         private void UpdatePatience(int value) 
         {
-            TherapyEventBus.Instance.DispatchOnPatienceChanged(value);
+            TherapyEventBus.Instance.DispatchOnPatienceChanged(
+                new ClutterWorkEvent
+                {
+                    amountChanged = value,
+                    remainingWorkTime = cleaningWorkTime,
+                    totalWorkTime = totalCleaningTime
+                }
+            );
         }
 
         private void UpdateMood(MoodEnum moodImpact) 
@@ -144,7 +158,14 @@ namespace Horticultist.Scripts.Mechanics
 
             if (isIndoctrinatedToolSelected) {
                 indoctrinationWorkTime -= 1;
-                TherapyEventBus.Instance.DispatchOnIndoctrinationChanged(value);
+                TherapyEventBus.Instance.DispatchOnIndoctrinationChanged(
+                    new ClutterWorkEvent
+                    {
+                        amountChanged = value,
+                        remainingWorkTime = indoctrinationWorkTime,
+                        totalWorkTime = totalIndoctrinationTime
+                    }
+                );
             }
         }
 

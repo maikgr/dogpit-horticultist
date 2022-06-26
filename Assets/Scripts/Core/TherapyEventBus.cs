@@ -8,8 +8,8 @@ namespace Horticultist.Scripts.Core
     public class TherapyEventBus : MonoBehaviour
     {
         public static TherapyEventBus Instance { get; private set; }
-        public event Action<int> OnPatienceChanged;
-        public event Action<int> OnIndoctrinationChanged;
+        public event Action<ClutterWorkEvent> OnPatienceChanged;
+        public event Action<ClutterWorkEvent> OnIndoctrinationChanged;
         public event Action<MoodEnum> OnMoodChanged;
         public event Action<NpcTypeEnum, MoodEnum> OnTherapyEnds;
 
@@ -23,19 +23,19 @@ namespace Horticultist.Scripts.Core
             Instance = this;
         }
 
-        public void DispatchOnPatienceChanged(int amountChanged)
+        public void DispatchOnPatienceChanged(ClutterWorkEvent workEvent)
         {
             if (OnPatienceChanged!= null) 
             {
-                OnPatienceChanged.Invoke(amountChanged);
+                OnPatienceChanged.Invoke(workEvent);
             }
         }
         
-        public void DispatchOnIndoctrinationChanged(int amountChanged)
+        public void DispatchOnIndoctrinationChanged(ClutterWorkEvent workEvent)
         {
             if (OnIndoctrinationChanged != null)
             {
-                OnIndoctrinationChanged.Invoke(amountChanged);
+                OnIndoctrinationChanged.Invoke(workEvent);
             }
         }
 
@@ -55,5 +55,12 @@ namespace Horticultist.Scripts.Core
                 OnTherapyEnds.Invoke(npcType, mood);
             }
         }
+    }
+
+    public class ClutterWorkEvent
+    {
+        public int amountChanged;
+        public int remainingWorkTime;
+        public int totalWorkTime;
     }
 }

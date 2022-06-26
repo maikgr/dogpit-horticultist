@@ -53,14 +53,19 @@ namespace Horticultist.Scripts.Mechanics
         private void OnDisable()
         {
             TherapyEventBus.Instance.OnTherapyEnds -= OnTherapyEnds;
-
+            
             Cursor.visible = true;
+
+            gameInput.UI.Point.performed -= OnPoint;
+            gameInput.UI.Point.Disable();
+            DisableClickEvents();
+        }
+
+        private void DisableClickEvents()
+        {
             gameInput.Player.Fire.performed -= OnClickDown;
             gameInput.Player.Fire.canceled -= OnClickUp;
-            gameInput.UI.Point.performed -= OnPoint;
-
             gameInput.Player.Fire.Disable();
-            gameInput.UI.Point.Disable();
         }
         
         private void Start()
@@ -166,7 +171,7 @@ namespace Horticultist.Scripts.Mechanics
 
         private void OnTherapyEnds(NpcTypeEnum npcType, MoodEnum mood)
         {
-            OnDisable();
+            DisableClickEvents();
         }
 
     }
