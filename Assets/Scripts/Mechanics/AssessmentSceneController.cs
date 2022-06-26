@@ -21,15 +21,14 @@ namespace Horticultist.Scripts.Mechanics
         private bool isTyping;
         private int currentIndex;
         private string nextSceneName;
-
         private int CULT_SIZE_WEEK_1 = 6;
         private int CULT_SIZE_WEEK_2 = 13;
         private int HIGH_RANK_SIZE_WEEK_2 = 1;
-        private int TREE_HEIGHT_WEEK_3 = 1000;
+        private float TREE_HEIGHT_WEEK_3 = 550f;
         private int SACRIFICE_INCREMENT_COUNT_WEEK_4 = 2;
-
         private int sacrificeRequirementCount = 2;
-
+        private List<DialogueSceneText> dialogues = new List<DialogueSceneText>();
+        private bool isBlockAction;
 
         Coroutine c;
         bool coroutineHasStartedAtLeastOnce = false;
@@ -69,9 +68,6 @@ namespace Horticultist.Scripts.Mechanics
             );
         }
 
-        private List<DialogueSceneText> dialogues = new List<DialogueSceneText>();
-
-        private bool isBlockAction;
         public void NextDialogue()
         {
             if (isBlockAction) return;
@@ -316,7 +312,7 @@ namespace Horticultist.Scripts.Mechanics
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"I expect the vessel to have [reached at least {TREE_HEIGHT_WEEK_3 }m when I check in again on Day {gameState.DaysPerAssessment * 3 + 1}"
+                        text = $"I expect the vessel to have [reached at least {TREE_HEIGHT_WEEK_3/10 }m when I check in again on Day {gameState.DaysPerAssessment * 3 + 1}"
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",

@@ -9873,13 +9873,13 @@ MonoBehaviour:
   - Threshold: 0
     Stage: 1
     TreeGameObject: {fileID: 441945491}
-  - Threshold: 500
+  - Threshold: 200
     Stage: 1
     TreeGameObject: {fileID: 1127760454}
-  - Threshold: 1500
+  - Threshold: 550
     Stage: 3
     TreeGameObject: {fileID: 2045190165}
-  - Threshold: 4200
+  - Threshold: 2000
     Stage: 4
     TreeGameObject: {fileID: 956758831}
 --- !u!82 &838067875
