@@ -108,9 +108,7 @@ namespace Horticultist.Scripts.Mechanics
                 if (nextIndex < dialogues.Count)
                 {
                     c = StartCoroutine(ShowDialogue(nextIndex));
-                    if (dialogues[nextIndex].sfxName != null) {
-                        SfxController.Instance.PlaySfx(dialogues[nextIndex].sfxName);
-                    }
+                    SfxController.Instance.PlaySfx(dialogues[nextIndex].sfxName);
                     currentIndex = nextIndex;
                 }
                 else

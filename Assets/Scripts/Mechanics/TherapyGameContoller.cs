@@ -7,6 +7,7 @@ namespace Horticultist.Scripts.Mechanics
     using UnityEngine.InputSystem;
     using UnityEngine.UI;
     using Horticultist.Scripts.Core;
+    using Horticultist.Scripts.UI;
 
     public class TherapyGameContoller : MonoBehaviour
     {
@@ -118,6 +119,7 @@ namespace Horticultist.Scripts.Mechanics
             {
                 currentActiveTool = activeTool;
                 SetCursor(activeTool);
+                SfxController.Instance.PlaySfx(SfxEnum.ToolSelect);
             }
             else if (activeTool == ToolTypeEnum.None && cursorIconContainer.enabled)
             {

@@ -100,6 +100,8 @@ namespace Horticultist.Scripts.Mechanics
             fadeUIController.FadeOutScreen(() => {
                 SceneManager.LoadScene(SceneNameConstant.TREE_GROWTH);
             });
+
+            SfxController.Instance.PlaySfx(SfxEnum.EndDay);
         }
 
         private void UpdateActionUI(int taken, int max)

@@ -159,7 +159,7 @@ MonoBehaviour:
   endingSceneCGs:
   - endingType: 0
     endingCg: {fileID: 21300000, guid: 9fe8d094126a3834a82eaef22813ecb6, type: 3}
-    audioBgm: {fileID: 8300000, guid: 693dc92cc3151d547bf2be745c6dfff9, type: 3}
+    audioBgm: {fileID: 8300000, guid: 3f08537dc2a9d4e57af960386d3603de, type: 3}
     endTexts:
     - "You fell short of Tomathotep\u2019s standards."
     - "Whether due to forgetfulness, incompetence or a feeble attempt to disrupt
