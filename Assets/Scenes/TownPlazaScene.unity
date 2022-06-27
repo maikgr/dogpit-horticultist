@@ -9893,12 +9893,12 @@ MonoBehaviour:
     Stage: 1
     TreeGameObject: {fileID: 441945491}
   - Threshold: 50
-    Stage: 1
+    Stage: 2
     TreeGameObject: {fileID: 1127760454}
-  - Threshold: 135
+  - Threshold: 175
     Stage: 3
     TreeGameObject: {fileID: 2045190165}
-  - Threshold: 365
+  - Threshold: 550
     Stage: 4
     TreeGameObject: {fileID: 956758831}
 --- !u!82 &838067875
@@ -15078,7 +15078,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Week 1 Day 1
+  m_text: Day
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}

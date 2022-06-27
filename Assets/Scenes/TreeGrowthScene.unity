@@ -1046,12 +1046,12 @@ MonoBehaviour:
     Stage: 1
     TreeGameObject: {fileID: 441945491}
   - Threshold: 50
-    Stage: 1
+    Stage: 2
     TreeGameObject: {fileID: 1127760454}
-  - Threshold: 135
+  - Threshold: 175
     Stage: 3
     TreeGameObject: {fileID: 2045190165}
-  - Threshold: 365
+  - Threshold: 550
     Stage: 4
     TreeGameObject: {fileID: 956758831}
   area: {fileID: 883488625}

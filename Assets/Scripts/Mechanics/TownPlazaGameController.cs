@@ -24,7 +24,7 @@ namespace Horticultist.Scripts.Mechanics
                 "Have at least 1 cultist members with cult rank 'Horticultist' by Day 7"
             }},
             { 2, new List<string> {
-                "Grow Tomathotep's vessel to X height by Day 10"
+                "Grow Tomathotep's vessel to 55.0m height by Day 10"
             }},
             { 3, new List<string> {
                 "Sacrifice more cult members by Day 13"
