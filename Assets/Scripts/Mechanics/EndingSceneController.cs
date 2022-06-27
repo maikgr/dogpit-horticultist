@@ -8,17 +8,19 @@ namespace Horticultist.Scripts.Mechanics
     using UnityEngine.SceneManagement;
     using UnityEngine.UI;
     using TMPro;
+    using DG.Tweening;
     using Horticultist.Scripts.Core;
 
     public class EndingSceneController : MonoBehaviour
     {
-        [SerializeField] private TMP_Text nameText;
         [SerializeField] private TMP_Text dialogueText;
         [SerializeField] private Image CgImage;
+        [SerializeField] private AudioSource bgmSource;
         [SerializeField] private List<EndingSceneCG> endingSceneCGs;
         private HorticultistInputActions gameInputs;
         private bool isTyping;
         private int currentIndex;
+        private List<string> endTexts;
 
         private void Awake()
         {
@@ -38,56 +40,22 @@ namespace Horticultist.Scripts.Mechanics
         private void Start() {
             var ending = endingSceneCGs.First(e => e.endingType == GameStateController.Instance.EndingType);
             CgImage.sprite = ending.endingCg;
-            StartCoroutine(ShowDialogue(currentIndex));
+            bgmSource.clip = ending.audioBgm;
+            bgmSource.Play();
+            this.endTexts = ending.endTexts;
+            dialogueText.text = endTexts[currentIndex];
         }
 
-        private List<DialogueSceneText> dialogues = new List<DialogueSceneText>
-        {
-            new DialogueSceneText {
-                name = "Tomathotep",
-                text = "Do you have anything at all to tell 'a couple of tourists' then?"
-            },
-            new DialogueSceneText {
-                name = "Tomathotep",
-                text = "If I'm not going to talk lightly, all I can give you is..."
-            },
-            new DialogueSceneText {
-                name = "Tomathotep",
-                text = "You are not worthy to be my subject, begone!"
-            },
-        };
 
         private void OnClickPerformed(InputAction.CallbackContext context)
         {
             if (context.ReadValue<float>() == 0) return;
-            if (!isTyping)
+            var nextIndex = currentIndex + 1;
+            if (nextIndex < endTexts.Count)
             {
-                var nextIndex = currentIndex + 1;
-                if (nextIndex < dialogues.Count)
-                {
-                    StartCoroutine(ShowDialogue(nextIndex));
-                    currentIndex = nextIndex;
-                }
-                else
-                {
-                    Application.Quit();
-                }
+                dialogueText.text += "\n\n" + endTexts[nextIndex];
+                currentIndex = nextIndex;
             }
-        }
-
-        private IEnumerator ShowDialogue(int index)
-        {
-            nameText.text = dialogues[index].name;
-            var text = dialogues[index].text;
-            var curLetterIdx = 0;
-            dialogueText.text = string.Empty;
-            while(curLetterIdx < text.Length)
-            {
-                isTyping = true;
-                dialogueText.text += text[curLetterIdx++];
-                yield return new WaitForFixedUpdate();
-            }
-            isTyping = false;
         }
     }
 
@@ -96,5 +64,8 @@ namespace Horticultist.Scripts.Mechanics
     {
         public EndingTypeEnum endingType;
         public Sprite endingCg;
+        public AudioClip audioBgm;
+        [TextArea]
+        public List<string> endTexts;
     }
 }
