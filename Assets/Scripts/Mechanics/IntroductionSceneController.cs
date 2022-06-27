@@ -36,51 +36,63 @@ namespace Horticultist.Scripts.Mechanics
         {
             new DialogueSceneText {
                 name = "Tomathotep",
-                text = "Hello, mortal."
+                text = "Hello, mortal.",
+                sfxName = SfxEnum.None,
             },
             new DialogueSceneText {
                 name = "Tomathotep",
-                text = "Does your world not have talking vegetables? You should not be surprised to see me."
+                text = "Does your world not have talking vegetables? You should not be surprised to see me.",
+                sfxName = SfxEnum.None,
             },
             new DialogueSceneText {
                 name = "Tomathotep",
-                text = "I am Tomathotep. The inconceivably great pleasure of meeting you, is all mine."
+                text = "I am Tomathotep. The inconceivably great pleasure of meeting you, is all mine.",
+                sfxName = SfxEnum.VLIAmTomathotep
             },
             new DialogueSceneText {
                 name = "Tomathotep",
-                text = "Now, I am in need of some earthly assistance. And you, My special friend, are perfect for the job. Shall we agree to a contract of… mutual benefit?"
+                text = "Now, I am in need of some earthly assistance. And you, My special friend, are perfect for the job. Shall we agree to a contract of… mutual benefit?",
+                sfxName = SfxEnum.None,
             },
             new DialogueSceneText {
                 name = "Tomathotep",
-                text = "Fear not, it is a very simple task. Allow me to explain."
+                text = "Fear not, it is a very simple task. Allow me to explain.",
+                sfxName = SfxEnum.None,
             },
             new DialogueSceneText {
                 name = "Tomathotep",
-                text = "You must help me grow My vessel. Think of it as… ah, building a house for your friend."
+                text = "You must help me grow My vessel. Think of it as… ah, building a house for your friend.",
+                sfxName = SfxEnum.VlMyVessel
             },  
             new DialogueSceneText {
                 name = "Tomathotep",
-                text = "However, where your houses are built with sticks and stone, mine is formed from the prayers of the faithful, and the blood of the worthy."
+                text = "However, where your houses are built with sticks and stone, mine is formed from the prayers of the faithful, and the blood of the worthy.",
+                sfxName = SfxEnum.None,
             },   
             new DialogueSceneText {
                 name = "Tomathotep",
-                text = "You must gather more like-minded folk, who will, together with you, grow enlightened in our ways. The ways of Tomathotep."
+                text = "You must gather more like-minded folk, who will, together with you, grow enlightened in our ways. The ways of Tomathotep.",
+                sfxName = SfxEnum.None,
             },   
             new DialogueSceneText {
                 name = "Tomathotep",
-                text = "We are making a family, where everyone can find love, acceptance and peace."
+                text = "We are making a family, where everyone can find love, acceptance and peace.",
+                sfxName = SfxEnum.None,
             },
             new DialogueSceneText {
                 name = "Tomathotep",
-                text = "Go out into the village, seek out others, and find out what it is they desire. I will guide you along the way."
+                text = "Go out into the village, seek out others, and find out what it is they desire. I will guide you along the way.",
+                sfxName = SfxEnum.None,
             },
             new DialogueSceneText {
                 name = "Tomathotep",
-                text = "I expect you to recruit at least 6 family members in the next 3 days."
+                text = "I expect you to recruit at least 6 family members in the next 3 days.",
+                sfxName = SfxEnum.None,
             },
             new DialogueSceneText {
                 name = "Tomathotep",
-                text = "That will be all. I entrust this task to you, My dear friend. May your faith be resolute."
+                text = "That will be all. I entrust this task to you, My dear friend. May your faith be resolute.",
+                sfxName = SfxEnum.VLDoNotDisappointMe,
             },
 
         };
@@ -96,6 +108,9 @@ namespace Horticultist.Scripts.Mechanics
                 if (nextIndex < dialogues.Count)
                 {
                     c = StartCoroutine(ShowDialogue(nextIndex));
+                    if (dialogues[nextIndex].sfxName != null) {
+                        SfxController.Instance.PlaySfx(dialogues[nextIndex].sfxName);
+                    }
                     currentIndex = nextIndex;
                 }
                 else

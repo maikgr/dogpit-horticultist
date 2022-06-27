@@ -78,6 +78,7 @@ namespace Horticultist.Scripts.Mechanics
                 if (nextIndex < dialogues.Count)
                 {
                     c = StartCoroutine(ShowDialogue(nextIndex));
+                    SfxController.Instance.PlaySfx(dialogues[nextIndex].sfxName);
                     currentIndex = nextIndex;
                 }
                 else
@@ -192,15 +193,18 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"I'm disappointed. You've only recruited *{gameState.CultMembers.Count} people] into our family..."
+                        text = $"I'm disappointed. You've only recruited *{gameState.CultMembers.Count} people] into our family...",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"I will let you off for now, but make sure you recruit [{CULT_SIZE_WEEK_2} people and have at least {CULT_SIZE_WEEK_2} high ranking cult members] by Day {gameState.DaysPerAssessment * 2 + 1}, or you will *face the consequences]. Do not test My patience."
+                        text = $"I will let you off for now, but make sure you recruit [{CULT_SIZE_WEEK_2} people and have at least {CULT_SIZE_WEEK_2} high ranking cult members] by Day {gameState.DaysPerAssessment * 2 + 1}, or you will *face the consequences]. Do not test My patience.",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Now get back to work!"
+                        text = $"Now get back to work!",
+                        sfxName = SfxEnum.VLGetBackToWork
                     },
                 };
             }
@@ -212,15 +216,18 @@ namespace Horticultist.Scripts.Mechanics
                      new DialogueSceneText {
                         // [PLAYER]
                         name = "Tomathotep",
-                        text = $"Good job. Our family is now @{gameState.CultMembers.Count}] members strong. It seems I have chosen a good leader."
+                        text = $"Good job. Our family is now @{gameState.CultMembers.Count}] members strong. It seems I have chosen a good leader.",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"But our task is not yet complete… you must have a total of at least [{CULT_SIZE_WEEK_2} people recruited and have at least {HIGH_RANK_SIZE_WEEK_2} high ranking cult members] by Day {gameState.DaysPerAssessment * 2 + 1} to further fuel My vessel’s growth."
+                        text = $"But our task is not yet complete… you must have a total of at least [{CULT_SIZE_WEEK_2} people recruited and have at least {HIGH_RANK_SIZE_WEEK_2} high ranking cult members] by Day {gameState.DaysPerAssessment * 2 + 1} to further fuel My vessel’s growth.",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Now get back to work!"
+                        text = $"Now get back to work!",
+                        sfxName = SfxEnum.VLGetBackToWork
                     },
                 };
             }
@@ -243,12 +250,14 @@ namespace Horticultist.Scripts.Mechanics
                     new DialogueSceneText {
                         name = "Tomathotep",
                         // [PLAYER]
-                        text = $"Only *{gameState.CultMembers.Count} people] and *{highRankCount} high ranking members]? I’m sorely disappointed. I thought I told you not to test My patience."
+                        text = $"Only *{gameState.CultMembers.Count} people] and *{highRankCount} high ranking members]? I’m sorely disappointed. I thought I told you not to test My patience.",
+                        sfxName = SfxEnum.None,
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Now… you will have to *suffer the consequences!]"
+                        text = $"Now… you will have to *suffer the consequences!]",
+                        sfxName = SfxEnum.None,
 
                     },
                 };
@@ -263,12 +272,14 @@ namespace Horticultist.Scripts.Mechanics
                     new DialogueSceneText {
                         name = "Tomathotep",
                         // [PLAYER]
-                        text = $"Only @{gameState.CultMembers.Count} people] and *{highRankCount} high ranking members]? I’m sorely disappointed. I thought I told you not to test My patience."
+                        text = $"Only @{gameState.CultMembers.Count} people] and *{highRankCount} high ranking members]? I’m sorely disappointed. I thought I told you not to test My patience.",
+                        sfxName = SfxEnum.None,
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Now… you will have to *suffer the consequences!]"
+                        text = $"Now… you will have to *suffer the consequences!]",
+                        sfxName = SfxEnum.None,
 
                     },
                 };
@@ -283,12 +294,14 @@ namespace Horticultist.Scripts.Mechanics
                     new DialogueSceneText {
                         name = "Tomathotep",
                         // [PLAYER]
-                        text = $"Only *{gameState.CultMembers.Count} people] and @{highRankCount} high ranking members]? I’m sorely disappointed. I thought I told you not to test My patience."
+                        text = $"Only *{gameState.CultMembers.Count} people] and @{highRankCount} high ranking members]? I’m sorely disappointed. I thought I told you not to test My patience.",
+                        sfxName = SfxEnum.None,
 
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Now… you will have to *suffer the consequences!]"
+                        text = $"Now… you will have to *suffer the consequences!]",
+                        sfxName = SfxEnum.None,
 
                     },
                 };
@@ -303,19 +316,23 @@ namespace Horticultist.Scripts.Mechanics
                     new DialogueSceneText {
                         name = "Tomathotep",
                         // [PLAYER]
-                        text = $"Good job. You have recruited @{gameState.CultMembers.Count} people] and there are @{highRankCount} high ranking members in our family]."
+                        text = $"Good job. You have recruited @{gameState.CultMembers.Count} people] and there are @{highRankCount} high ranking members in our family].",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"But do not forget our true goal. I want you to grow our dear vessel further!"
+                        text = $"But do not forget our true goal. I want you to grow our dear vessel further!",
+                        sfxName = SfxEnum.VlMyVessel
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"I expect the vessel to have [reached at least {TREE_HEIGHT_WEEK_3/10 }m when I check in again on Day {gameState.DaysPerAssessment * 3 + 1}"
+                        text = $"I expect the vessel to have [reached at least {TREE_HEIGHT_WEEK_3/10 }m when I check in again on Day {gameState.DaysPerAssessment * 3 + 1}",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Now get back to work!"
+                        text = $"Now get back to work!",
+                        sfxName = SfxEnum.VLGetBackToWork
                     },
                 };
                 nextSceneName = SceneNameConstant.TOWN_PLAZA;
@@ -332,11 +349,13 @@ namespace Horticultist.Scripts.Mechanics
                     new DialogueSceneText {
                         name = "Tomathotep",
                         // [PLAYER]
-                        text = $"Oh... You have failed Me. Our poor vessel has only grown to *{gameState.TreeHeight.ToString("F2")}m]."
+                        text = $"Oh... You have failed Me. Our poor vessel has only grown to *{gameState.TreeHeight.ToString("F2")}m].",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Well… I suppose I can do it Myself. You, on the other hand… will have to *face the consequences of your negligence!]."
+                        text = $"Well… I suppose I can do it Myself. You, on the other hand… will have to *face the consequences of your negligence!].",
+                        sfxName = SfxEnum.None,
                     },
                 };
                 gameState.EndingType = EndingTypeEnum.FailedLeaderEnding;
@@ -353,28 +372,34 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job. You have grown our vessel to @{gameState.TreeHeight.ToString("F2")}m]. Yes, it is good enough, and the time is almost right!"
+                        text = $"Good job. You have grown our vessel to @{gameState.TreeHeight.ToString("F2")}m]. Yes, it is good enough, and the time is almost right!",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
                         // [PLAYER]
-                        text = $"Now for one final step. I can feel the vessel’s thirst. It desires the blood of the faithful."
+                        text = $"Now for one final step. I can feel the vessel’s thirst. It desires the blood of the faithful.",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"So far, you've sacrified {gameState.SacrificedMembers.Count} people..."
+                        text = $"So far, you've sacrified {gameState.SacrificedMembers.Count} people...",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "Impressive that you have come this far with no sacrifices. However, it is time to truly commit to Me."
+                        text = "Impressive that you have come this far with no sacrifices. However, it is time to truly commit to Me.",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"To sate the vessel's appetite you'll have to sacrifice at least[{sacrificeRequirementCount} people]."
+                        text = $"To sate the vessel's appetite you'll have to sacrifice at least[{sacrificeRequirementCount} people].",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"I will be checking in on Day {gameState.DaysPerAssessment * 4 + 1}"
+                        text = $"I will be checking in on Day {gameState.DaysPerAssessment * 4 + 1}",
+                        sfxName = SfxEnum.VLDoNotDisappointMe
                     },
                 };
                 } else {
@@ -388,7 +413,8 @@ namespace Horticultist.Scripts.Mechanics
                         new DialogueSceneText {
                             name = "Tomathotep",
                             // [PLAYER]
-                            text = $"Now for one final step. I can feel the vessel’s thirst. It desires the blood of the faithful."
+                            text = $"Now for one final step. I can feel the vessel’s thirst. It desires the blood of the faithful.",
+                            sfxName = SfxEnum.VlMyVessel
                         },
                         new DialogueSceneText {
                             name = "Tomathotep",
@@ -404,7 +430,8 @@ namespace Horticultist.Scripts.Mechanics
                         },
                         new DialogueSceneText {
                             name = "Tomathotep",
-                            text = $"I will be checking in on Day {gameState.DaysPerAssessment * 4 + 1}"
+                            text = $"I will be checking in on Day {gameState.DaysPerAssessment * 4 + 1}",
+                            sfxName = SfxEnum.VLDoNotDisappointMe
                         },
                     };
                 }
@@ -423,27 +450,33 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Our vessel is starving. It needs [{sacrificeRequirementCount} sacrifices], and you've only fed it…"
+                        text = $"Our vessel is starving. It needs [{sacrificeRequirementCount} sacrifices], and you've only fed it…",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "W-What is this? You haven't fed it at all?"
+                        text = "W-What is this? You haven't fed it at all?",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "You… You didn't sacrifice anybody…?"
+                        text = "You… You didn't sacrifice anybody…?",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "How…? And more importantly, why? You are not betraying Me, but yet you refuse to kill your brethren in My name…"
+                        text = "How…? And more importantly, why? You are not betraying Me, but yet you refuse to kill your brethren in My name…",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "..."
+                        text = "...",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "… I suppose this is not completely unacceptable."
+                        text = "… I suppose this is not completely unacceptable.",
+                        sfxName = SfxEnum.None,
                     },
                 };
                 gameState.EndingType = EndingTypeEnum.PacifistEnding;
@@ -456,20 +489,23 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        // [PLAYER]
-                        text = $"Our vessel is starving. It needs [{sacrificeRequirementCount} sacrifices], and you've only fed it *{gameState.SacrificedMembers.Count} people]."
+                        text = $"Our vessel is starving. It needs [{sacrificeRequirementCount} sacrifices], and you've only fed it *{gameState.SacrificedMembers.Count} people].",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "Did you really think you could stop me at the last second? Or are you simply that incompetent?"
+                        text = "Did you really think you could stop me at the last second? Or are you simply that incompetent?",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "Whatever your intent, I’m fresh out of patience."
+                        text = "Whatever your intent, I’m fresh out of patience.",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "*Allow me to show you the hell you’ve brought upon yourself!]"
+                        text = "*Allow me to show you the hell you’ve brought upon yourself!]",
+                        sfxName = SfxEnum.None,
                     }
                 };
                 gameState.EndingType = EndingTypeEnum.PacifistEnding;
@@ -482,12 +518,13 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        // [PLAYER]
-                        text = $"Well done. You've sacrificed @{gameState.SacrificedMembers.Count} people] to sate our vessel’s appetite. Our efforts will soon bear fruit!"
+                        text = $"Well done. You've sacrificed @{gameState.SacrificedMembers.Count} people] to sate our vessel’s appetite. Our efforts will soon bear fruit!",
+                        sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Let us usher in our era of paradise, the age of Tomathotep!"
+                        text = $"Let us usher in our era of paradise, the age of Tomathotep!",
+                        sfxName = SfxEnum.VLExcellent
                     }
                 };
                 gameState.EndingType = EndingTypeEnum.UltimateCultEnding;

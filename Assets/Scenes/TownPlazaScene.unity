@@ -588,9 +588,11 @@ MonoBehaviour:
   - name: Tomathotep
     text: Oh My, this seems to be the mind of someone who suffers anxiety from thoughts
       of Love. Romance, and pitiful affection, which has so precluded them.
+    sfxName: 0
   - name: Tomathotep
     text: Help them turn their adoration towards Me, to our family, where their love
       will surely, finally, be requited.
+    sfxName: 0
 --- !u!114 &31692968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1620,29 +1622,36 @@ MonoBehaviour:
     text: Here we are. Your first Help session. What we see here is a reflection
       of a person's mind. Their every motive, fear and darkest desire. Your job is
       to comfort these unenlightened folk, and convince them to join our family.
+    sfxName: 0
   - name: Tomathotep
     text: 'For example, if you see pictures or paintings in the room, you may replace
       them with a symbol of Me. So that I may take root in their hearts, and guide
       them through their tribulations. '
+    sfxName: 0
   - name: Instructions
     text: <color="red">To use the Symbol of Tomathotep, click on the red tomato icon
       and then on the item you wish to use it on. You can use the item repeatedly
       by clicking multiple times or holding the button down.</color>
+    sfxName: 0
   - name: Tomathotep
     text: "Or, perhaps you could show them how to pray to Me. If one prays to Me,
       I may shower fortune upon them. I could grant them that phone call they've
       been waiting for, or even bless them with a child\u2026?"
+    sfxName: 0
   - name: Instructions
     text: <color="red">To use prayer, click on the red prayer icon and then on the
       item you wish to use it on. You can use the item repeatedly by clicking multiple
       times or holding the button down</color>
+    sfxName: 0
   - name: Tomathotep
     text: It will be up to you to experiment and see what actions bear fruit in convincing
       our friend to join our noble cause.
+    sfxName: 0
   - name: Tomathotep
     text: But be careful. Everyone only has so much patience for our words of wisdom.
       If you are careless, you may offend or annoy them, and the chance to invite
       them into our family will be forever lost.
+    sfxName: 0
 --- !u!114 &92546165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4729,18 +4738,22 @@ MonoBehaviour:
     text: Yes. Now you can see what our dear family member has been up to. If their
       actions betray the teachings of Tomathotep, be sure to punish them thoroughly.
       But if they have served us well, you must praise their loyalty.
+    sfxName: 0
   - name: Tomathotep
     text: The more we mold their hearts and guide them in the right direction, the
       more obedient they will become. When their obedience and faith grants them
       a higher rank in our family, they will become even more nourishing to My vessel.
       That should help it grow faster.
+    sfxName: 0
   - name: Tomathotep
     text: "Be warned though\u2026 if you punish or praise our family members incorrectly,
       they may in their confusion become less disciplined, and commit more wrongdoings.
       If they lose faith in our family, they may leave us forever. So be mindful
       of your actions."
+    sfxName: 0
   - name: Instructions
     text: <color="red">Click on the Scold or Praise button to perform the action</color>
+    sfxName: 0
 --- !u!114 &329072447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6894,9 +6907,11 @@ MonoBehaviour:
   - name: Tomathotep
     text: Ah, what a luxurious room. Those who dream of Wealth are most certainly
       the ones who struggle the most with it.
+    sfxName: 0
   - name: Tomathotep
     text: It seems that you will have to convince our friend here that the way of
       Tomathotep is the light that shines through their darkest financial burdens.
+    sfxName: 0
 --- !u!114 &522769787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7594,15 +7609,19 @@ MonoBehaviour:
   - name: Tomathotep
     text: "Excellent. We have recruited a new member to our family. Our faith only
       grows with our numbers\u2026 keep up the good work.. "
+    sfxName: 27
   - name: Tomathotep
     text: 'Continue the same process with the others. If you feel you''ve done enough,
       you may choose to End the Day earlier. '
+    sfxName: 0
   - name: Tomathotep
     text: "However, remember that I will be checking in on your progress. Do not
       disappoint me. My mercy is boundless, but My patience for slackers is more\u2026
       limited."
+    sfxName: 0
   - name: Instructions
     text: <color="red">Click on the End Day button to end the day earlier</color>
+    sfxName: 0
 --- !u!114 &586992119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12284,9 +12303,11 @@ MonoBehaviour:
       little pep talk? That is not what I taught you to do. Such shortsightedness!
       They may feel better for now but this does nothing to further our cause! Your
       bleeding heart will get no sympathy from me.
+    sfxName: 0
   - name: Tomathotep
     text: 'Let us talk to another and, this time, dispense with your foolish notions
       of "helpfulness". Focus solely on spreading My word. Do not disappoint me again. '
+    sfxName: 30
 --- !u!114 &1096965769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17148,9 +17169,11 @@ MonoBehaviour:
   - name: Tomathotep
     text: "And here, we see\u2026 hmm, this appears to be medicine of the mortal
       realm. Evidently our friend faces trouble with Health."
+    sfxName: 0
   - name: Tomathotep
     text: "Such worldly items and temptations have no use in our perfect family.
       We must teach them that all they need is My blessing\u2026 "
+    sfxName: 0
 --- !u!114 &1479268510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17715,16 +17738,20 @@ MonoBehaviour:
     text: Ah, a fresh start to a new day. Did you notice how My vessel grew overnight?
       This is all thanks to the lovely new family members we recruited yesterday.
       The larger our numbers, the more our vessel will blossom.
+    sfxName: 0
   - name: Tomathotep
     text: "We will continue to invite more members into our family\u2026 but now
       we also have some more additional tasks."
+    sfxName: 0
   - name: Tomathotep
     text: We will need to continue grooming the faith of our current family members.
       For if we do not lead them along the righteous path, they may fall into temptation.
       They may stray from our Enlightened teachings, and if left alone long enough,
       may even leave the family.
+    sfxName: 0
   - name: Instructions
     text: <color="red">Click on a Cultist to follow up with them</color>
+    sfxName: 0
 --- !u!114 &1511863897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18678,13 +18705,16 @@ MonoBehaviour:
     text: "We have arrived in the village. Here, you can see My vessel starting to
       sprout from the ground. We'll need to cultivate it further if we want to see
       our perfect world realized\u2026 that will be where you come in."
+    sfxName: 31
   - name: Tomathotep
     text: It seems that we have a number of visitors. Why not talk to one of them?
       If you can help with their problems, perhaps they'll come to trust you. If
       you cultivate a good relationship with them, they may even decide to join our
       family.
+    sfxName: 0
   - name: Instructions
     text: <color="red">Click on a visitor to interact with them</color>
+    sfxName: 0
 --- !u!1 &1611342589
 GameObject:
   m_ObjectHideFlags: 0
@@ -20805,18 +20835,23 @@ MonoBehaviour:
   dialogues:
   - name: Tomathotep
     text: How utterly tactless. A pathetic showing.
+    sfxName: 0
   - name: Tomathotep
     text: "You fool! Crudely shoving platitudes into peoples\u2019 faces makes us
       no better than the false priests of this earth! You must observe their reactions
       as you speak to them.."
+    sfxName: 0
   - name: Tomathotep
     text: 'If they respond poorly, abandon your current approach and try another.
       This is a delicate balancing act and prudence is essential for success. '
+    sfxName: 0
   - name: Tomathotep
     text: That person will now no longer be open to the teachings of Tomathotep.
+    sfxName: 0
   - name: Tomathotep
     text: 'Let us talk to another and, this time, be careful. Do not disappoint me
       again. '
+    sfxName: 30
 --- !u!114 &1714560980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22796,8 +22831,10 @@ MonoBehaviour:
     text: Ah, excellent! This family member is deeply immersed in the ways of Tomathotep. 
       They are now ready to offer their flesh and blood to Me and fulfill their life's
       purpose. Come, My dear vessel! It is time to sate your hunger!
+    sfxName: 0
   - name: Instructions
     text: <color="red">Click on the knife symbol to perform this action</color>
+    sfxName: 0
 --- !u!114 &1904694708
 MonoBehaviour:
   m_ObjectHideFlags: 0

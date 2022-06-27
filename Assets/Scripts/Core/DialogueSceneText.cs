@@ -5,5 +5,6 @@ namespace Horticultist.Scripts.Core
     {
         public string name;
         public string text;
+        public SfxEnum sfxName;
     }
 }

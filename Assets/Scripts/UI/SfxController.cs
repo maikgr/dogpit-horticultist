@@ -30,6 +30,7 @@ namespace Horticultist.Scripts.UI
         public void PlaySfx(SfxEnum sfx, Vector2 position)
         {
             var audioSfx = audioMaps.First(s => s.sfx.Equals(sfx)).audio;
+            if (!audioSfx) return;
             var sfObj = new GameObject(sfx.ToString())
                 .AddComponent<AudioSource>();
             sfObj.clip = audioSfx;

@@ -5,6 +5,7 @@ namespace Horticultist.Scripts.Mechanics
     using UnityEngine;
     using TMPro;
     using Horticultist.Scripts.Core;
+    using Horticultist.Scripts.UI;
 
     public class TutorialDialogueController : MonoBehaviour
     {
@@ -79,6 +80,7 @@ namespace Horticultist.Scripts.Mechanics
         {
             nameText.text = dialogues[index].name;
             dialogueText.text = dialogues[index].text;
+            SfxController.Instance.PlaySfx(dialogues[curIndex].sfxName);
         }
     }
 }

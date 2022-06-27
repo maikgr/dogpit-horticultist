@@ -2,6 +2,7 @@ namespace Horticultist.Scripts.Core
 {
     public enum SfxEnum
     {
+        None,
         TransitionIn,
         TransitionOut,
         ClickSelect,
@@ -24,13 +25,15 @@ namespace Horticultist.Scripts.Core
         TherapyFail, // Hmph
         TherapyMoodChangeGood, // Wow
         TherapyMoodChangeBad, // Hmph!
-        PanelIn,
-        PanelOut,
         EndDay, // Rooster crow?
         ButtonClick,
         SacrificeFirst,
         Sacrifice,
         VLExcellent,
-        VLGetBackToWork
+        VLGetBackToWork,
+        VLIAmTomathotep,
+        VLDoNotDisappointMe,
+        VlMyVessel,
+
     }
 }
