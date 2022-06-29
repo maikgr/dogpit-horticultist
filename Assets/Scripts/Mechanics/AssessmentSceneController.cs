@@ -349,7 +349,7 @@ namespace Horticultist.Scripts.Mechanics
                     new DialogueSceneText {
                         name = "Tomathotep",
                         // [PLAYER]
-                        text = $"Oh... You have failed Me. Our poor vessel has only grown to *{gameState.TreeHeight.ToString("F2")}m].",
+                        text = $"Oh... You have failed Me. Our poor vessel has only grown to *{(gameState.TreeHeight / 10).ToString("F2")}m].",
                         sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
@@ -372,7 +372,7 @@ namespace Horticultist.Scripts.Mechanics
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Good job. You have grown our vessel to @{gameState.TreeHeight.ToString("F2")}m]. Yes, it is good enough, and the time is almost right!",
+                        text = $"Good job. You have grown our vessel to @{(gameState.TreeHeight / 10).ToString("F2")}m]. Yes, it is good enough, and the time is almost right!",
                         sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
@@ -408,7 +408,7 @@ namespace Horticultist.Scripts.Mechanics
                     {
                         new DialogueSceneText {
                             name = "Tomathotep",
-                            text = $"Good job. You have grown our vessel to @{gameState.TreeHeight.ToString("F2")}m]. Yes, it is good enough, and the time is almost right!"
+                            text = $"Good job. You have grown our vessel to @{(gameState.TreeHeight / 10).ToString("F2")}m]. Yes, it is good enough, and the time is almost right!"
                         },
                         new DialogueSceneText {
                             name = "Tomathotep",
@@ -422,7 +422,7 @@ namespace Horticultist.Scripts.Mechanics
                         },
                         new DialogueSceneText {
                             name = "Tomathotep",
-                            text = $"To sate its appetite you'll have to sacrifice at least[{sacrificeRequirementCount} people]."
+                            text = $"To sate its appetite you'll have to sacrifice at least [{sacrificeRequirementCount} people]."
                         },
                         new DialogueSceneText {
                             name = "Tomathotep",
@@ -484,29 +484,39 @@ namespace Horticultist.Scripts.Mechanics
             }
             else if (gameState.SacrificedMembers.Count < sacrificeRequirementCount)
             {
-                // Failed leader
+                // Pacifist slight difference in text
                 dialogues = new List<DialogueSceneText>
                 {
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = $"Our vessel is starving. It needs [{sacrificeRequirementCount} sacrifices], and you've only fed it *{gameState.SacrificedMembers.Count} people].",
+                        text = $"Our vessel is starving. It needs [{sacrificeRequirementCount} sacrifices], and you've only fed it *{gameState.SacrificedMembers.Count}]",
                         sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "Did you really think you could stop me at the last second? Or are you simply that incompetent?",
+                        text = "...",
                         sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "Whatever your intent, I’m fresh out of patience.",
+                        text = "Why?",
                         sfxName = SfxEnum.None,
                     },
                     new DialogueSceneText {
                         name = "Tomathotep",
-                        text = "*Allow me to show you the hell you’ve brought upon yourself!]",
+                        text = "Why? You are not betraying Me, but yet you refuse to kill more of your brethren in My name…",
                         sfxName = SfxEnum.None,
-                    }
+                    },
+                    new DialogueSceneText {
+                        name = "Tomathotep",
+                        text = "...",
+                        sfxName = SfxEnum.None,
+                    },
+                    new DialogueSceneText {
+                        name = "Tomathotep",
+                        text = "… I suppose this is not completely unacceptable.",
+                        sfxName = SfxEnum.None,
+                    },
                 };
                 gameState.EndingType = EndingTypeEnum.PacifistEnding;
                 nextSceneName = SceneNameConstant.ENDING;
